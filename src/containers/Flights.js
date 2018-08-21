@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
+import Flight from '../components/Flight';
 
 class Flights extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            flights: []
+        }
     }
 
     componentDidMount() {
         fetch('http://localhost:3000/flights')
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.flights);
+                this.setState({ flights: data.flights });
         });
     }
 
     render() { 
         return ( 
-            <div>Flights here</div>
+            <React.Fragment>
+                {this.state.flights.map(flight => {
+                    return <Flight key={flight.identifier} data={flight}/>    
+                })}
+            </React.Fragment>
         );
     }
 }
