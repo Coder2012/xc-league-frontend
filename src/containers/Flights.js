@@ -13,6 +13,7 @@ class Flights extends Component {
         fetch('http://localhost:3000/flights')
             .then((response) => response.json())
             .then((data) => {
+                console.log(data)
                 this.setState({ flights: data.flights });
         });
     }
