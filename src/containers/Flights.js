@@ -3,6 +3,7 @@ import Flight from '../components/Flight';
 import Controls from '../components/Controls';
 import Limit from '../components/Limit';
 import Calendar from '../components/Calendar';
+import Search from '../components/Search';
 
 class Flights extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class Flights extends Component {
         this.state = { 
             flights: [],
             dates: [4, 8, 12],
+            pilots: ['test'],
             controls: {
                 page: 1,
                 limit: 10,
@@ -32,6 +34,7 @@ class Flights extends Component {
 
     componentDidMount() {
         this.monthChangeHandler(new Date())
+        this.updateGetPilots();
     }
 
     responseTypeHandler(type) {
@@ -48,7 +51,7 @@ class Flights extends Component {
         this.setState({
             controls: { ...this.state.controls, limit: limit }
         }, () => {
-            this.update();
+            this.updateFlightsByDate();
         })
     }
 
@@ -73,6 +76,14 @@ class Flights extends Component {
                 console.log(data)
                 this.setState({ flights: data.flights });
         });
+    }
+
+    updateGetPilots() {
+        this.getPilots().then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                this.setState({ pilots: data.pilots });
+            })
     }
 
     getDatesCount(data) {
@@ -132,9 +143,24 @@ class Flights extends Component {
         })
     }
 
+    async getPilots () {
+        return await fetch('http://localhost:3000/flights/pilots', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
+            // body: JSON.stringify({
+            //     date: this.state.selectedDate,
+            //     page: this.state.controls.page, 
+            //     limit: this.state.controls.limit, 
+            //     responseType: this.state.controls.responseType
+            // })
+        })
+    }
+
     dateChangeHandler(date) {
         console.log('dateChangeHandler: ', date);
-        let d = new Date(date);
         let year = date.getFullYear();
         let month = date.getMonth()+1;
         let dt = date.getDate();
@@ -170,13 +196,18 @@ class Flights extends Component {
     render() { 
         return ( 
             <React.Fragment>
-                <Calendar dates={this.state.dates} dateChangeHandler={this.dateChangeHandler} monthChangeHandler={this.monthChangeHandler} />
-                <Controls handler={this.responseTypeHandler}/>
-                <Limit handler={this.limitHandler}/>
-                {this.state.flights.length}
-                {this.state.flights.map(flight => {
-                    return <Flight key={flight.identifier} data={flight}/>    
-                })}
+                <header>
+                    <Search data={this.state.pilots} />
+                    <Calendar dates={this.state.dates} dateChangeHandler={this.dateChangeHandler} monthChangeHandler={this.monthChangeHandler} />
+                    <Controls handler={this.responseTypeHandler}/>
+                    <Limit handler={this.limitHandler}/>
+                </header>
+                    {this.state.flights.length}
+                <section className="flights">
+                    {this.state.flights.map(flight => {
+                        return <Flight key={flight.identifier} data={flight}/>    
+                    })}
+                </section>
             </React.Fragment>
         );
     }

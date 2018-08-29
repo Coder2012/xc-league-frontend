@@ -1,5 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
+  /* text-align: center; */
+  font-family: 'Barlow Condensed' sans-serif;
 }
 
 .App-logo {
@@ -29,20 +34,106 @@
 
 .calendar-item {
   position: relative;
+  height: 35px;
 }
 
-.calendar-flights::before {
-  content: '';
-  border: 2px solid #000;
-  background-color: #00f;
-  border-radius: 50%;
-  display: inline-block;
-  width: 22px;
-  height: 22px;
+.calendar-item time {
   position: absolute;
-  opacity: .3;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.calendar-flights {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 0;
+}
+
+.calendar-flights::before {
+  content: '';
+  background-color: #A00;
+  border-radius: 50%;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  opacity: .5;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flight-count-low.calendar-flights::before {
+  width: 20px;
+  height: 20px;
+  opacity: .2;
+}
+
+.flight-count-medium.calendar-flights::before {
+  opacity: .3;
+}
+
+.flight-count-high.calendar-flights::before {
+  width: 30px;
+  height: 30px;
+}
+
+.flights {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Barlow Condensed', sans-serif;
+  justify-content: space-evenly;
+}
+
+.flight {
+  box-shadow: 2px 2px 4px 2px rgba(232, 232, 205, 1);
+  background-color: #ff002b;
+  margin-bottom: 30px;
+  flex-basis: 22%;
+}
+
+.flight__pilot {
+}
+
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.emphasize {
+  font-weight: 600;
+}
+
+.flight__header {
+  background-color: #F6FFE2;
+  padding: 10px;
+}
+
+.flight__body {
+  background-color: #E8E8CD;
+  padding: 10px;
+}
+
+.flight__footer {
+  background-color: #FFFDEF;
+  padding: 10px;
 }

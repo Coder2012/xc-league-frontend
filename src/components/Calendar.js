@@ -3,23 +3,35 @@ import ReactCalendar from 'react-calendar';
 import '../App.css';
 
 class Calendar extends Component {
-    constructor(props) {
-        super(props);
-        // this.state = { 
-        //     dates: this.props.dates
-        //  }
-
-    }
-
     tileContent = ({ date, view }) => {
-        return view === 'month' && this.dateExists(date.getMonth(), date.getDate()) ? <span className="calendar-flights"></span> : null;
+        let flightCount = this.dateExists(date.getMonth(), date.getDate());
+        if (flightCount) {
+            return view === 'month' && flightCount ? <span className={`calendar-flights ${this.getCountClass(flightCount)}`}></span> : null;
+        }
+        return null;
     }
     
     dateExists(calendarMonth, calendarDate) {
-        return this.props.dates.some(({ date }) => {
+        let datesCount = 0;
+
+        this.props.dates.some(({ date, count }) => {
             let flightDate = new Date(date);
-            return (calendarMonth === flightDate.getMonth() && calendarDate === flightDate.getDate())
-        })
+            if (calendarMonth === flightDate.getMonth() && calendarDate === flightDate.getDate()) {
+                datesCount = count;
+            }
+            return datesCount;
+        });
+
+        return datesCount;
+    }
+
+    getCountClass(count) {
+        if (count >= 10 && count <= 50) {
+            return 'flight-count-medium';
+        } else if (count > 50) {
+            return 'flight-count-high';
+        }
+        return 'flight-count-low';
     }
 
     render() { 
