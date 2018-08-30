@@ -12,6 +12,7 @@ class Flights extends Component {
             flights: [],
             dates: [4, 8, 12],
             pilots: ['test'],
+            pilot: '',
             controls: {
                 page: 1,
                 limit: 10,
@@ -30,6 +31,8 @@ class Flights extends Component {
         this.limitHandler = this.limitHandler.bind(this);
         this.dateChangeHandler = this.dateChangeHandler.bind(this);
         this.monthChangeHandler = this.monthChangeHandler.bind(this);
+        this.searchHandler = this.searchHandler.bind(this);
+        this.calendarNavigationChangeHandler = this.calendarNavigationChangeHandler.bind(this);
     }
 
     componentDidMount() {
@@ -55,25 +58,37 @@ class Flights extends Component {
         })
     }
 
+    searchHandler(pilot) {
+        console.log('search: ', pilot);
+        this.setState({
+            pilot: pilot
+        }, () => {
+            this.updateGetFlightByPilot();
+        })
+    }
+
     update() {
-        // this.getData().then((response) => response.json())
-        //     .then((data) => {
-        //         console.log(data)
-        //         this.setState({ flights: data.flights });
-        // });
         this.getDates().then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 this.setState({
                     dates: this.getDatesCount(data.dates)
                 }, () => console.log('setState dates'))
             })
     }
 
+    updateGetFlightByPilot() {
+        this.getPilotFlightData().then((response) => response.json())
+            .then((data) => {
+                // console.log(data)
+                this.setState({ flights: data.flights });
+        });
+    }
+
     updateFlightsByDate() {
         this.getDate().then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 this.setState({ flights: data.flights });
         });
     }
@@ -81,7 +96,7 @@ class Flights extends Component {
     updateGetPilots() {
         this.getPilots().then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 this.setState({ pilots: data.pilots });
             })
     }
@@ -106,6 +121,22 @@ class Flights extends Component {
             },
             mode: 'cors',
             body: JSON.stringify({
+                page: this.state.controls.page, 
+                limit: this.state.controls.limit, 
+                responseType: this.state.controls.responseType
+            })
+        })
+    }
+
+    async getPilotFlightData () {
+        return await fetch('http://localhost:3000/flights', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+                pilot: this.state.pilot,
                 page: this.state.controls.page, 
                 limit: this.state.controls.limit, 
                 responseType: this.state.controls.responseType
@@ -193,12 +224,20 @@ class Flights extends Component {
         }, () => this.update());
     }
 
+    calendarNavigationChangeHandler({ activeStartDate }) {
+        this.monthChangeHandler(activeStartDate)
+    }
+
     render() { 
         return ( 
             <React.Fragment>
                 <header>
-                    <Search data={this.state.pilots} />
-                    <Calendar dates={this.state.dates} dateChangeHandler={this.dateChangeHandler} monthChangeHandler={this.monthChangeHandler} />
+                    <Search data={this.state.pilots} clickHandler={this.searchHandler} />
+                    <Calendar 
+                        dates={this.state.dates} 
+                        dateChangeHandler={this.dateChangeHandler} 
+                        monthChangeHandler={this.monthChangeHandler}
+                        calendarNavigationHandler={this.calendarNavigationChangeHandler}/>
                     <Controls handler={this.responseTypeHandler}/>
                     <Limit handler={this.limitHandler}/>
                 </header>

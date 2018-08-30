@@ -1,9 +1,12 @@
 import React from 'react';
 
 const Flight = ({ data }) => {
+    const date = new Date(data.date);
+
     return (
         <section className="flight">
             <header className="flight__header">
+                <p className="no-margin">{date.toDateString()}</p>
                 <h2 className="flight__pilot no-margin">{data.pilot}</h2>
                 <p className="flight__title no-margin">{data.title}</p>
                 <p className="flight__club no-margin-bottom">{data.club}</p>
@@ -20,13 +23,17 @@ const Flight = ({ data }) => {
             </div>
             <footer className="flight__footer">
                 <p>Score: <span className="emphasize">{data.score}</span> {data.multiplier && <span>({data.multiplier})</span>}</p>
-                <p>Max Height: <span className="emphasize">{data.maxHeight}</span></p>
-                <p>Low Height: <span className="emphasize">{data.lowHeight}</span></p>
-                <p>Takeoff Height: <span className="emphasize">{data.takeoffHeight}</span></p>
-                <p>{data.maxClimb}</p>
-                <p>{data.minClimb}</p>
-                <p>{data.maxSpeed}</p>
-                <p>{data.avgSpeedCourse}</p>
+                <p>Max Height: <span className="emphasize">{data.maxHeight}ft</span></p>
+                <p>Low Height: <span className="emphasize">{data.lowHeight}ft</span></p>
+                <p>Takeoff Height: <span className="emphasize">{data.takeoffHeight}ft</span></p>
+                <div className="flex-row">
+                    <p className="no-margin-bottom">Max Climb: <span className="emphasize">{data.maxClimb}ms</span></p>
+                    <p className="no-margin-bottom">Min Climb: <span className="emphasize">{data.minClimb}ms</span></p>
+                </div>
+                <div className="flex-row">
+                    <p>Max Speed: <span className="emphasize">{data.maxSpeed}kmh</span></p>
+                    <p>Average Speed: <span className="emphasize">{data.avgSpeedCourse}kmh</span></p>
+                </div>
             </footer>
         </section>
     );

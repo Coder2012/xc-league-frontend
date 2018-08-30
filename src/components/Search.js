@@ -13,9 +13,11 @@ class Search extends Component {
 
     //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            pilots: nextProps.data
-        })
+        if(nextProps.data !== this.props.data) {
+            this.setState({
+                pilots: nextProps.data
+            })
+        }
     }
 
     handleOnChange(e) {
@@ -25,15 +27,20 @@ class Search extends Component {
         });
       }
 
+    handleSelectedPilot = (name) => {
+        this.props.clickHandler(name);
+    }
+
     render() { 
         return ( 
             <section>
+                <label>Pilot Name:</label>
                 <input type="text" placeholder="Enter name" onChange={this.handleOnChange}></input>
                 <section>
                      {this.state.pilots
                         .filter(pilot => this.state.pattern.test(pilot))
                         .map(pilot => {
-                            return <button onClick={this.handler}>{pilot}</button>;
+                            return <button onClick={() => this.handleSelectedPilot(`${pilot}`)}>{pilot}</button>;
                         })}
                 </section>
             </section>

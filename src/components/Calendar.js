@@ -6,11 +6,11 @@ class Calendar extends Component {
     tileContent = ({ date, view }) => {
         let flightCount = this.dateExists(date.getMonth(), date.getDate());
         if (flightCount) {
-            return view === 'month' && flightCount ? <span className={`calendar-flights ${this.getCountClass(flightCount)}`}></span> : null;
+            return view === 'month' && flightCount ? <span className={`calendar-flights ${this.getCountClass(flightCount)}`}>{date.getDate()}</span> : null;
         }
         return null;
     }
-    
+
     dateExists(calendarMonth, calendarDate) {
         let datesCount = 0;
 
@@ -34,14 +34,22 @@ class Calendar extends Component {
         return 'flight-count-low';
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <React.Fragment>
                 length:{this.props.dates.length}
-                <ReactCalendar tileClassName="calendar-item" tileContent={this.tileContent} onChange={this.props.dateChangeHandler} onClickMonth={this.props.monthChangeHandler} />
+
+                <ReactCalendar 
+                    tileClassName="calendar-item" 
+                    tileContent={this.tileContent} 
+                    minDate={new Date('2005-01-01')}
+                    maxDate={new Date()}
+                    onChange={this.props.dateChangeHandler} 
+                    onClickMonth={this.props.monthChangeHandler}
+                    onActiveDateChange={this.props.calendarNavigationHandler} />
             </React.Fragment>
         );
     }
 }
- 
+
 export default Calendar;

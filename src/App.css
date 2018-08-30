@@ -37,18 +37,24 @@
   height: 35px;
 }
 
-.calendar-item time {
+.calendar-item.react-calendar__tile--active, 
+.calendar-item.react-calendar__tile--active:enabled:hover, 
+.calendar-item.react-calendar__tile--active:enabled:focus {
+  background: red;
+}
+
+/* .calendar-item time {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-}
+} */
 
 .calendar-flights {
   display: inline-block;
   width: 25px;
-  height: 25px;
+  /* height: 25px; */
   position: absolute;
   left: 50%;
   top: 50%;
@@ -56,28 +62,33 @@
   z-index: 0;
 }
 
+.calendar-flights {
+  color: white;
+}
+
 .calendar-flights::before {
   content: '';
   background-color: #A00;
   border-radius: 50%;
   display: inline-block;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   position: absolute;
-  opacity: .5;
+  opacity: 1;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  z-index: -1;
 }
 
 .flight-count-low.calendar-flights::before {
-  width: 20px;
-  height: 20px;
-  opacity: .2;
+  width: 22px;
+  height: 22px;
+  opacity: .6;
 }
 
 .flight-count-medium.calendar-flights::before {
-  opacity: .3;
+  opacity: .8;
 }
 
 .flight-count-high.calendar-flights::before {
@@ -89,14 +100,18 @@
   display: flex;
   flex-wrap: wrap;
   font-family: 'Barlow Condensed', sans-serif;
-  justify-content: space-evenly;
+}
+
+.flights::after {
+  content: "";
+  flex: auto;
 }
 
 .flight {
   box-shadow: 2px 2px 4px 2px rgba(232, 232, 205, 1);
   background-color: #ff002b;
-  margin-bottom: 30px;
   flex-basis: 22%;
+  margin: 10px 10px 60px 10px;
 }
 
 .flight__pilot {
@@ -136,4 +151,16 @@
 .flight__footer {
   background-color: #FFFDEF;
   padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .flight {
+    flex-basis: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .flight {
+    flex-basis: 45%;
+  }
 }
