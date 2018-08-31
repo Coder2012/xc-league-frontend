@@ -11,6 +11,8 @@ class Flights extends Component {
         this.state = { 
             flights: [],
             dates: [4, 8, 12],
+            total: 0,
+            pages: 0,
             pilots: ['test'],
             pilot: '',
             controls: {
@@ -33,6 +35,7 @@ class Flights extends Component {
         this.monthChangeHandler = this.monthChangeHandler.bind(this);
         this.searchHandler = this.searchHandler.bind(this);
         this.calendarNavigationChangeHandler = this.calendarNavigationChangeHandler.bind(this);
+        this.paginationHandler = this.paginationHandler.bind(this);
     }
 
     componentDidMount() {
@@ -88,8 +91,12 @@ class Flights extends Component {
     updateFlightsByDate() {
         this.getDate().then((response) => response.json())
             .then((data) => {
-                // console.log(data)
-                this.setState({ flights: data.flights });
+                console.log(data)
+                this.setState({ 
+                    flights: data.flightData.flights,
+                    total: data.total,
+                    pages: data.pages
+                });
         });
     }
 
@@ -228,6 +235,20 @@ class Flights extends Component {
         this.monthChangeHandler(activeStartDate)
     }
 
+    paginationHandler() {
+        this.setState((previousState, currentProps) => {
+            return { ...previousState, page: previousState.page + 1 };
+        }, () => {
+            console.log('state updated')
+        });
+    }
+
+    incrementPage() {
+        return (previousState, currentProps) => {
+            return { ...previousState, page: previousState.page + 1 };
+        };
+    }
+
     render() { 
         return ( 
             <React.Fragment>
@@ -238,10 +259,11 @@ class Flights extends Component {
                         dateChangeHandler={this.dateChangeHandler} 
                         monthChangeHandler={this.monthChangeHandler}
                         calendarNavigationHandler={this.calendarNavigationChangeHandler}/>
-                    <Controls handler={this.responseTypeHandler}/>
+                    <Controls handler={this.responseTypeHandler} paginationHandler={this.paginationHandler}/>
                     <Limit handler={this.limitHandler}/>
                 </header>
-                    {this.state.flights.length}
+                Total Flights: {this.state.total}
+                Page: {this.state.controls.page} of {this.state.pages}
                 <section className="flights">
                     {this.state.flights.map(flight => {
                         return <Flight key={flight.identifier} data={flight}/>    

@@ -108,7 +108,7 @@
 }
 
 .flight {
-  box-shadow: 2px 2px 4px 2px rgba(232, 232, 205, 1);
+  box-shadow: 0 0 8px 2px rgba(232, 232, 205, 1);
   background-color: #ff002b;
   flex-basis: 22%;
   margin: 10px 10px 60px 10px;
