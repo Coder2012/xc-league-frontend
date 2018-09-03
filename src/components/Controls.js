@@ -6,8 +6,8 @@ const Controls = (props) => {
             <section>
                 <button type="button" onClick={() => {props.handler('full')}}>Full</button>
                 <button type="button" onClick={() => {props.handler('minimal')}}>Minimal</button>
-                <button type="button" onClick={() => {props.paginationHandler('prev')}}>Prev</button>
-                <button type="button" onClick={() => {props.paginationHandler('next')}}>Next</button>
+                <button type="button" onClick={() => {props.paginationHandler('decrement')}}>Prev</button>
+                <button type="button" onClick={() => {props.paginationHandler('increment')}}>Next</button>
             </section>
         </React.Fragment>
     );

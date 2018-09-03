@@ -39,8 +39,8 @@ class Search extends Component {
                 <section>
                      {this.state.pilots
                         .filter(pilot => this.state.pattern.test(pilot))
-                        .map(pilot => {
-                            return <button onClick={() => this.handleSelectedPilot(`${pilot}`)}>{pilot}</button>;
+                        .map((pilot, index) => {
+                            return <button key={index} onClick={() => this.handleSelectedPilot(`${pilot}`)}>{pilot}</button>;
                         })}
                 </section>
             </section>
