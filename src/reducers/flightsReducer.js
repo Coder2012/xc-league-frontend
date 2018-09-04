@@ -16,7 +16,7 @@ export default function flight(state = initialState, { type, flights, dates, pag
     if(!type) {
         return state;
     }
-    // let newState;
+    
     switch (type) {
         case FETCH_PILOTS:
             return type;
@@ -25,12 +25,9 @@ export default function flight(state = initialState, { type, flights, dates, pag
             return Object.assign({}, state, { pilots })
 
         case FETCH_FLIGHTS:
-            console.log('FETCH_FLIGHTS Action')
             return type;
 
         case RECEIVE_FLIGHTS:
-            // newState = action.flights;
-            console.log('RECEIVE_FLIGHTS Action')
             return Object.assign({}, state, { flights });
 
         case FETCH_FLIGHT_DATES:

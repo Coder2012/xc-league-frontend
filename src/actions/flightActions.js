@@ -58,7 +58,7 @@ export function fetchPilots() {
     }
 }
 
-export function fetchFlightsByPilot({ pilot }, limit, page) {
+export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
     return dispatch => {
         fetch('http://localhost:3000/flights', {
             method: 'POST',
@@ -67,10 +67,10 @@ export function fetchFlightsByPilot({ pilot }, limit, page) {
             },
             mode: 'cors',
             body: JSON.stringify({
-                pilot,
+                pilot: pilot,
                 page: page, 
                 limit: limit, 
-                responseType: 'full'//this.state.controls.responseType
+                responseType: responseType
             })
         })
         .then(response => 
@@ -142,7 +142,7 @@ export function fetchFlights() {
     }
 }
 
-export function fetchFlightsByDate(date) {
+export function fetchFlightsByDate(date, limit = 10, page = 1, responseType = 'full') {
     return dispatch => {
 
         fetch('http://localhost:3000/flights/date', {
@@ -152,10 +152,10 @@ export function fetchFlightsByDate(date) {
             },
             mode: 'cors',
             body: JSON.stringify({
-                date: date,//this.state.selectedDate,
-                page: 1,//this.state.controls.page, 
-                limit: 25,//this.state.controls.limit, 
-                responseType: 'full'//this.state.controls.responseType
+                date: date,
+                page: page, 
+                limit: limit, 
+                responseType: responseType
             })
         })
         .then(response => 

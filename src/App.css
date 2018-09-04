@@ -27,9 +27,26 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.btn-primary {
+  padding: 10px;
+  background-color: rgba(135, 206, 250, 0.5);
+  border: none;
+  border-radius: 8%;
+}
+
+.btn-primary--selected {
+  background-color: lightskyblue;
+}
+
+.btn-secondary {
+  padding: 10px;
+  background-color: rgba(176, 196, 222, 0.5);
+  border: none;
+  border-radius: 50%;
+}
+
+.btn-secondary--selected {
+  background-color: lightsteelblue;
 }
 
 .calendar-item {
@@ -114,7 +131,8 @@
   margin: 10px 10px 60px 10px;
 }
 
-.flight__pilot {
+.vertical-centre {
+  align-items: center;
 }
 
 .flex-row {

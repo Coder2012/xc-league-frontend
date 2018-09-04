@@ -9,47 +9,68 @@ import Limit from '../components/Limit';
 import Calendar from '../components/Calendar';
 import Search from '../components/Search';
 
+
 class Flights extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+
+        this.initialState = {
+            selectedDate: '',
+            searchType: '',
+            pilot: '',
             controls: {
                 page: 1,
                 limit: 10,
                 responseType: 'full'
             }
         }
+        this.state = this.initialState;
 
-        this.responseTypeHandler = this.responseTypeHandler.bind(this);
         this.limitHandler = this.limitHandler.bind(this);
+        this.searchHandler = this.searchHandler.bind(this);
+        this.paginationHandler = this.paginationHandler.bind(this);
         this.dateChangeHandler = this.dateChangeHandler.bind(this);
         this.monthChangeHandler = this.monthChangeHandler.bind(this);
-        this.searchHandler = this.searchHandler.bind(this);
-        this.calendarNavigationChangeHandler = this.calendarNavigationChangeHandler.bind(this);
-        this.paginationHandler = this.paginationHandler.bind(this);
+        this.responseTypeHandler = this.responseTypeHandler.bind(this);
+        this.calendarNavChangeHandler = this.calendarNavChangeHandler.bind(this);
+    }
+
+    resetState(callback) {
+        this.setState(this.initialState, () => {
+            callback();
+        });
     }
 
     componentDidMount() {
         // this.monthChangeHandler(new Date())
         this.props.flightActions.fetchPilots();
-        // this.props.flightActions.fetchFlights();
     }
 
     responseTypeHandler(type) {
-        console.log(type);
         this.setState({
             controls: { ...this.state.controls, responseType: type }
+        }, () => {
+            this.updateSearch();
         })
     }
 
     limitHandler(limit) {
         this.setState({
             controls: { ...this.state.controls, limit: limit }
+        }, () => {
+            this.updateSearch();
         })
     }
 
     searchHandler(pilot) {
-        this.props.flightActions.fetchFlightsByPilot({ pilot }, this.state.controls.limit, this.state.controls.page);
+        this.resetState(() => {
+            this.setState({
+                pilot: pilot,
+                searchType: 'pilot'
+            }, () => {
+                this.fetchFlightsByPilot();
+            })
+        });
     }
 
     dateChangeHandler(date) {
@@ -63,14 +84,19 @@ class Flights extends Component {
         if (month < 10) {
             month = '0' + month;
         }
-        let newDate = year + '-' + month + '-' + dt;
-        console.log(newDate);
 
-        this.props.flightActions.fetchFlightsByDate(newDate);
+        this.resetState(() => {
+            this.setState({
+                searchType: 'date',
+                selectedDate: year + '-' + month + '-' + dt
+            }, () => {
+                this.fetchFlightsByDate();
+            });
+        })
+
     }
 
     monthChangeHandler(date) {
-        console.log('monthChangeHandler: ', date);
         let firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
         let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
         let startMonth = date.getMonth() + 1;
@@ -93,10 +119,12 @@ class Flights extends Component {
         let startDate = `${startYear}-${startMonth}-${firstDay}`;
         let endDate = `${finishYear}-${finishMonth}-${lastDay}`;
 
-        this.props.flightActions.fetchFlightDates(startDate, endDate);
+        this.resetState(() => {
+            this.props.flightActions.fetchFlightDates(startDate, endDate);
+        });
     }
 
-    calendarNavigationChangeHandler({ activeStartDate }) {
+    calendarNavChangeHandler({ activeStartDate }) {
         this.monthChangeHandler(activeStartDate)
     }
 
@@ -104,11 +132,23 @@ class Flights extends Component {
         this.setState((previousState, currentProps) => {
             let controls = { ...previousState.controls };
 
-            controls.page = (operator === 'increment') ? controls.page + 1 : Math.max(controls.page - 1, 0);
+            controls.page = (operator === 'increment') ? Math.min(controls.page + 1, this.props.flights.pages) : Math.max(controls.page - 1, 1);
             return { ...previousState, controls};
         }, () => {
-            
+            this.updateSearch();
         });
+    }
+
+    updateSearch() {
+        (this.state.searchType === 'pilot')? this.fetchFlightsByPilot() : this.fetchFlightsByDate();
+    }
+    
+    fetchFlightsByDate() {
+        this.props.flightActions.fetchFlightsByDate(this.state.selectedDate, this.state.controls.limit, this.state.controls.page);
+    }
+
+    fetchFlightsByPilot() {
+        this.props.flightActions.fetchFlightsByPilot(this.state.pilot, this.state.controls.limit, this.state.controls.page);
     }
 
     render() { 
@@ -120,23 +160,25 @@ class Flights extends Component {
                         dates={this.props.flights.dates} 
                         dateChangeHandler={this.dateChangeHandler} 
                         monthChangeHandler={this.monthChangeHandler}
-                        calendarNavigationHandler={this.calendarNavigationChangeHandler}/>
-                    <Controls handler={this.responseTypeHandler} paginationHandler={this.paginationHandler}/>
-                    <Limit handler={this.limitHandler}/>
+                        calendarNavigationHandler={this.calendarNavChangeHandler}/>
+                    <section className="flex-row">
+                        <Controls handler={this.responseTypeHandler} paginationHandler={this.paginationHandler}/>
+                        <Limit handler={this.limitHandler}/>
+                    </section>
                 </header>
-                <p>Limit: {this.state.controls.limit}</p>
-                <p>Total Flights: {this.props.flights.total}</p>
-                <p>Page: {this.state.controls.page} of {this.props.flights.pages}</p>
-                <section className="flights">
-                    {this.props.flights.flights.map(flight => {
-                        return <Flight key={flight.identifier} data={flight}/>    
-                    })}
-                </section>
+                <main>
+                    <p>Limit: {this.state.controls.limit}</p>
+                    <p>Total Flights: {this.props.flights.total}</p>
+                    <p>Page: {this.state.controls.page} of {this.props.flights.pages}</p>
+                    <section className="flights">
+                        {this.props.flights.flights.map(flight => {
+                            return <Flight key={flight.identifier} data={flight}/>    
+                        })}
+                    </section>
+                </main>
             </React.Fragment>
         );
     }
-
-    
 }
 
 const mapStateToProps = ({ flights }) => ({
