@@ -1,0 +1,10 @@
+.flights {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+  
+  .flights::after {
+    content: "";
+    flex: auto;
+  }

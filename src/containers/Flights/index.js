@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as flightActions from '../actions/flightActions';
+import * as flightActions from '../../actions/flightActions';
 import PropTypes from 'prop-types';
-import Flight from '../components/Flight';
-import Controls from '../components/Controls';
-import Limit from '../components/Limit';
-import Calendar from '../components/Calendar';
-import Search from '../components/Search';
+import Flight from '../../components/Flight';
+import Controls from '../../components/Controls';
+import Limit from '../../components/Limit';
+import Calendar from '../../components/Calendar/index';
+import Search from '../../components/Search';
 
+import Layout from '../../Layout.css';
+import Styles from './styles.css';
 
 class Flights extends Component {
     constructor(props) {
@@ -161,7 +163,7 @@ class Flights extends Component {
                         dateChangeHandler={this.dateChangeHandler} 
                         monthChangeHandler={this.monthChangeHandler}
                         calendarNavigationHandler={this.calendarNavChangeHandler}/>
-                    <section className="flex-row">
+                    <section className={Layout['flex-row']}>
                         <Controls handler={this.responseTypeHandler} paginationHandler={this.paginationHandler}/>
                         <Limit handler={this.limitHandler}/>
                     </section>
@@ -170,7 +172,7 @@ class Flights extends Component {
                     <p>Limit: {this.state.controls.limit}</p>
                     <p>Total Flights: {this.props.flights.total}</p>
                     <p>Page: {this.state.controls.page} of {this.props.flights.pages}</p>
-                    <section className="flights">
+                    <section className={Styles.flights}>
                         {this.props.flights.flights.map(flight => {
                             return <Flight key={flight.identifier} data={flight}/>    
                         })}

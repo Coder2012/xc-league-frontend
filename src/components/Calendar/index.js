@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactCalendar from 'react-calendar';
-import '../App.css';
+import '../../react-calendar/styles.css';
 
 class Calendar extends Component {
     tileContent = ({ date, view }) => {

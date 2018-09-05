@@ -1,0 +1,15 @@
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Muli', serif;
+    font-weight: 600;
+    padding: 15px 25px;
+    margin: 0 10px;
+}
+
+.primary-button__icon {
+    margin-right: 10px;
+}

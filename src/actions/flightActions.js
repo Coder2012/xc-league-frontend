@@ -1,10 +1,6 @@
 import * as types from './actionTypes';
 import { getDatesCount } from '../helpers/date';
 
-function url() {
-    return 'http://localhost:3000/flights';
-}
-
 export function receivePilotNames({ pilots }) {
     return { type: types.RECEIVE_PILOTS, pilots };
 }
@@ -116,7 +112,7 @@ export function fetchFlightDates(startDate, endDate) {
 
 export function fetchFlights() {
     return dispatch => {
-        fetch(url(), {
+        fetch('http://localhost:3000/flights', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

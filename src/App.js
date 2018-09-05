@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Flights from './containers/Flights';
+import Header from './components/Header';
+import Flights from './containers/Flights/index';
 import './App.css';
 
 class App extends Component {
@@ -7,9 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Paragliding XC League</h1>
-        </header>
+        <Header />
         <Flights />
       </div>
     );

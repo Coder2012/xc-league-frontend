@@ -1,0 +1,54 @@
+.calendar-item {
+    position: relative;
+    height: 35px;
+  }
+  
+  .calendar-item.react-calendar__tile--active, 
+  .calendar-item.react-calendar__tile--active:enabled:hover, 
+  .calendar-item.react-calendar__tile--active:enabled:focus {
+    background: red;
+  }
+  
+  .calendar-flights {
+    display: inline-block;
+    width: 25px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+  
+  .calendar-flights {
+    color: white;
+  }
+  
+  .calendar-flights::before {
+    content: '';
+    background-color: #A00;
+    border-radius: 50%;
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    opacity: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  .flight-count-low.calendar-flights::before {
+    width: 22px;
+    height: 22px;
+    opacity: .6;
+  }
+  
+  .flight-count-medium.calendar-flights::before {
+    opacity: .8;
+  }
+  
+  .flight-count-high.calendar-flights::before {
+    width: 30px;
+    height: 30px;
+  }
