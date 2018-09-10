@@ -7,7 +7,7 @@ import Flight from '../../components/Flight';
 import Controls from '../../components/Controls';
 import Limit from '../../components/Limit';
 import Calendar from '../../components/Calendar/index';
-import Search from '../../components/Search';
+import Search from '../../components/Search/index';
 
 import Layout from '../../Layout.css';
 import Styles from './styles.css';
@@ -18,7 +18,6 @@ class Flights extends Component {
 
         this.initialState = {
             selectedDate: '',
-            searchType: '',
             pilot: '',
             controls: {
                 page: 1,
@@ -67,8 +66,7 @@ class Flights extends Component {
     searchHandler(pilot) {
         this.resetState(() => {
             this.setState({
-                pilot: pilot,
-                searchType: 'pilot'
+                pilot: pilot
             }, () => {
                 this.fetchFlightsByPilot();
             })
@@ -89,7 +87,6 @@ class Flights extends Component {
 
         this.resetState(() => {
             this.setState({
-                searchType: 'date',
                 selectedDate: year + '-' + month + '-' + dt
             }, () => {
                 this.fetchFlightsByDate();
@@ -142,7 +139,7 @@ class Flights extends Component {
     }
 
     updateSearch() {
-        (this.state.searchType === 'pilot')? this.fetchFlightsByPilot() : this.fetchFlightsByDate();
+        (this.props.searchType === 'pilot')? this.fetchFlightsByPilot() : this.fetchFlightsByDate();
     }
     
     fetchFlightsByDate() {
@@ -156,35 +153,39 @@ class Flights extends Component {
     render() { 
         return ( 
             <React.Fragment>
-                <header>
-                    <Search data={this.props.flights.pilots} clickHandler={this.searchHandler} />
-                    <Calendar 
-                        dates={this.props.flights.dates} 
-                        dateChangeHandler={this.dateChangeHandler} 
-                        monthChangeHandler={this.monthChangeHandler}
-                        calendarNavigationHandler={this.calendarNavChangeHandler}/>
-                    <section className={Layout['flex-row']}>
-                        <Controls handler={this.responseTypeHandler} paginationHandler={this.paginationHandler}/>
-                        <Limit handler={this.limitHandler}/>
-                    </section>
-                </header>
+                <section className={this.props.searchType !== '' ? Layout['fixed-spacer'] : ''}>
+                    { this.props.searchType === 'pilot' ? <Search data={this.props.flights.pilots} clickHandler={this.searchHandler} /> : null }
+                    { this.props.searchType === 'date' ? <Calendar 
+                            dates={this.props.flights.dates} 
+                            dateChangeHandler={this.dateChangeHandler} 
+                            monthChangeHandler={this.monthChangeHandler}
+                            calendarNavigationHandler={this.calendarNavChangeHandler}/> : null
+                    }
+                </section>
+                {this.props.flights.flights.length > 0 && 
                 <main>
-                    <p>Limit: {this.state.controls.limit}</p>
-                    <p>Total Flights: {this.props.flights.total}</p>
-                    <p>Page: {this.state.controls.page} of {this.props.flights.pages}</p>
+                    { this.props.searchType === 'pilot' && this.state.pilot !== '' && <p>{this.props.flights.total} Flights by {this.state.pilot}</p> }
+                    
+                    <section className={Layout['flex-row']}>
+                        <Limit handler={this.limitHandler}/>
+                        <Controls handler={this.responseTypeHandler} paginationHandler={this.paginationHandler}/>
+                    </section>
+                    <p>Page: {this.state.controls.page}/{this.props.flights.pages}</p>
                     <section className={Styles.flights}>
                         {this.props.flights.flights.map(flight => {
                             return <Flight key={flight.identifier} data={flight}/>    
                         })}
                     </section>
                 </main>
+                }
             </React.Fragment>
         );
     }
 }
 
-const mapStateToProps = ({ flights }) => ({
-    flights
+const mapStateToProps = ({ flights, search }) => ({
+    flights,
+    searchType: search.searchType
 })
     
 function mapDispatchToProps(dispatch) {

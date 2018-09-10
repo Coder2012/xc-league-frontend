@@ -1,7 +1,7 @@
 .primary-button {
     display: inline-flex;
     align-items: center;
-    background-color: #fff;
+    background-color: #FF922E;
     border: none;
     border-radius: 8px;
     font-family: 'Muli', serif;
@@ -10,6 +10,36 @@
     margin: 0 10px;
 }
 
+.primary-button--selected {
+    background-color: #fff;
+}
+
 .primary-button__icon {
     margin-right: 10px;
+}
+
+.secondary-button {
+    display: inline-flex;
+    background-color: #E7E9EE;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Muli', serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 5px 10px 5px 0;
+}
+
+.secondary-button--alternate {
+    background-color: #fff;
+    border: 2px solid #E7E9EE;
+}
+
+.secondary-button--alternate::before {
+    content: '+';
+    display: inline-block;
+}
+
+.secondary-button--circle {
+    border-radius: 50%;
+    padding: 10px 11px;
 }

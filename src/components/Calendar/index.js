@@ -37,8 +37,6 @@ class Calendar extends Component {
     render() {
         return (
             <React.Fragment>
-                length:{this.props.dates.length}
-
                 <ReactCalendar 
                     tileClassName="calendar-item" 
                     tileContent={this.tileContent} 

@@ -6,7 +6,7 @@ const breakpoints = {
 
 export const isSmall = () => {
     console.log('issmall')
-    return (window.matchMedia(`(min-width: ${breakpoints.small}px)`).matches);
+    return (window.matchMedia(`(max-width: ${breakpoints.small}px)`).matches);
 }
 
 export const isMedium = () => {
