@@ -35,11 +35,15 @@ class Search extends Component {
     }
 
     handleOnChange(e) {
-        let value = e.target.value === '' ? '_' : e.target.value;
+        let value = e.target.value;
+        value = (e.target.value.length < 3) ? '_' : e.target.value;
+        
+        let pattern = new RegExp(`${value}`);
+
         this.setState({
             selectedId: undefined,
             showCount: 8,
-            pattern: new RegExp(`${value}`)
+            pattern: pattern
         });
       }
 
