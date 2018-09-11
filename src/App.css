@@ -21,6 +21,12 @@
   text-align: center;
 }
 
+.controls {
+  border-bottom: 1px solid #D4D8DF;
+  margin: 0 20px 30px;
+  padding-bottom: 20px;
+}
+
 .emphasize {
   font-weight: 700;
 }

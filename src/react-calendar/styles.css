@@ -29,7 +29,7 @@
   
   .calendar-flights::before {
     content: '';
-    background-color: #A00;
+    background-color: #2A3345;
     border-radius: 50%;
     display: inline-block;
     width: 26px;

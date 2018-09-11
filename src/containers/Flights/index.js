@@ -132,11 +132,19 @@ class Flights extends Component {
     paginationHandler(operator) {
         this.setState((previousState, currentProps) => {
             let controls = { ...previousState.controls };
-
             controls.page = (operator === 'increment') ? Math.min(controls.page + 1, this.props.flights.pages) : Math.max(controls.page - 1, 1);
+
+            if(previousState.controls.page === controls.page) {
+                controls.skipUpdate = true;
+            }else{
+                controls.skipUpdate = false;
+            }
+            
             return { ...previousState, controls};
         }, () => {
-            this.updateSearch();
+            if(!this.state.controls.skipUpdate) {
+                this.updateSearch();
+            }
         });
     }
 
@@ -168,7 +176,7 @@ class Flights extends Component {
                 <main>
                     { this.props.searchType === 'pilot' && this.state.pilot !== '' && <p className={AppStyles.subtitle}>{this.props.flights.total} Flights by {this.state.pilot}</p> }
                     
-                    <section className={[Layout['flex-row'], Layout['horizontal-centre']].join(' ')}>
+                    <section className={[Layout['flex-row'], Layout['horizontal-centre'], AppStyles['controls']].join(' ')}>
                         <Limit handler={this.limitHandler}/>
                         <Pagination page={this.state.controls.page} pages={this.props.flights.pages} paginationHandler={this.paginationHandler}/>
                         <ViewType handler={this.responseTypeHandler} />

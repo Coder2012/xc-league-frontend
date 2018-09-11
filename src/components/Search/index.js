@@ -8,6 +8,7 @@ class Search extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            selectedId: undefined,
             showCount: 8,
             showMore: false,
             pilots: this.props.data,
@@ -15,12 +16,13 @@ class Search extends Component {
          }
 
          this.handleOnChange = this.handleOnChange.bind(this);
+         this.handleSelectedPilot = this.handleSelectedPilot.bind(this);
     }
 
     componentDidMount() {
         this.showMore = <Button classes={[ButtonStyles['secondary-button'], ButtonStyles['secondary-button--alternate']].join(' ')}
                                 text="Show more" 
-                                clickHandler={() => this.setState({ showCount: 100 })} />
+                                clickHandler={() => this.setState({ showCount: 700 })} />
     }
 
     //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
@@ -35,14 +37,19 @@ class Search extends Component {
     handleOnChange(e) {
         let value = e.target.value === '' ? '_' : e.target.value;
         this.setState({
+            selectedId: undefined,
             showCount: 8,
             pattern: new RegExp(`${value}`)
         });
       }
 
-    handleSelectedPilot = (name) => {
-        console.log(name)
-        this.props.clickHandler(name);
+    handleSelectedPilot(name, index) {
+        this.setState(prevState => {
+            return { selectedId: index };
+        }, () => {
+            console.log(name)
+            this.props.clickHandler(name);
+        });
     }
 
     render() { 
@@ -51,8 +58,8 @@ class Search extends Component {
             .map((pilot, index) => {
                 if (index < this.state.showCount) {
                     return (
-                        <Button key={index} classes={[ButtonStyles['secondary-button'], this.props.searchType === 'date' ? ButtonStyles['secondary-button--selected'] : ''].join(' ')} 
-                        clickHandler={() => this.handleSelectedPilot(`${pilot}`)} 
+                        <Button id={index} key={index} classes={[ButtonStyles['secondary-button'], this.state.selectedId === index ? ButtonStyles['secondary-button--selected'] : ''].join(' ')} 
+                        clickHandler={() => this.handleSelectedPilot(`${pilot}`, index)} 
                         text={pilot} />
                     )
                 }
@@ -62,7 +69,7 @@ class Search extends Component {
             <section className={[Layout['flex-column'], Styles.search].join(' ')}>
                 <label className={Styles['search__name']}>Enter Pilot Name</label>
                 <input className={Styles['search__input']} type="text" placeholder="eg. Philip Wallbank" onChange={this.handleOnChange}></input>
-                <section>
+                <section className={Layout['v-space-around']}>
                     {pilots}
                     {pilots.length > this.state.showCount ? this.showMore : null }
                 </section>

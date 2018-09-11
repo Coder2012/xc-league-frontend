@@ -30,6 +30,11 @@
     margin: 5px 10px 5px 0;
 }
 
+.secondary-button--selected {
+    background-color: #2A3345;
+    color: #fff;
+}
+
 .secondary-button__icon {
     display: inline-block;
     position: absolute;
@@ -55,6 +60,12 @@
     height: 40px;
     position: relative;
     margin: 0 5px;
+}
+
+.secondary-button--circle-alternate {
+    background-color: #fff;
+    border: 1px solid #D4D8DF;
+    box-shadow: 0 2px 4px rgba(42, 51, 69, 0.2);
 }
 
 .secondary-button--circle::after {

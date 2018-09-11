@@ -9,12 +9,12 @@ const Controls = (props) => {
     return (
         <React.Fragment>
             <section className={[Layout['flex-row'], Layout['vertical-centre'], Layout['h-space-around']].join(' ')}>
-                <Button classes={[ButtonStyles['secondary-button'], ButtonStyles['secondary-button--circle']].join(' ')}
+                <Button classes={[ButtonStyles['secondary-button'], ButtonStyles['secondary-button--circle'], ButtonStyles['secondary-button--circle-alternate']].join(' ')}
                                 clickHandler={() => props.paginationHandler('decrement')}
                                 iconStyle={ButtonStyles['secondary-button__icon']}
                                 icon={LeftArrowSVG} />
                 <p>Page {props.page}/{props.pages}</p>
-                <Button classes={[ButtonStyles['secondary-button'], ButtonStyles['secondary-button--circle']].join(' ')}
+                <Button classes={[ButtonStyles['secondary-button'], ButtonStyles['secondary-button--circle'], ButtonStyles['secondary-button--circle-alternate']].join(' ')}
                                 clickHandler={() => props.paginationHandler('increment')}
                                 iconStyle={ButtonStyles['secondary-button__icon']}
                                 icon={RightArrowSVG} />
