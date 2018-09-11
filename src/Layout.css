@@ -10,7 +10,19 @@
     align-items: center;
 }
 
+.horizontal-centre {
+    justify-content: center;
+}
+
+.h-space-around {
+    margin: 0 40px;
+}
+
 .flex-row {
+    display: flex;
+}
+
+.flex-row-sb {
     display: flex;
     justify-content: space-between;
 }

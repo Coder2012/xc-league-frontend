@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../components/Button/index';
 import Styles from '../components/Button/styles.css';
+import Layout from '../Layout.css';
 
 class Limit extends React.Component {
     constructor(props) {
@@ -14,19 +15,13 @@ class Limit extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <section className="flex-row vertical-centre">
-                    <p>Results per page:</p>
+                <section className={[Layout['flex-row'], Layout['vertical-centre']].join(' ')}>
+                    <p>Flights per page:</p>
                     <div>
                         {
                             [10, 25, 50].map((limit, index) => {
-                                return <Button key={index} classes={[Styles['secondary-button'], Styles['secondary-button--circle']].join(' ')}
-                                                clickHandler={() => this.props.handler(`${limit}`)}
-                                                text={limit} 
-                                                />
-                                // return <button key={index} type="button" className={"btn-secondary" + (index === this.state.id ? ' btn-secondary--selected' : '')} onClick={() => {
-                                //     this.setState({id: index})
-                                //     this.props.handler(`${limit}`);
-                                // }}>{limit}</button>
+                                return <Button value={`${limit}`} key={index} classes={[Styles['secondary-button'], Styles['secondary-button--circle']].join(' ')}
+                                                clickHandler={() => this.props.handler(`${limit}`)} />
                             })
                         }
                     </div>

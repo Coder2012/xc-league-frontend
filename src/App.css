@@ -3,14 +3,8 @@
 }
 
 .App {
-  font-family: 'Barlow Condensed', sans-serif;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  color: #2A3345;
+  font-family: 'Muli', sans-serif;
 }
 
 .App-title {
@@ -21,26 +15,10 @@
   font-size: large;
 }
 
-.btn-primary {
-  padding: 10px;
-  background-color: rgba(135, 206, 250, 0.5);
-  border: none;
-  border-radius: 8%;
-}
-
-.btn-primary--selected {
-  background-color: lightskyblue;
-}
-
-.btn-secondary {
-  padding: 10px;
-  background-color: rgba(176, 196, 222, 0.5);
-  border: none;
-  border-radius: 50%;
-}
-
-.btn-secondary--selected {
-  background-color: lightsteelblue;
+.subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .emphasize {

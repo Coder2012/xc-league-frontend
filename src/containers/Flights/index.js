@@ -4,13 +4,15 @@ import { bindActionCreators } from 'redux';
 import * as flightActions from '../../actions/flightActions';
 import PropTypes from 'prop-types';
 import Flight from '../../components/Flight';
-import Controls from '../../components/Controls';
+import Pagination from '../../components/Pagination';
 import Limit from '../../components/Limit';
 import Calendar from '../../components/Calendar/index';
 import Search from '../../components/Search/index';
 
 import Layout from '../../Layout.css';
 import Styles from './styles.css';
+import AppStyles from '../../App.css';
+import ViewType from '../../components/ViewType';
 
 class Flights extends Component {
     constructor(props) {
@@ -164,13 +166,13 @@ class Flights extends Component {
                 </section>
                 {this.props.flights.flights.length > 0 && 
                 <main>
-                    { this.props.searchType === 'pilot' && this.state.pilot !== '' && <p>{this.props.flights.total} Flights by {this.state.pilot}</p> }
+                    { this.props.searchType === 'pilot' && this.state.pilot !== '' && <p className={AppStyles.subtitle}>{this.props.flights.total} Flights by {this.state.pilot}</p> }
                     
-                    <section className={Layout['flex-row']}>
+                    <section className={[Layout['flex-row'], Layout['horizontal-centre']].join(' ')}>
                         <Limit handler={this.limitHandler}/>
-                        <Controls handler={this.responseTypeHandler} paginationHandler={this.paginationHandler}/>
+                        <Pagination page={this.state.controls.page} pages={this.props.flights.pages} paginationHandler={this.paginationHandler}/>
+                        <ViewType handler={this.responseTypeHandler} />
                     </section>
-                    <p>Page: {this.state.controls.page}/{this.props.flights.pages}</p>
                     <section className={Styles.flights}>
                         {this.props.flights.flights.map(flight => {
                             return <Flight key={flight.identifier} data={flight}/>    

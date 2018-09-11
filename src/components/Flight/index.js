@@ -16,7 +16,7 @@ const Flight = ({ data }) => {
                 <p className={Layout['no-margin-top']}>{data.glider}</p>
             </header>
             <div className={Styles.flight__body}>
-                <div className={Layout['flex-row']}>
+                <div className={Layout['flex-row-sb']}>
                     <p className={Layout['no-margin-bottom']}>Start: <span className={App.emphasize}>{data.start}</span></p>
                     <p className={Layout['no-margin-bottom']}>Finish: <span className={App.emphasize}>{data.finish}</span></p>
                 </div>
@@ -29,11 +29,11 @@ const Flight = ({ data }) => {
                 <p>Max Height: <span className={App.emphasize}>{data.maxHeight}ft</span></p>
                 <p>Low Height: <span className={App.emphasize}>{data.lowHeight}ft</span></p>
                 <p>Takeoff Height: <span className={App.emphasize}>{data.takeoffHeight}ft</span></p>
-                <div className={Layout['flex-row']}>
+                <div className={Layout['flex-row-sb']}>
                     <p className={Layout['no-margin-bottom']}>Max Climb: <span className={App.emphasize}>{data.maxClimb}ms</span></p>
                     <p className={Layout['no-margin-bottom']}>Min Climb: <span className={App.emphasize}>{data.minClimb}ms</span></p>
                 </div>
-                <div className={Layout['flex-row']}>
+                <div className={Layout['flex-row-sb']}>
                     <p>Max Speed: <span className={App.emphasize}>{data.maxSpeed}kmh</span></p>
                     <p>Average Speed: <span className={App.emphasize}>{data.avgSpeedCourse}kmh</span></p>
                 </div>

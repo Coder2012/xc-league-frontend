@@ -1,6 +1,8 @@
 import * as types from './actionTypes';
 import { getDatesCount } from '../helpers/date';
 
+const domain = (process.env.NODE_ENV === 'production')? 'https://xc-league.herokuapp.com' : 'http://localhost:3000';
+
 export function receivePilotNames({ pilots }) {
     return { type: types.RECEIVE_PILOTS, pilots };
 }
@@ -33,7 +35,7 @@ export function receiveFlightsByPilot(data) {
 
 export function fetchPilots() {
     return dispatch => {
-        fetch('http://localhost:3000/flights/pilots', {
+        fetch(`${domain}/flights/pilots`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -56,7 +58,7 @@ export function fetchPilots() {
 
 export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
     return dispatch => {
-        fetch('http://localhost:3000/flights', {
+        fetch(`${domain}/flights`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -85,7 +87,7 @@ export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
 
 export function fetchFlightDates(startDate, endDate) {
     return dispatch => {
-        fetch('http://localhost:3000/flights/dates', {
+        fetch(`${domain}/flights/dates`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -112,7 +114,7 @@ export function fetchFlightDates(startDate, endDate) {
 
 export function fetchFlights() {
     return dispatch => {
-        fetch('http://localhost:3000/flights', {
+        fetch(`${domain}/flights`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -141,7 +143,7 @@ export function fetchFlights() {
 export function fetchFlightsByDate(date, limit = 10, page = 1, responseType = 'full') {
     return dispatch => {
 
-        fetch('http://localhost:3000/flights/date', {
+        fetch(`${domain}/flights/date`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
