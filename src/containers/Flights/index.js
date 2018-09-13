@@ -163,7 +163,7 @@ class Flights extends Component {
     render() { 
         return ( 
             <React.Fragment>
-                <section className={this.props.searchType !== '' ? Layout['fixed-spacer'] : ''}>
+                <section className={[Layout.gutters, this.props.searchType !== '' ? Layout['fixed-spacer'] : ''].join(' ')}>
                     { this.props.searchType === 'pilot' ? <Search data={this.props.flights.pilots} clickHandler={this.searchHandler} /> : null }
                     { this.props.searchType === 'date' ? <Calendar 
                             dates={this.props.flights.dates} 
@@ -173,19 +173,24 @@ class Flights extends Component {
                     }
                 </section>
                 {this.props.flights.flights.length > 0 && 
-                <main>
-                    { this.props.searchType === 'pilot' && this.state.pilot !== '' && <p className={AppStyles.subtitle}>{this.props.flights.total} Flights by {this.state.pilot}</p> }
+                <main className={Layout.gutters}>
+                    { this.props.searchType === 'pilot' && this.state.pilot !== '' && 
+                        <p className={AppStyles.subtitle}>{this.props.flights.total} Flights by {this.state.pilot}</p> }
+                    { this.props.searchType === 'date' && this.state.selectedDate !== '' && 
+                        <p className={AppStyles.subtitle}>{this.props.flights.total} Flight{this.props.flights.total > 1 ? 's' : ''} on  {new Date(this.state.selectedDate).toDateString()}</p> }
                     
-                    <section className={[Layout['flex-row'], Layout['horizontal-centre'], AppStyles['controls']].join(' ')}>
+                    <section className={[Layout['flex-row'], Layout['flex-mobile-column'], Layout['horizontal-centre'], AppStyles['controls']].join(' ')}>
                         <Limit handler={this.limitHandler}/>
                         <Pagination page={this.state.controls.page} pages={this.props.flights.pages} paginationHandler={this.paginationHandler}/>
                         <ViewType handler={this.responseTypeHandler} />
                     </section>
                     <section className={Styles.flights}>
                         {this.props.flights.flights.map(flight => {
-                            return <Flight key={flight.identifier} data={flight}/>    
+                            return <Flight key={flight.identifier} data={flight} display={this.state.controls.responseType}/>    
                         })}
                     </section>
+                    <Pagination page={this.state.controls.page} pages={this.props.flights.pages} paginationHandler={this.paginationHandler}/>
+                    <p></p>
                 </main>
                 }
             </React.Fragment>

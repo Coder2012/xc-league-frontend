@@ -3,7 +3,7 @@ import Styles from './styles.css';
 import Layout from '../../Layout.css';
 import App from '../../App.css';
 
-const Flight = ({ data }) => {
+const Flight = ({ data, display }) => {
     const date = new Date(data.date);
 
     return (
@@ -14,7 +14,9 @@ const Flight = ({ data }) => {
                 <p className={Styles.flight__title}>{data.title}</p>
                 <p className={Styles.flight__club}>{data.club}</p>
                 <p className={Layout['no-margin-top']}>{data.glider}</p>
+                <p>Score: <span className={App.emphasize}>{data.score}</span> {data.multiplier && <span>({data.multiplier})</span>}</p>
             </header>
+            { display === 'full' && 
             <div className={Styles.flight__body}>
                 <div className={Layout['flex-row-sb']}>
                     <p className={Layout['no-margin-bottom']}>Start: <span className={App.emphasize}>{data.start}</span></p>
@@ -24,8 +26,9 @@ const Flight = ({ data }) => {
                 <p>Takeoff: <span className={App.emphasize}>{data.takeoff}</span></p>
                 <p>Landing: <span className={App.emphasize}>{data.landing}</span></p>
             </div>
+            }
+            { display === 'full' && 
             <footer className={Styles.flight__footer}>
-                <p>Score: <span className={App.emphasize}>{data.score}</span> {data.multiplier && <span>({data.multiplier})</span>}</p>
                 <p>Max Height: <span className={App.emphasize}>{data.maxHeight}ft</span></p>
                 <p>Low Height: <span className={App.emphasize}>{data.lowHeight}ft</span></p>
                 <p>Takeoff Height: <span className={App.emphasize}>{data.takeoffHeight}ft</span></p>
@@ -38,6 +41,7 @@ const Flight = ({ data }) => {
                     <p>Average Speed: <span className={App.emphasize}>{data.avgSpeedCourse}kmh</span></p>
                 </div>
             </footer>
+            }
         </section>
     );
 }
