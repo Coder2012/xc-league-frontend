@@ -2,9 +2,5 @@
     display: flex;
     flex-wrap: wrap;
     font-family: 'Fira Sans Extra Condensed', sans-serif;
-  }
-  
-  .flights::after {
-    content: "";
-    flex: auto;
+    justify-content: center;
   }

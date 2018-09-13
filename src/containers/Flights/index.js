@@ -23,7 +23,7 @@ class Flights extends Component {
             pilot: '',
             controls: {
                 page: 1,
-                limit: 10,
+                limit: 12,
                 responseType: 'full'
             }
         }

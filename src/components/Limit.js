@@ -34,7 +34,7 @@ class Limit extends React.Component {
                     <p>Flights per page:</p>
                     <div>
                         {
-                            [10, 25, 50].map((limit, index) => {
+                            [12, 24, 48].map((limit, index) => {
                                 return <Button value={`${limit}`} key={index} classes={[Styles['secondary-button'], Styles['secondary-button--circle'], this.state.selectedId === index ? Styles['secondary-button--selected'] : ''].join(' ')}
                                                 clickHandler={() => this.clickHandler(`${limit}`, index)} />
                             })
