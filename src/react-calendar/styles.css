@@ -1,16 +1,13 @@
 .react-calendar {
-  margin: 0 auto;
+  border-radius: 8px;
+  border: 2px solid #D4D8DF;
+  box-shadow: 0 2px 4px rgba(42, 51, 69, 0.2);
+  margin: 0 auto 40px;
 }
 
 .calendar-item {
     position: relative;
     height: 35px;
-  }
-  
-  .calendar-item.react-calendar__tile--active, 
-  .calendar-item.react-calendar__tile--active:enabled:hover, 
-  .calendar-item.react-calendar__tile--active:enabled:focus {
-    background: red;
   }
   
   .calendar-flights {
@@ -55,4 +52,14 @@
   .flight-count-high.calendar-flights::before {
     width: 30px;
     height: 30px;
+  }
+
+  .calendar-item.react-calendar__tile--active, 
+  .calendar-item.react-calendar__tile--active:enabled:hover, 
+  .calendar-item.react-calendar__tile--active:enabled:focus {
+    background: #628297;
+  }
+
+  .calendar-item.react-calendar__tile--active .calendar-flights::before {
+    background-color: #FF922E;
   }

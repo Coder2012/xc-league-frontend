@@ -45,7 +45,7 @@ class Flights extends Component {
     }
 
     componentDidMount() {
-        // this.monthChangeHandler(new Date())
+        this.monthChangeHandler(new Date())
         this.props.flightActions.fetchPilots();
     }
 
