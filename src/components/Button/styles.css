@@ -10,6 +10,12 @@
     margin: 0 10px;
 }
 
+@media (max-width: 768px) {
+    .primary-button {
+        padding: 15px;
+    }
+}
+
 .primary-button--selected {
     background-color: #fff;
 }

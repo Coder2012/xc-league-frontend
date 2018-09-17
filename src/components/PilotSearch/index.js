@@ -4,7 +4,7 @@ import ButtonStyles from '../Button/styles.css';
 import Styles from './styles.css';
 import Layout from '../../Layout.css';
 
-class Search extends Component {
+class PilotSearch extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -38,7 +38,7 @@ class Search extends Component {
         let value = e.target.value;
         value = (e.target.value.length < 3) ? '_' : e.target.value;
         
-        let pattern = new RegExp(`${value}`);
+        let pattern = new RegExp(`${value}`, 'i');
 
         this.setState({
             selectedId: undefined,
@@ -82,4 +82,4 @@ class Search extends Component {
     }
 }
  
-export default Search;
+export default PilotSearch;

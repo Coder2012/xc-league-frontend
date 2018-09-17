@@ -9,10 +9,13 @@ import {
     FETCH_PILOTS, 
     RECEIVE_PILOTS,
     FETCH_FLIGHTS_BY_PILOT,
-    RECEIVE_FLIGHTS_BY_PILOT 
+    RECEIVE_FLIGHTS_BY_PILOT,
+    FETCH_FLIGHTS_BY_DISTANCE,
+    RECEIVE_FLIGHTS_BY_DISTANCE,
+    RESET_FLIGHTS,
 } from '../actions/actionTypes';
 
-export default function flight(state = initialState, { type, flights, dates, pages, total, pilots }) {
+export default function results(state = initialState, { type, flights, dates, pages, total, pilots }) {
     if(!type) {
         return state;
     }
@@ -48,6 +51,14 @@ export default function flight(state = initialState, { type, flights, dates, pag
         case RECEIVE_FLIGHTS_BY_PILOT:
             return Object.assign({}, state, { flights, pages, total });
 
+        case FETCH_FLIGHTS_BY_DISTANCE:
+            return type;
+
+        case RECEIVE_FLIGHTS_BY_DISTANCE:
+            return Object.assign({}, state, { flights, pages, total });
+
+        case RESET_FLIGHTS: 
+            return Object.assign({}, state, { flights })
 
         default:
             return state;

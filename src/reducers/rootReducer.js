@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import flights from './flightsReducer';
+import results from './resultsReducer';
 import search from './searchReducer';
 
 const rootReducer = combineReducers({
-    flights,
+    results,
     search
 });
 

@@ -32,11 +32,11 @@ class ViewType extends React.Component {
             <section className={[Layout['flex-row'], Layout['vertical-centre']].join(' ')}>
                 <p>Data:</p>
                 <Button classes={[ButtonStyles['secondary-button'], this.state.selectedId === 0 ? ButtonStyles['secondary-button--selected'] : ''].join(' ')}
-                                clickHandler={() => this.clickHandler('full', 0)}
+                                clickHandler={() => this.props.handler('full', 0)}
                                 iconStyle={ButtonStyles['secondary-button__icon']}
                                 text="Full" />
                 <Button classes={[ButtonStyles['secondary-button'], this.state.selectedId === 1 ? ButtonStyles['secondary-button--selected'] : ''].join(' ')}
-                                clickHandler={() => this.clickHandler('minimal', 1)}
+                                clickHandler={() => this.props.handler('minimal', 1)}
                                 iconStyle={ButtonStyles['secondary-button__icon']}
                                 text="Minimal" />
             </section>

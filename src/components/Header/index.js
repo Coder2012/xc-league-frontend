@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '../Button/index';
 import * as searchActions from '../../actions/searchActions';
+import * as flightActions from '../../actions/flightActions';
 import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
@@ -18,18 +19,21 @@ class Header extends React.Component {
         this.state = {
             isActive: false,
             pilotText: 'Search by pilot name',
-            calendarText: 'Search by flight date'
+            calendarText: 'Search by flight date',
+            distanceText: 'Search by flight distance'
         }
 
         this.pilotButtonHandler = this.pilotButtonHandler.bind(this);
         this.dateButtonHandler = this.dateButtonHandler.bind(this);
+        this.distanceButtonHandler = this.distanceButtonHandler.bind(this);
     }
 
     componentDidMount() {
         if(isSmall()) {
             this.setState({ 
-                pilotText: 'Pilot name',
-                calendarText: 'Flight date'  
+                pilotText: 'Pilot',
+                calendarText: 'Date',
+                distanceText: 'Distance'  
             });
         }
     }
@@ -37,11 +41,19 @@ class Header extends React.Component {
     pilotButtonHandler() {
         this.setActive();
         this.props.searchActions.setSearchType('pilot');
+        this.props.flightActions.resetFlights();
     }
     
     dateButtonHandler() {
         this.setActive();
         this.props.searchActions.setSearchType('date');
+        this.props.flightActions.resetFlights();
+    }
+    
+    distanceButtonHandler() {
+        this.setActive();
+        this.props.searchActions.setSearchType('distance');
+        this.props.flightActions.resetFlights();
     }
 
     setActive() {
@@ -62,6 +74,10 @@ class Header extends React.Component {
                             clickHandler={this.dateButtonHandler} 
                             icon={CalendarSVG} 
                             text={this.state.calendarText} />
+                    <Button classes={[ButtonStyles['primary-button'], this.props.searchType === 'distance' ? ButtonStyles['primary-button--selected'] : ''].join(' ')} 
+                            clickHandler={this.distanceButtonHandler} 
+                            icon={CalendarSVG} 
+                            text={this.state.distanceText} />
                 </div>
             </header>
         );
@@ -74,7 +90,8 @@ const mapStateToProps = ({ search }) => ({
     
 function mapDispatchToProps(dispatch) {
     return {
-        searchActions: bindActionCreators(searchActions, dispatch)
+        searchActions: bindActionCreators(searchActions, dispatch),
+        flightActions: bindActionCreators(flightActions, dispatch)
     }
 }
 

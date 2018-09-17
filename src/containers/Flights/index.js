@@ -7,12 +7,13 @@ import Flight from '../../components/Flight';
 import Pagination from '../../components/Pagination';
 import Limit from '../../components/Limit';
 import Calendar from '../../components/Calendar/index';
-import Search from '../../components/Search/index';
+import PilotSearch from '../../components/PilotSearch/index';
 
 import Layout from '../../Layout.css';
 import Styles from './styles.css';
 import AppStyles from '../../App.css';
 import ViewType from '../../components/ViewType';
+import DistanceSearch from '../../components/DistanceSearch';
 
 class Flights extends Component {
     constructor(props) {
@@ -21,9 +22,12 @@ class Flights extends Component {
         this.initialState = {
             selectedDate: '',
             pilot: '',
+            distance: 0,
+            distanceId: null,
             controls: {
                 page: 1,
                 limit: 12,
+                limitId: 0,
                 responseType: 'full'
             }
         }
@@ -31,6 +35,7 @@ class Flights extends Component {
 
         this.limitHandler = this.limitHandler.bind(this);
         this.searchHandler = this.searchHandler.bind(this);
+        this.distanceSearchHandler = this.distanceSearchHandler.bind(this);
         this.paginationHandler = this.paginationHandler.bind(this);
         this.dateChangeHandler = this.dateChangeHandler.bind(this);
         this.monthChangeHandler = this.monthChangeHandler.bind(this);
@@ -57,9 +62,9 @@ class Flights extends Component {
         })
     }
 
-    limitHandler(limit) {
+    limitHandler(limit, index) {
         this.setState({
-            controls: { ...this.state.controls, limit: limit }
+            controls: { ...this.state.controls, limit: limit, limitId: index, page: 1 }
         }, () => {
             this.updateSearch();
         })
@@ -73,6 +78,17 @@ class Flights extends Component {
                 this.fetchFlightsByPilot();
             })
         });
+    }
+
+    distanceSearchHandler(value, index) {
+        this.resetState(() => {
+            this.setState({ 
+                distance: value,
+                distanceId: index
+            }, () => {
+                this.fetchFlightsByDistance();
+            })
+        })
     }
 
     dateChangeHandler(date) {
@@ -132,7 +148,7 @@ class Flights extends Component {
     paginationHandler(operator) {
         this.setState((previousState, currentProps) => {
             let controls = { ...previousState.controls };
-            controls.page = (operator === 'increment') ? Math.min(controls.page + 1, this.props.flights.pages) : Math.max(controls.page - 1, 1);
+            controls.page = (operator === 'increment') ? Math.min(controls.page + 1, this.props.results.pages) : Math.max(controls.page - 1, 1);
 
             if(previousState.controls.page === controls.page) {
                 controls.skipUpdate = true;
@@ -149,7 +165,19 @@ class Flights extends Component {
     }
 
     updateSearch() {
-        (this.props.searchType === 'pilot')? this.fetchFlightsByPilot() : this.fetchFlightsByDate();
+        switch (this.props.searchType) {
+            case 'pilot':
+                 this.fetchFlightsByPilot();
+                 break;
+
+            case 'date':
+                this.fetchFlightsByDate();
+                break;
+
+            case 'distance':
+                this.fetchFlightsByDistance();
+                break;
+        }
     }
     
     fetchFlightsByDate() {
@@ -160,36 +188,43 @@ class Flights extends Component {
         this.props.flightActions.fetchFlightsByPilot(this.state.pilot, this.state.controls.limit, this.state.controls.page);
     }
 
+    fetchFlightsByDistance() {
+        this.props.flightActions.fetchFlightsByDistance(this.state.distance, this.state.controls.limit, this.state.controls.page);
+    }
+
     render() { 
         return ( 
             <React.Fragment>
                 <section className={[Layout.gutters, this.props.searchType !== '' ? Layout['fixed-spacer'] : ''].join(' ')}>
-                    { this.props.searchType === 'pilot' ? <Search data={this.props.flights.pilots} clickHandler={this.searchHandler} /> : null }
-                    { this.props.searchType === 'date' ? <Calendar 
-                            dates={this.props.flights.dates} 
+                    { this.props.searchType === 'pilot' && <PilotSearch data={this.props.results.pilots} clickHandler={this.searchHandler} /> }
+                    { this.props.searchType === 'date' && <Calendar 
+                            dates={this.props.results.dates} 
                             dateChangeHandler={this.dateChangeHandler} 
                             monthChangeHandler={this.monthChangeHandler}
-                            calendarNavigationHandler={this.calendarNavChangeHandler}/> : null
-                    }
+                            calendarNavigationHandler={this.calendarNavChangeHandler}/> }
+                    { this.props.searchType === 'distance' && <DistanceSearch selectedId={this.state.distanceId} clickHandler={this.distanceSearchHandler} />}
+                    
                 </section>
-                {this.props.flights.flights.length > 0 && 
+                {this.props.results.flights.length > 0 && 
                 <main className={Layout.gutters}>
                     { this.props.searchType === 'pilot' && this.state.pilot !== '' && 
-                        <p className={AppStyles.subtitle}>{this.props.flights.total} Flights by {this.state.pilot}</p> }
+                        <p className={AppStyles.subtitle}>{this.props.results.total} Flights by {this.state.pilot}</p> }
                     { this.props.searchType === 'date' && this.state.selectedDate !== '' && 
-                        <p className={AppStyles.subtitle}>{this.props.flights.total} Flight{this.props.flights.total > 1 ? 's' : ''} on  {new Date(this.state.selectedDate).toDateString()}</p> }
-                    
+                        <p className={AppStyles.subtitle}>{this.props.results.total} Flight{this.props.results.total > 1 ? 's' : ''} on  {new Date(this.state.selectedDate).toDateString()}</p> }
+                    { this.props.searchType === 'distance' && this.state.distance !== 0 && 
+                        <p className={AppStyles.subtitle}>{this.props.results.total} Flight{this.props.results.total > 1 ? 's' : ''} greater than {this.state.distance}k</p> }
+
                     <section className={[Layout['flex-row'], Layout['flex-mobile-column'], Layout['horizontal-centre'], AppStyles['controls']].join(' ')}>
-                        <Limit handler={this.limitHandler}/>
-                        <Pagination page={this.state.controls.page} pages={this.props.flights.pages} paginationHandler={this.paginationHandler}/>
+                        <Limit selectedId={this.state.controls.limitId} handler={this.limitHandler}/>
+                        <Pagination page={this.state.controls.page} pages={this.props.results.pages} paginationHandler={this.paginationHandler}/>
                         <ViewType handler={this.responseTypeHandler} />
                     </section>
                     <section className={Styles.flights}>
-                        {this.props.flights.flights.map(flight => {
+                        {this.props.results.flights.map(flight => {
                             return <Flight key={flight.identifier} data={flight} display={this.state.controls.responseType}/>    
                         })}
                     </section>
-                    <Pagination page={this.state.controls.page} pages={this.props.flights.pages} paginationHandler={this.paginationHandler}/>
+                    <Pagination page={this.state.controls.page} pages={this.props.results.pages} paginationHandler={this.paginationHandler}/>
                     <p></p>
                 </main>
                 }
@@ -198,8 +233,8 @@ class Flights extends Component {
     }
 }
 
-const mapStateToProps = ({ flights, search }) => ({
-    flights,
+const mapStateToProps = ({ results, search }) => ({
+    results,
     searchType: search.searchType
 })
     

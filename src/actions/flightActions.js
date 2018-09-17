@@ -33,6 +33,22 @@ export function receiveFlightsByPilot(data) {
     }
 }
 
+export function receiveFlightsByDistance(data) {
+    return {
+        type: types.RECEIVE_FLIGHTS_BY_DISTANCE,
+        flights: data.flightData.flights,
+        pages: data.pages,
+        total: data.total
+    }
+}
+
+export function resetFlights() {
+    return {
+        type: types.RESET_FLIGHTS,
+        flights: []
+    }
+}
+
 export function fetchPilots() {
     return dispatch => {
         fetch(`${domain}/flights/pilots`, {
@@ -80,6 +96,35 @@ export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
         .then(response => {
             if(response.status === 200) {
                 dispatch(receiveFlightsByPilot(response.data));
+            }
+        });
+    }
+}
+
+export function fetchFlightsByDistance(distance, limit, page, responseType = 'full') {
+    return dispatch => {
+        fetch(`${domain}/flights`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+                distance: distance,
+                page: page, 
+                limit: limit, 
+                responseType: responseType
+            })
+        })
+        .then(response => 
+            response.json().then(data => ({
+                data: data,
+                status: response.status
+            }))
+        )
+        .then(response => {
+            if(response.status === 200) {
+                dispatch(receiveFlightsByDistance(response.data));
             }
         });
     }

@@ -10,21 +10,13 @@ class Limit extends React.Component {
         this.state = {
             selectedId: 0
         }
-
-        this.clickHandler = this.clickHandler.bind(this);
     }
 
-    clickHandler(limit, index) {
-        this.setState(prevState => {
-            return { 
-                skipUpdate: prevState.selectedId === index,
-                selectedId: index 
-            };
-        }, () => {
-            if(!this.state.skipUpdate) {
-                this.props.handler(`${limit}`)
-            }
-        });
+    //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.selectedId !== this.props.selectedId) {
+            this.setState({ selectedId: nextProps.selectedId });
+        }
     }
 
     render() {
@@ -36,7 +28,7 @@ class Limit extends React.Component {
                         {
                             [12, 24, 48].map((limit, index) => {
                                 return <Button value={`${limit}`} key={index} classes={[Styles['secondary-button'], Styles['secondary-button--circle'], this.state.selectedId === index ? Styles['secondary-button--selected'] : ''].join(' ')}
-                                                clickHandler={() => this.clickHandler(`${limit}`, index)} />
+                                                clickHandler={() => this.props.handler(`${limit}`, index)} />
                             })
                         }
                     </div>
