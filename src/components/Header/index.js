@@ -20,7 +20,7 @@ class Header extends React.Component {
             isActive: false,
             pilotText: 'Search by pilot name',
             calendarText: 'Search by flight date',
-            distanceText: 'Search by flight distance'
+            distanceText: 'Search by flight score'
         }
 
         this.pilotButtonHandler = this.pilotButtonHandler.bind(this);
@@ -33,7 +33,7 @@ class Header extends React.Component {
             this.setState({ 
                 pilotText: 'Pilot',
                 calendarText: 'Date',
-                distanceText: 'Distance'  
+                distanceText: 'Score'  
             });
         }
     }

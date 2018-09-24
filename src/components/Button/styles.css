@@ -10,9 +10,18 @@
     margin: 0 10px;
 }
 
+.primary-button--narrow {
+    margin-left: 20px;
+    padding: 3px 8px;
+}
+
 @media (max-width: 768px) {
     .primary-button {
         padding: 15px;
+    }
+    .primary-button--narrow {
+        display: none;
+        padding: 3px 8px;
     }
 }
 

@@ -74,7 +74,7 @@ export function fetchPilots() {
 
 export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
     return dispatch => {
-        fetch(`${domain}/flights`, {
+        fetch(`${domain}/flights/all`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -103,7 +103,7 @@ export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
 
 export function fetchFlightsByDistance(distance, limit, page, responseType = 'full') {
     return dispatch => {
-        fetch(`${domain}/flights`, {
+        fetch(`${domain}/flights/all`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -159,7 +159,7 @@ export function fetchFlightDates(startDate, endDate) {
 
 export function fetchFlights() {
     return dispatch => {
-        fetch(`${domain}/flights`, {
+        fetch(`${domain}/flights/all`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -213,5 +213,19 @@ export function fetchFlightsByDate(date, limit = 10, page = 1, responseType = 'f
             }
         });
         
+    }
+}
+
+export function fetchFlightsExport(flights = []) {
+    return dispatch => {
+        // fetch(`${domain}/flights/export`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/vnd.openxmlformats'
+        //     },
+        //     mode: 'cors'
+        // })
+        // .then(response => console.log(response));
+        window.location = `${domain}/flights/export`;
     }
 }

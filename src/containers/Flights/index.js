@@ -14,6 +14,10 @@ import Styles from './styles.css';
 import AppStyles from '../../App.css';
 import ViewType from '../../components/ViewType';
 import DistanceSearch from '../../components/DistanceSearch';
+import Button from '../../components/Button';
+import ButtonStyles from '../../components/Button/styles.css';
+
+import ExcelSVG from '../../assets/excel.svg';
 
 class Flights extends Component {
     constructor(props) {
@@ -41,6 +45,7 @@ class Flights extends Component {
         this.monthChangeHandler = this.monthChangeHandler.bind(this);
         this.responseTypeHandler = this.responseTypeHandler.bind(this);
         this.calendarNavChangeHandler = this.calendarNavChangeHandler.bind(this);
+        this.fetchFlightsExportHandler = this.fetchFlightsExportHandler.bind(this);
     }
 
     resetState(callback) {
@@ -192,6 +197,10 @@ class Flights extends Component {
         this.props.flightActions.fetchFlightsByDistance(this.state.distance, this.state.controls.limit, this.state.controls.page);
     }
 
+    fetchFlightsExportHandler() {
+        this.props.flightActions.fetchFlightsExport(this.props.results.flights);
+    }
+
     render() { 
         return ( 
             <React.Fragment>
@@ -205,6 +214,7 @@ class Flights extends Component {
                     { this.props.searchType === 'distance' && <DistanceSearch selectedId={this.state.distanceId} clickHandler={this.distanceSearchHandler} />}
                     
                 </section>
+
                 {this.props.results.flights.length > 0 && 
                 <main className={Layout.gutters}>
                     { this.props.searchType === 'pilot' && this.state.pilot !== '' && 
@@ -212,13 +222,17 @@ class Flights extends Component {
                     { this.props.searchType === 'date' && this.state.selectedDate !== '' && 
                         <p className={AppStyles.subtitle}>{this.props.results.total} Flight{this.props.results.total > 1 ? 's' : ''} on  {new Date(this.state.selectedDate).toDateString()}</p> }
                     { this.props.searchType === 'distance' && this.state.distance !== 0 && 
-                        <p className={AppStyles.subtitle}>{this.props.results.total} Flight{this.props.results.total > 1 ? 's' : ''} greater than {this.state.distance}k</p> }
+                        <p className={AppStyles.subtitle}>{this.props.results.total} Flight{this.props.results.total > 1 ? 's' : ''} scoring over {this.state.distance}</p> }
 
                     <section className={[Layout['flex-row'], Layout['flex-mobile-column'], Layout['horizontal-centre'], AppStyles['controls']].join(' ')}>
                         <Limit selectedId={this.state.controls.limitId} handler={this.limitHandler}/>
                         <Pagination page={this.state.controls.page} pages={this.props.results.pages} paginationHandler={this.paginationHandler}/>
                         <ViewType handler={this.responseTypeHandler} />
                     </section>
+                    <Button classes={[ButtonStyles['primary-button'], ButtonStyles['primary-button--narrow'], this.props.searchType === 'pilot' ? ButtonStyles['primary-button--selected'] : ''].join(' ')} 
+                        clickHandler={this.fetchFlightsExportHandler} 
+                        icon={ExcelSVG} 
+                        text={'Download'} />
                     <section className={Styles.flights}>
                         {this.props.results.flights.map(flight => {
                             return <Flight key={flight.identifier} data={flight} display={this.state.controls.responseType}/>    

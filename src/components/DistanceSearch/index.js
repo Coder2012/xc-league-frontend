@@ -25,7 +25,7 @@ class DistanceSearch extends Component {
         return (
             <form>
                 <div className={[Layout['flex-row'], Layout['vertical-centre'], Layout['horizontal-centre'], Styles['distance']].join(' ')}>
-                    <legend>Distance greater than</legend>
+                    <legend>Score greater than</legend>
                     {[150, 200, 250].map((limit, index) => {
                                 return <Button value={`${limit}`} key={index} classes={[ButtonStyles['secondary-button'], ButtonStyles['secondary-button--circle'], this.state.selectedId === index ? ButtonStyles['secondary-button--selected'] : ''].join(' ')}
                                                 clickHandler={() => this.props.clickHandler(parseInt(`${limit}`), index)} />
