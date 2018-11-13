@@ -13,4 +13,4 @@
     # Disable plugins like Flash or Silverlight
     # Load images, scripts, stylesheets and fonts from self
     # Send reports to report-uri.io
-    Content-Security-Policy: default-src 'none'; object-src 'none'; img-src 'self'; script-src 'self'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;
+    Content-Security-Policy: default-src 'none'; object-src 'none'; img-src 'self'; script-src 'self' 'https://xc-league.herokuapp.com; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;
