@@ -6,7 +6,6 @@
 
     # Prevent browsers from incorrectly detecting non-scripts as scripts
     X-Content-Type-Options: nosniff
-
     X-XSS-Protection: 1; mode=block
 
     # Don't load any resource type not explicitly enabled
