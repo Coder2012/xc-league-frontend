@@ -3,6 +3,7 @@ import {
     FETCH_FLIGHTS, 
     RECEIVE_FLIGHTS, 
     FETCH_FLIGHT_DATES, 
+    RESET_FLIGHT_DATES, 
     RECEIVE_FLIGHT_DATES, 
     FETCH_FLIGHTS_BY_DATE, 
     RECEIVE_FLIGHTS_BY_DATE, 
@@ -35,6 +36,9 @@ export default function results(state = initialState, { type, flights, dates, pa
 
         case FETCH_FLIGHT_DATES:
             return type;
+
+        case RESET_FLIGHT_DATES:
+            return Object.assign({}, state, { dates });
 
         case RECEIVE_FLIGHT_DATES:
             return Object.assign({}, state, { dates });

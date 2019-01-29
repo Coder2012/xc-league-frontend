@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as flightActions from '../../actions/flightActions';
-import PropTypes from 'prop-types';
+import cloneDeep from 'clone-deep';
 import Flight from '../../components/Flight';
 import Pagination from '../../components/Pagination';
 import Limit from '../../components/Limit';
@@ -35,7 +35,7 @@ class Flights extends Component {
                 responseType: 'full'
             }
         }
-        this.state = this.initialState;
+        this.state = this.getInitialState();
 
         this.limitHandler = this.limitHandler.bind(this);
         this.searchHandler = this.searchHandler.bind(this);
@@ -46,6 +46,10 @@ class Flights extends Component {
         this.responseTypeHandler = this.responseTypeHandler.bind(this);
         this.calendarNavChangeHandler = this.calendarNavChangeHandler.bind(this);
         this.fetchFlightsExportHandler = this.fetchFlightsExportHandler.bind(this);
+    }
+
+    getInitialState() {
+        return cloneDeep(this.initialState);
     }
 
     resetState(callback) {
@@ -147,6 +151,7 @@ class Flights extends Component {
     }
 
     calendarNavChangeHandler({ activeStartDate }) {
+        this.props.flightActions.resetFlightDates();
         this.monthChangeHandler(activeStartDate)
     }
 

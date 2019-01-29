@@ -15,6 +15,10 @@ export function receiveFlightDates(data) {
     return { type: types.RECEIVE_FLIGHT_DATES, dates: getDatesCount(data.dates) };
 }
 
+export function resetFlightDates() {
+    return { type: types.RESET_FLIGHT_DATES, dates: [] };
+}
+
 export function receiveFlightsByDate(data) {
     return { 
         type: types.RECEIVE_FLIGHTS_BY_DATE, 
@@ -149,7 +153,7 @@ export function fetchFlightDates(startDate, endDate) {
                 status: response.status
             }))
         )
-        .then(response => {
+        .then(async response => {
             if(response.status === 200) {
                 dispatch(receiveFlightDates(response.data));
             }
