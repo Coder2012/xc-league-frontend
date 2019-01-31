@@ -8,9 +8,9 @@ import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
 import LogoSVG from '../../assets/xc-league-logo.svg';
-import Styles from './styles.css';
-import ButtonStyles from '../Button/styles.css';
-import Layout from '../../Layout.css';
+import Styles from './styles.module.css';
+import ButtonStyles from '../Button/styles.module.css';
+import Layout from '../../Layout.module.css';
 
 class Header extends React.Component {
     constructor(props) {

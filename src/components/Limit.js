@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../components/Button/index';
-import Styles from '../components/Button/styles.css';
-import Layout from '../Layout.css';
+import Styles from '../components/Button/styles.module.css';
+import Layout from '../Layout.module.css';
 
 class Limit extends React.Component {
     constructor(props) {

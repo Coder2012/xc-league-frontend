@@ -9,13 +9,13 @@ import Limit from '../../components/Limit';
 import Calendar from '../../components/Calendar/index';
 import PilotSearch from '../../components/PilotSearch/index';
 
-import Layout from '../../Layout.css';
-import Styles from './styles.css';
-import AppStyles from '../../App.css';
+import Layout from '../../Layout.module.css';
+import Styles from './styles.module.css';
+import AppStyles from '../../App.module.css';
 import ViewType from '../../components/ViewType';
 import DistanceSearch from '../../components/DistanceSearch';
 import Button from '../../components/Button';
-import ButtonStyles from '../../components/Button/styles.css';
+import ButtonStyles from '../../components/Button/styles.module.css';
 
 import ExcelSVG from '../../assets/excel.svg';
 
@@ -66,8 +66,6 @@ class Flights extends Component {
     responseTypeHandler(type) {
         this.setState({
             controls: { ...this.state.controls, responseType: type }
-        }, () => {
-            this.updateSearch();
         })
     }
 

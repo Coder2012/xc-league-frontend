@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button/index';
-import ButtonStyles from './Button/styles.css';
-import Layout from '../Layout.css';
+import ButtonStyles from './Button/styles.module.css';
+import Layout from '../Layout.module.css';
 
 class ViewType extends React.Component {
     constructor(props) {
@@ -30,13 +30,13 @@ class ViewType extends React.Component {
     render() { 
         return (
             <section className={[Layout['flex-row'], Layout['vertical-centre']].join(' ')}>
-                <p>Data:</p>
+                <p className={Layout['h-spacing-right']}>Data:</p>
                 <Button classes={[ButtonStyles['secondary-button'], this.state.selectedId === 0 ? ButtonStyles['secondary-button--selected'] : ''].join(' ')}
-                                clickHandler={() => this.props.handler('full', 0)}
+                                clickHandler={() => this.clickHandler('full', 0)}
                                 iconStyle={ButtonStyles['secondary-button__icon']}
                                 text="Full" />
                 <Button classes={[ButtonStyles['secondary-button'], this.state.selectedId === 1 ? ButtonStyles['secondary-button--selected'] : ''].join(' ')}
-                                clickHandler={() => this.props.handler('minimal', 1)}
+                                clickHandler={() => this.clickHandler('minimal', 1)}
                                 iconStyle={ButtonStyles['secondary-button__icon']}
                                 text="Minimal" />
             </section>

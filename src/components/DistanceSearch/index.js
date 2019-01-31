@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Button from '../Button';
-import ButtonStyles from '../Button/styles.css';
-import Styles from './styles.css';
-import Layout from '../../Layout.css';
+import ButtonStyles from '../Button/styles.module.css';
+import Styles from './styles.module.css';
+import Layout from '../../Layout.module.css';
 
 class DistanceSearch extends Component {
     constructor(props) {

@@ -1,7 +1,8 @@
 import * as types from './actionTypes';
 import { getDatesCount } from '../helpers/date';
 
-const domain = (process.env.NODE_ENV === 'production')? 'https://xc-league.herokuapp.com' : 'http://localhost:3000';
+const domain = 'https://xc-league.herokuapp.com';
+// const domain = (process.env.NODE_ENV === 'production')? 'https://xc-league.herokuapp.com' : 'http://localhost:3000';
 
 export function receivePilotNames({ pilots }) {
     return { type: types.RECEIVE_PILOTS, pilots };

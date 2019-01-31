@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
-import ButtonStyles from '../components/Button/styles.css';
-import Layout from '../Layout.css';
+import ButtonStyles from '../components/Button/styles.module.css';
+import Layout from '../Layout.module.css';
 import LeftArrowSVG from '../assets/left-arrow.svg';
 import RightArrowSVG from '../assets/right-arrow.svg';
 

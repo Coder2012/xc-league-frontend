@@ -1,7 +1,7 @@
 import React from 'react';
-import Styles from './styles.css';
-import Layout from '../../Layout.css';
-import App from '../../App.css';
+import Styles from './styles.module.css';
+import Layout from '../../Layout.module.css';
+import App from '../../App.module.css';
 
 const Flight = ({ data, display }) => {
     const date = new Date(data.date);

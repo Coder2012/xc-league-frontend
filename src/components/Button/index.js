@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from './styles.css';
+import Styles from './styles.module.css';
 
 const Button = (props) => {
     let data = props.value || null;

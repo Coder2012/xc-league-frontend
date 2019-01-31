@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
 import Flights from './containers/Flights/index';
-import Styles from './App.css';
+import Styles from './App.module.css';
 
 class App extends Component {
 
