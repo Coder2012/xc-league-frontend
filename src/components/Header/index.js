@@ -43,18 +43,21 @@ class Header extends React.Component {
     this.setActive();
     this.props.searchActions.setSearchType('pilot');
     this.props.flightActions.resetFlights();
+    this.props.searchActions.hideRaspForm(true);
   }
-
+  
   dateButtonHandler() {
     this.setActive();
     this.props.searchActions.setSearchType('date');
     this.props.flightActions.resetFlights();
+    this.props.searchActions.hideRaspForm(true);
   }
-
+  
   distanceButtonHandler() {
     this.setActive();
     this.props.searchActions.setSearchType('distance');
     this.props.flightActions.resetFlights();
+    this.props.searchActions.hideRaspForm(true);
   }
 
   setActive() {
@@ -69,7 +72,7 @@ class Header extends React.Component {
           ' '
         )}
       >
-        <section className={[Layout['text-centre'], Layout['v-spacing'], Layout['horizontal-centre']].join(' ')}>
+        <section className={[Layout['text-centre'], Layout['horizontal-centre']].join(' ')}>
           <img className={Styles['header__logo']} src={LogoSVG} />
           <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
             <Button
@@ -107,14 +110,15 @@ class Header extends React.Component {
             />
           </div>
         </section>
-        <Form />
+        {!this.props.hideForm && <Form />}
       </header>
     );
   }
 }
 
 const mapStateToProps = ({ search }) => ({
-  searchType: search.searchType
+  searchType: search.searchType,
+  hideForm: search.hideForm
 });
 
 function mapDispatchToProps(dispatch) {

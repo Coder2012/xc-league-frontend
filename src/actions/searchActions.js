@@ -6,3 +6,10 @@ export function setSearchType(type) {
     searchType: type
   };
 }
+
+export function hideRaspForm(value) {
+  return {
+    type: types.HIDE_RASP_FORM,
+    hideForm: value
+  }
+}
