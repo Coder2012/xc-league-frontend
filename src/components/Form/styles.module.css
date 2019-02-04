@@ -1,0 +1,19 @@
+.form {
+    text-align: center;
+    width: 90%;
+}
+
+dt, dd {
+    display: inline-block;
+}
+
+dd {
+    margin-left: 8px;
+}
+
+select {
+    background-color: #1B74F9;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+}

@@ -28,6 +28,10 @@
     justify-content: center;
 }
 
+.text-centre {
+    text-align: center;
+}
+
 .h-space-around {
     margin: 0 40px;
 }
