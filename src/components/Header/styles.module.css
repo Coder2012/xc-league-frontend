@@ -11,6 +11,13 @@
     display: inline-block;
 }
 
+.header__spinner {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .header--active {
     min-height: auto;
     position: fixed;
@@ -21,6 +28,7 @@
 .header--active .header__logo {
     position: absolute;
     left: 20px;
+    top: 20px;
     width: 60px;
 }
 

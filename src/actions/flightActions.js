@@ -1,7 +1,7 @@
-import * as types from "./actionTypes";
-import { getDatesCount } from "../helpers/date";
+import * as types from './actionTypes';
+import { getDatesCount } from '../helpers/date';
 
-const domain = "https://xc-league.herokuapp.com";
+const domain = 'https://xc-league.herokuapp.com';
 // const domain = (process.env.NODE_ENV === 'production')? 'https://xc-league.herokuapp.com' : 'http://localhost:3000';
 
 export function receivePilotNames({ pilots }) {
@@ -52,6 +52,13 @@ export function receiveFlightsByDistance(data) {
   };
 }
 
+export function fetching(value) {
+  return {
+    type: types.FETCHING,
+    isFetching: value
+  };
+}
+
 export function resetFlights() {
   return {
     type: types.RESET_FLIGHTS,
@@ -62,11 +69,11 @@ export function resetFlights() {
 export function fetchPilots() {
   return dispatch => {
     fetch(`${domain}/flights/pilots`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      mode: "cors"
+      mode: 'cors'
     })
       .then(response =>
         response.json().then(data => ({
@@ -82,14 +89,15 @@ export function fetchPilots() {
   };
 }
 
-export function fetchFlightsByPilot(pilot, limit, page, responseType = "full") {
+export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
   return dispatch => {
+    dispatch(fetching(true));
     fetch(`${domain}/flights/all`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      mode: "cors",
+      mode: 'cors',
       body: JSON.stringify({
         pilot: pilot,
         page: page,
@@ -105,6 +113,7 @@ export function fetchFlightsByPilot(pilot, limit, page, responseType = "full") {
       )
       .then(response => {
         if (response.status === 200) {
+          dispatch(fetching(false));
           dispatch(receiveFlightsByPilot(response.data));
         }
       });
@@ -115,15 +124,16 @@ export function fetchFlightsByDistance(
   distance,
   limit,
   page,
-  responseType = "full"
+  responseType = 'full'
 ) {
   return dispatch => {
+    dispatch(fetching(true));
     fetch(`${domain}/flights/all`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      mode: "cors",
+      mode: 'cors',
       body: JSON.stringify({
         distance: distance,
         page: page,
@@ -139,6 +149,7 @@ export function fetchFlightsByDistance(
       )
       .then(response => {
         if (response.status === 200) {
+          dispatch(fetching(false));
           dispatch(receiveFlightsByDistance(response.data));
         }
       });
@@ -147,12 +158,13 @@ export function fetchFlightsByDistance(
 
 export function fetchFlightDates(startDate, endDate) {
   return dispatch => {
+    dispatch(fetching(true));
     fetch(`${domain}/flights/dates`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      mode: "cors",
+      mode: 'cors',
       body: JSON.stringify({
         start: startDate,
         end: endDate
@@ -166,6 +178,7 @@ export function fetchFlightDates(startDate, endDate) {
       )
       .then(async response => {
         if (response.status === 200) {
+          dispatch(fetching(false));
           dispatch(receiveFlightDates(response.data));
         }
       });
@@ -174,16 +187,17 @@ export function fetchFlightDates(startDate, endDate) {
 
 export function fetchFlights() {
   return dispatch => {
+    dispatch(fetching(true));
     fetch(`${domain}/flights/all`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      mode: "cors",
+      mode: 'cors',
       body: JSON.stringify({
         page: 1, //this.state.controls.page,
         limit: 25, //this.state.controls.limit,
-        responseType: "full" //this.state.controls.responseType
+        responseType: 'full' //this.state.controls.responseType
       })
     })
       .then(response =>
@@ -194,6 +208,7 @@ export function fetchFlights() {
       )
       .then(response => {
         if (response.status === 200) {
+          dispatch(fetching(false));
           dispatch(receiveFlights(response.data));
         }
       });
@@ -204,15 +219,16 @@ export function fetchFlightsByDate(
   date,
   limit = 10,
   page = 1,
-  responseType = "full"
+  responseType = 'full'
 ) {
   return dispatch => {
+    dispatch(fetching(true));
     fetch(`${domain}/flights/date`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      mode: "cors",
+      mode: 'cors',
       body: JSON.stringify({
         date: date,
         page: page,
@@ -228,6 +244,7 @@ export function fetchFlightsByDate(
       )
       .then(response => {
         if (response.status === 200) {
+          dispatch(fetching(false));
           dispatch(receiveFlightsByDate(response.data));
         }
       });

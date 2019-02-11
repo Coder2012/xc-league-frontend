@@ -9,6 +9,7 @@ import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
 import LogoSVG from '../../assets/xc-league-logo.svg';
+import SpinnerSVG from '../../assets/oval.svg';
 import Styles from './styles.module.css';
 import ButtonStyles from '../Button/styles.module.css';
 import Layout from '../../Layout.module.css';
@@ -108,6 +109,7 @@ class Header extends React.Component {
               icon={CalendarSVG}
               text={this.state.distanceText}
             />
+            <p>{this.props.isFetching && <img className={Styles['header__spinner']} src={SpinnerSVG} alt="loading..." />}</p>
           </div>
         </section>
         {!this.props.hideForm && <Form />}
@@ -116,9 +118,10 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = ({ search }) => ({
+const mapStateToProps = ({ search, results }) => ({
   searchType: search.searchType,
-  hideForm: search.hideForm
+  hideForm: search.hideForm,
+  isFetching: results.isFetching
 });
 
 function mapDispatchToProps(dispatch) {

@@ -1,4 +1,4 @@
-import initialState from "./initialState";
+import initialState from './initialState';
 import {
   FETCH_FLIGHTS,
   RECEIVE_FLIGHTS,
@@ -13,12 +13,13 @@ import {
   RECEIVE_FLIGHTS_BY_PILOT,
   FETCH_FLIGHTS_BY_DISTANCE,
   RECEIVE_FLIGHTS_BY_DISTANCE,
-  RESET_FLIGHTS
-} from "../actions/actionTypes";
+  RESET_FLIGHTS,
+  FETCHING
+} from '../actions/actionTypes';
 
 export default function results(
   state = initialState,
-  { type, flights, dates, pages, total, pilots }
+  { type, flights, dates, pages, total, pilots, isFetching }
 ) {
   if (!type) {
     return state;
@@ -33,6 +34,9 @@ export default function results(
 
     case FETCH_FLIGHTS:
       return type;
+
+    case FETCHING:
+      return Object.assign({}, state, { isFetching })
 
     case RECEIVE_FLIGHTS:
       return Object.assign({}, state, { flights });
