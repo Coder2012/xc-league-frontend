@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Button from "../Button";
-import ButtonStyles from "../Button/styles.module.css";
-import Styles from "./styles.module.css";
-import Layout from "../../Layout.module.css";
+import React, { Component } from 'react';
+import Button from '../Button';
+import ButtonStyles from '../Button/styles.module.css';
+import Styles from './styles.module.css';
+import Layout from '../../Layout.module.css';
 
 class DistanceSearch extends Component {
   constructor(props) {
@@ -13,12 +13,13 @@ class DistanceSearch extends Component {
     };
   }
 
-  //WARNING! To be deprecated in React v17. Use componentDidUpdate instead.
-  //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedId !== this.props.selectedId) {
-      this.setState({ selectedId: nextProps.selectedId });
+  static getDerivedStateFromProps(props, state) {
+    if (props.selectedId !== state.selectedId) {
+      return {
+        selectedId: props.selectedId
+      }
     }
+    return null;
   }
 
   render() {
@@ -26,11 +27,11 @@ class DistanceSearch extends Component {
       <form>
         <div
           className={[
-            Layout["flex-row"],
-            Layout["vertical-centre"],
-            Layout["horizontal-centre"],
-            Styles["distance"]
-          ].join(" ")}
+            Layout['flex-row'],
+            Layout['vertical-centre'],
+            Layout['horizontal-centre'],
+            Styles['distance']
+          ].join(' ')}
         >
           <legend>Score greater than</legend>
           {[150, 200, 250].map((limit, index) => {
@@ -39,12 +40,12 @@ class DistanceSearch extends Component {
                 value={`${limit}`}
                 key={index}
                 classes={[
-                  ButtonStyles["secondary-button"],
-                  ButtonStyles["secondary-button--circle"],
+                  ButtonStyles['secondary-button'],
+                  ButtonStyles['secondary-button--circle'],
                   this.state.selectedId === index
-                    ? ButtonStyles["secondary-button--selected"]
-                    : ""
-                ].join(" ")}
+                    ? ButtonStyles['secondary-button--selected']
+                    : ''
+                ].join(' ')}
                 clickHandler={() =>
                   this.props.clickHandler(parseInt(`${limit}`), index)
                 }

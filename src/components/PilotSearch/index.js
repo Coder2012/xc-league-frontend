@@ -32,13 +32,13 @@ class PilotSearch extends Component {
     );
   }
 
-  //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      this.setState({
-        pilots: nextProps.data
-      });
+  static getDerivedStateFromProps(props, state) {
+    if(props.data !== state.data) {
+      return {
+        pilots: props.data
+      }
     }
+    return null;
   }
 
   handleOnChange(e) {
@@ -86,6 +86,7 @@ class PilotSearch extends Component {
             />
           );
         }
+        return null;
       });
 
     return (

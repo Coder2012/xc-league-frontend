@@ -73,7 +73,7 @@ class Header extends React.Component {
         )}
       >
         <section className={[Layout['text-centre'], Layout['horizontal-centre']].join(' ')}>
-          <img className={Styles['header__logo']} src={LogoSVG} />
+          <img alt="" className={Styles['header__logo']} src={LogoSVG} />
           <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
             <Button
               classes={[

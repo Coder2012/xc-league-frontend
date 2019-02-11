@@ -12,7 +12,7 @@ const Button = props => {
       className={`${props.classes}`}
       type="button"
     >
-      {props.icon && <img src={props.icon} className={iconStyle} />}
+      {props.icon && <img alt={props.alt} src={props.icon} className={iconStyle} />}
       {props.text}
     </button>
   );

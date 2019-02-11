@@ -1,38 +1,38 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as flightActions from "../../actions/flightActions";
-import cloneDeep from "clone-deep";
-import Flight from "../../components/Flight";
-import Pagination from "../../components/Pagination";
-import Limit from "../../components/Limit";
-import Calendar from "../../components/Calendar/index";
-import PilotSearch from "../../components/PilotSearch/index";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as flightActions from '../../actions/flightActions';
+import cloneDeep from 'clone-deep';
+import Flight from '../../components/Flight';
+import Pagination from '../../components/Pagination';
+import Limit from '../../components/Limit';
+import Calendar from '../../components/Calendar/index';
+import PilotSearch from '../../components/PilotSearch/index';
 
-import Layout from "../../Layout.module.css";
-import Styles from "./styles.module.css";
-import AppStyles from "../../App.module.css";
-import ViewType from "../../components/ViewType";
-import DistanceSearch from "../../components/DistanceSearch";
-import Button from "../../components/Button";
-import ButtonStyles from "../../components/Button/styles.module.css";
+import Layout from '../../Layout.module.css';
+import Styles from './styles.module.css';
+import AppStyles from '../../App.module.css';
+import ViewType from '../../components/ViewType';
+import DistanceSearch from '../../components/DistanceSearch';
+import Button from '../../components/Button';
+import ButtonStyles from '../../components/Button/styles.module.css';
 
-import ExcelSVG from "../../assets/excel.svg";
+import ExcelSVG from '../../assets/excel.svg';
 
 class Flights extends Component {
   constructor(props) {
     super(props);
 
     this.initialState = {
-      selectedDate: "",
-      pilot: "",
+      selectedDate: '',
+      pilot: '',
       distance: 0,
       distanceId: null,
       controls: {
         page: 1,
         limit: 12,
         limitId: 0,
-        responseType: "full"
+        responseType: 'full'
       }
     };
     this.state = this.getInitialState();
@@ -118,16 +118,16 @@ class Flights extends Component {
     let dt = date.getDate();
 
     if (dt < 10) {
-      dt = "0" + dt;
+      dt = '0' + dt;
     }
     if (month < 10) {
-      month = "0" + month;
+      month = '0' + month;
     }
 
     this.resetState(() => {
       this.setState(
         {
-          selectedDate: year + "-" + month + "-" + dt
+          selectedDate: year + '-' + month + '-' + dt
         },
         () => {
           this.fetchFlightsByDate();
@@ -149,15 +149,15 @@ class Flights extends Component {
     let finishYear = date.getFullYear();
 
     if (firstDay < 10) {
-      firstDay = "0" + firstDay;
+      firstDay = '0' + firstDay;
     }
 
     if (startMonth < 10) {
-      startMonth = "0" + startMonth;
+      startMonth = '0' + startMonth;
     }
 
     if (finishMonth < 10) {
-      finishMonth = "0" + finishMonth;
+      finishMonth = '0' + finishMonth;
     }
 
     let startDate = `${startYear}-${startMonth}-${firstDay}`;
@@ -178,7 +178,7 @@ class Flights extends Component {
       (previousState, currentProps) => {
         let controls = { ...previousState.controls };
         controls.page =
-          operator === "increment"
+          operator === 'increment'
             ? Math.min(controls.page + 1, this.props.results.pages)
             : Math.max(controls.page - 1, 1);
 
@@ -200,16 +200,19 @@ class Flights extends Component {
 
   updateSearch() {
     switch (this.props.searchType) {
-      case "pilot":
+      case 'pilot':
         this.fetchFlightsByPilot();
         break;
 
-      case "date":
+      case 'date':
         this.fetchFlightsByDate();
         break;
 
-      case "distance":
+      case 'distance':
         this.fetchFlightsByDistance();
+        break;
+
+      default:
         break;
     }
   }
@@ -248,16 +251,16 @@ class Flights extends Component {
         <section
           className={[
             Layout.gutters,
-            this.props.searchType !== "" ? Layout["fixed-spacer"] : ""
-          ].join(" ")}
+            this.props.searchType !== '' ? Layout['fixed-spacer'] : ''
+          ].join(' ')}
         >
-          {this.props.searchType === "pilot" && (
+          {this.props.searchType === 'pilot' && (
             <PilotSearch
               data={this.props.results.pilots}
               clickHandler={this.searchHandler}
             />
           )}
-          {this.props.searchType === "date" && (
+          {this.props.searchType === 'date' && (
             <Calendar
               dates={this.props.results.dates}
               dateChangeHandler={this.dateChangeHandler}
@@ -265,7 +268,7 @@ class Flights extends Component {
               calendarNavigationHandler={this.calendarNavChangeHandler}
             />
           )}
-          {this.props.searchType === "distance" && (
+          {this.props.searchType === 'distance' && (
             <DistanceSearch
               selectedId={this.state.distanceId}
               clickHandler={this.distanceSearchHandler}
@@ -275,34 +278,34 @@ class Flights extends Component {
 
         {this.props.results.flights.length > 0 && (
           <main className={Layout.gutters}>
-            {this.props.searchType === "pilot" && this.state.pilot !== "" && (
+            {this.props.searchType === 'pilot' && this.state.pilot !== '' && (
               <p className={AppStyles.subtitle}>
                 {this.props.results.total} Flights by {this.state.pilot}
               </p>
             )}
-            {this.props.searchType === "date" &&
-              this.state.selectedDate !== "" && (
+            {this.props.searchType === 'date' &&
+              this.state.selectedDate !== '' && (
                 <p className={AppStyles.subtitle}>
                   {this.props.results.total} Flight
-                  {this.props.results.total > 1 ? "s" : ""} on{" "}
+                  {this.props.results.total > 1 ? 's' : ''} on{' '}
                   {new Date(this.state.selectedDate).toDateString()}
                 </p>
               )}
-            {this.props.searchType === "distance" && this.state.distance !== 0 && (
+            {this.props.searchType === 'distance' && this.state.distance !== 0 && (
               <p className={AppStyles.subtitle}>
                 {this.props.results.total} Flight
-                {this.props.results.total > 1 ? "s" : ""} scoring over{" "}
+                {this.props.results.total > 1 ? 's' : ''} scoring over{' '}
                 {this.state.distance}
               </p>
             )}
 
             <section
               className={[
-                Layout["flex-row"],
-                Layout["flex-mobile-column"],
-                Layout["horizontal-centre"],
-                AppStyles["controls"]
-              ].join(" ")}
+                Layout['flex-row'],
+                Layout['flex-mobile-column'],
+                Layout['horizontal-centre'],
+                AppStyles['controls']
+              ].join(' ')}
             >
               <Limit
                 selectedId={this.state.controls.limitId}
@@ -317,15 +320,15 @@ class Flights extends Component {
             </section>
             <Button
               classes={[
-                ButtonStyles["primary-button"],
-                ButtonStyles["primary-button--narrow"],
-                this.props.searchType === "pilot"
-                  ? ButtonStyles["primary-button--selected"]
-                  : ""
-              ].join(" ")}
+                ButtonStyles['primary-button'],
+                ButtonStyles['primary-button--narrow'],
+                this.props.searchType === 'pilot'
+                  ? ButtonStyles['primary-button--selected']
+                  : ''
+              ].join(' ')}
               clickHandler={this.fetchFlightsExportHandler}
               icon={ExcelSVG}
-              text={"Download"}
+              text={'Download'}
             />
             <section className={Styles.flights}>
               {this.props.results.flights.map(flight => {

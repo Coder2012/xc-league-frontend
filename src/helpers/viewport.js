@@ -5,7 +5,6 @@ const breakpoints = {
 };
 
 export const isSmall = () => {
-  console.log("issmall");
   return window.matchMedia(`(max-width: ${breakpoints.small}px)`).matches;
 };
 

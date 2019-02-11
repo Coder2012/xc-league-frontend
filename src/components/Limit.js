@@ -12,11 +12,13 @@ class Limit extends React.Component {
     };
   }
 
-  //WARNING! To be deprecated in React v17. Use new lifecycle static getDerivedStateFromProps instead.
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedId !== this.props.selectedId) {
-      this.setState({ selectedId: nextProps.selectedId });
+  static getDerivedStateFromProps(props, state) {
+    if(props.selectedId !== state.selectedId) {
+      return {
+        selectedId: props.selectedId
+      }
     }
+    return null;
   }
 
   render() {
@@ -31,7 +33,7 @@ class Limit extends React.Component {
               return (
                 <Button
                   value={`${limit}`}
-                  key={index}
+                  key={limit}
                   classes={[
                     Styles["secondary-button"],
                     Styles["secondary-button--circle"],

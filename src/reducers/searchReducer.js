@@ -1,4 +1,3 @@
-import initialState from "./initialState";
 import { SET_SEARCH_TYPE, HIDE_RASP_FORM } from "../actions/actionTypes";
 
 export default function search(
