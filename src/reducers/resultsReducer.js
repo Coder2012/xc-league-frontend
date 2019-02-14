@@ -30,46 +30,46 @@ export default function results(
       return type;
 
     case RECEIVE_PILOTS:
-      return Object.assign({}, state, { pilots });
+      return { ...state, pilots };
 
     case FETCH_FLIGHTS:
       return type;
 
     case FETCHING:
-      return Object.assign({}, state, { isFetching })
+      return { ...state, isFetching };
 
     case RECEIVE_FLIGHTS:
-      return Object.assign({}, state, { flights });
+      return { ...state, flights };
 
     case FETCH_FLIGHT_DATES:
       return type;
 
     case RESET_FLIGHT_DATES:
-      return Object.assign({}, state, { dates });
+      return { ...state, dates };
 
     case RECEIVE_FLIGHT_DATES:
-      return Object.assign({}, state, { dates });
+      return { ...state, dates };
 
     case FETCH_FLIGHTS_BY_DATE:
       return type;
 
     case RECEIVE_FLIGHTS_BY_DATE:
-      return Object.assign({}, state, { flights, pages, total });
+      return { ...state, flights, pages, total };
 
     case FETCH_FLIGHTS_BY_PILOT:
       return type;
 
     case RECEIVE_FLIGHTS_BY_PILOT:
-      return Object.assign({}, state, { flights, pages, total });
+      return { ...state, flights, pages, total };
 
     case FETCH_FLIGHTS_BY_DISTANCE:
       return type;
 
     case RECEIVE_FLIGHTS_BY_DISTANCE:
-      return Object.assign({}, state, { flights, pages, total });
+      return { ...state, flights, pages, total };
 
     case RESET_FLIGHTS:
-      return Object.assign({}, state, { flights });
+      return { ...state, flights };
 
     default:
       return state;

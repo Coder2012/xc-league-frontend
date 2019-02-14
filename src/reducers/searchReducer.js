@@ -10,10 +10,10 @@ export default function search(
 
   switch (type) {
     case SET_SEARCH_TYPE:
-      return Object.assign({}, state, { searchType });
+      return { ...state, searchType };
 
     case HIDE_RASP_FORM:
-      return Object.assign({}, state, { hideForm })
+      return { ...state, hideForm };
 
     default:
       return state;
