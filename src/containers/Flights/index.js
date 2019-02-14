@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as flightActions from '../../actions/flightActions';
 import cloneDeep from 'clone-deep';
+import ErrorMessage from '../../components/Error';
 import Flight from '../../components/Flight';
 import Pagination from '../../components/Pagination';
 import Limit from '../../components/Limit';
@@ -254,6 +255,7 @@ class Flights extends Component {
             this.props.searchType !== '' ? Layout['fixed-spacer'] : ''
           ].join(' ')}
         >
+          <ErrorMessage message={this.props.message} />
           {this.props.searchType === 'pilot' && (
             <PilotSearch
               data={this.props.results.pilots}

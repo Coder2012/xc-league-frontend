@@ -14,12 +14,14 @@ import {
   FETCH_FLIGHTS_BY_DISTANCE,
   RECEIVE_FLIGHTS_BY_DISTANCE,
   RESET_FLIGHTS,
-  FETCHING
+  FETCHING,
+  ERROR,
+  CLEAR_ERROR
 } from '../actions/actionTypes';
 
 export default function results(
   state = initialState,
-  { type, flights, dates, pages, total, pilots, isFetching }
+  { type, flights, dates, pages, total, pilots, isFetching, message }
 ) {
   if (!type) {
     return state;
@@ -37,6 +39,12 @@ export default function results(
 
     case FETCHING:
       return { ...state, isFetching };
+
+    case ERROR:
+      return { ...state, isFetching, message };
+
+    case CLEAR_ERROR:
+      return { ...state, message };
 
     case RECEIVE_FLIGHTS:
       return { ...state, flights };

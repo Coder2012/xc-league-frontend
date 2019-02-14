@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import * as errors from '../data/constants';
 import { getDatesCount } from '../helpers/date';
 
 const domain = 'https://xc-league.herokuapp.com';
@@ -59,6 +60,21 @@ export function fetching(value) {
   };
 }
 
+export function fetchError(value) {
+  return {
+    type: types.ERROR,
+    message: value,
+    isFetching: false
+  };
+}
+
+export function clearError() {
+  return {
+    type: types.CLEAR_ERROR,
+    message: null
+  };
+}
+
 export function resetFlights() {
   return {
     type: types.RESET_FLIGHTS,
@@ -85,6 +101,10 @@ export function fetchPilots() {
         if (response.status === 200) {
           dispatch(receivePilotNames(response.data));
         }
+      })
+      .catch(error => {
+        console.log(errors.ERROR_FETCHING_PILOTS);
+        dispatch(fetchError(errors.ERROR_FETCHING_PILOTS));
       });
   };
 }
@@ -116,6 +136,10 @@ export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
           dispatch(fetching(false));
           dispatch(receiveFlightsByPilot(response.data));
         }
+      })
+      .catch(error => {
+        console.log(errors.ERROR_FETCHING_FLIGHTS_BY_PILOT);
+        dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS_BY_PILOT));
       });
   };
 }
@@ -152,6 +176,10 @@ export function fetchFlightsByDistance(
           dispatch(fetching(false));
           dispatch(receiveFlightsByDistance(response.data));
         }
+      })
+      .catch(error => {
+        console.log(errors.ERROR_FETCHING_FLIGHTS_BY_DISTANCE);
+        dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS_BY_DISTANCE));
       });
   };
 }
@@ -181,6 +209,10 @@ export function fetchFlightDates(startDate, endDate) {
           dispatch(fetching(false));
           dispatch(receiveFlightDates(response.data));
         }
+      })
+      .catch(error => {
+        console.log(errors.ERROR_FETCHING_DATES);
+        dispatch(fetchError(errors.ERROR_FETCHING_DATES));
       });
   };
 }
@@ -211,6 +243,10 @@ export function fetchFlights() {
           dispatch(fetching(false));
           dispatch(receiveFlights(response.data));
         }
+      })
+      .catch(error => {
+        console.log(errors.ERROR_FETCHING_FLIGHTS);
+        dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS));
       });
   };
 }
@@ -247,6 +283,10 @@ export function fetchFlightsByDate(
           dispatch(fetching(false));
           dispatch(receiveFlightsByDate(response.data));
         }
+      })
+      .catch(error => {
+        console.log(errors.ERROR_FETCHING_FLIGHTS_BY_DATE);
+        dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS_BY_DATE));
       });
   };
 }
