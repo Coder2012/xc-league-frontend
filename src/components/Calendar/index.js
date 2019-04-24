@@ -22,6 +22,7 @@ class Calendar extends Component {
 
   tileContent({ date, view }) {
     let flightCount = this.dateExists(date.getMonth(), date.getDate());
+    console.log('flightCount:', flightCount)
     if (flightCount) {
       return view === "month" && flightCount ? (
         <span className={`calendar-flights ${this.getCountClass(flightCount)}`}>

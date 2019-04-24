@@ -20,6 +20,8 @@ import ButtonStyles from '../../components/Button/styles.module.css';
 
 import ExcelSVG from '../../assets/excel.svg';
 
+import * as types from '../../actions/actionTypes';
+
 class Flights extends Component {
   constructor(props) {
     super(props);
@@ -61,7 +63,8 @@ class Flights extends Component {
 
   componentDidMount() {
     this.monthChangeHandler(new Date());
-    this.props.flightActions.fetchPilots();
+    // this.props.flightActions.fetchPilots();
+    this.props.dispatch({ type: types.FETCH_PILOTS });
   }
 
   responseTypeHandler(type) {
@@ -165,12 +168,13 @@ class Flights extends Component {
     let endDate = `${finishYear}-${finishMonth}-${lastDay}`;
 
     this.resetState(() => {
-      this.props.flightActions.fetchFlightDates(startDate, endDate);
+      // this.props.flightActions.fetchFlightDates(startDate, endDate);
+      this.props.dispatch({ type: types.FETCH_FLIGHT_DATES, payload: { startDate, endDate } })
     });
   }
 
   calendarNavChangeHandler({ activeStartDate }) {
-    this.props.flightActions.resetFlightDates();
+    // this.props.flightActions.resetFlightDates();
     this.monthChangeHandler(activeStartDate);
   }
 
@@ -227,19 +231,35 @@ class Flights extends Component {
   }
 
   fetchFlightsByPilot() {
-    this.props.flightActions.fetchFlightsByPilot(
-      this.state.pilot,
-      this.state.controls.limit,
-      this.state.controls.page
-    );
+    this.props.dispatch({
+      type: types.FETCH_FLIGHTS_BY_PILOT,
+      payload: {
+        pilot: this.state.pilot,
+        limit: this.state.controls.limit,
+        page: this.state.controls.page
+      }
+    })
+    // this.props.flightActions.fetchFlightsByPilot(
+    //   this.state.pilot,
+    //   this.state.controls.limit,
+    //   this.state.controls.page
+    // );
   }
 
   fetchFlightsByDistance() {
-    this.props.flightActions.fetchFlightsByDistance(
-      this.state.distance,
-      this.state.controls.limit,
-      this.state.controls.page
-    );
+    this.props.dispatch({
+      type: types.FETCH_FLIGHTS_BY_DISTANCE,
+      payload: {
+        distance: this.state.distance,
+        limit: this.state.controls.limit,
+        page: this.state.controls.page,
+      }
+    })
+    // this.props.flightActions.fetchFlightsByDistance(
+    //   this.state.distance,
+    //   this.state.controls.limit,
+    //   this.state.controls.page
+    // );
   }
 
   fetchFlightsExportHandler() {
@@ -363,11 +383,12 @@ const mapStateToProps = ({ results, search }) => ({
 
 function mapDispatchToProps(dispatch) {
   return {
-    flightActions: bindActionCreators(flightActions, dispatch)
+    flightActions: bindActionCreators(flightActions, dispatch),
+    dispatch
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  // mapDispatchToProps
 )(Flights);

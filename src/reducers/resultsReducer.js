@@ -29,7 +29,7 @@ export default function results(
 
   switch (type) {
     case FETCH_PILOTS:
-      return type;
+      return state;
 
     case RECEIVE_PILOTS:
       return { ...state, pilots };
@@ -50,7 +50,7 @@ export default function results(
       return { ...state, flights };
 
     case FETCH_FLIGHT_DATES:
-      return type;
+      return state;
 
     case RESET_FLIGHT_DATES:
       return { ...state, dates };
@@ -65,13 +65,13 @@ export default function results(
       return { ...state, flights, pages, total };
 
     case FETCH_FLIGHTS_BY_PILOT:
-      return type;
+      return state;
 
     case RECEIVE_FLIGHTS_BY_PILOT:
       return { ...state, flights, pages, total };
 
     case FETCH_FLIGHTS_BY_DISTANCE:
-      return type;
+      return state;
 
     case RECEIVE_FLIGHTS_BY_DISTANCE:
       return { ...state, flights, pages, total };

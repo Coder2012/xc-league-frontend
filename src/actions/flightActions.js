@@ -83,65 +83,69 @@ export function resetFlights() {
 }
 
 export function fetchPilots() {
-  return dispatch => {
-    fetch(`${domain}/flights/pilots`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors'
-    })
-      .then(response =>
-        response.json().then(data => ({
-          data: data,
-          status: response.status
-        }))
-      )
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(receivePilotNames(response.data));
-        }
-      })
-      .catch(error => {
-        console.log(errors.ERROR_FETCHING_PILOTS);
-        dispatch(fetchError(errors.ERROR_FETCHING_PILOTS));
-      });
-  };
+  return { type: types.FETCH_PILOTS }
 }
 
+// export function fetchPilots() {
+//   return dispatch => {
+//     fetch(`${domain}/flights/pilots`, {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       mode: 'cors'
+//     })
+//       .then(response =>
+//         response.json().then(data => ({
+//           data: data,
+//           status: response.status
+//         }))
+//       )
+//       .then(response => {
+//         if (response.status === 200) {
+//           dispatch(receivePilotNames(response.data));
+//         }
+//       })
+//       .catch(error => {
+//         console.log(errors.ERROR_FETCHING_PILOTS);
+//         dispatch(fetchError(errors.ERROR_FETCHING_PILOTS));
+//       });
+//   };
+// }
+
 export function fetchFlightsByPilot(pilot, limit, page, responseType = 'full') {
-  return dispatch => {
-    dispatch(fetching(true));
-    fetch(`${domain}/flights/all`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors',
-      body: JSON.stringify({
-        pilot: pilot,
-        page: page,
-        limit: limit,
-        responseType: responseType
-      })
-    })
-      .then(response =>
-        response.json().then(data => ({
-          data: data,
-          status: response.status
-        }))
-      )
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(fetching(false));
-          dispatch(receiveFlightsByPilot(response.data));
-        }
-      })
-      .catch(error => {
-        console.log(errors.ERROR_FETCHING_FLIGHTS_BY_PILOT);
-        dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS_BY_PILOT));
-      });
-  };
+  // return dispatch => {
+  //   dispatch(fetching(true));
+  //   fetch(`${domain}/flights/all`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     mode: 'cors',
+  //     body: JSON.stringify({
+  //       pilot: pilot,
+  //       page: page,
+  //       limit: limit,
+  //       responseType: responseType
+  //     })
+  //   })
+  //     .then(response =>
+  //       response.json().then(data => ({
+  //         data: data,
+  //         status: response.status
+  //       }))
+  //     )
+  //     .then(response => {
+  //       if (response.status === 200) {
+  //         dispatch(fetching(false));
+  //         dispatch(receiveFlightsByPilot(response.data));
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(errors.ERROR_FETCHING_FLIGHTS_BY_PILOT);
+  //       dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS_BY_PILOT));
+  //     });
+  // };
 }
 
 export function fetchFlightsByDistance(
@@ -150,38 +154,38 @@ export function fetchFlightsByDistance(
   page,
   responseType = 'full'
 ) {
-  return dispatch => {
-    dispatch(fetching(true));
-    fetch(`${domain}/flights/all`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors',
-      body: JSON.stringify({
-        distance: distance,
-        page: page,
-        limit: limit,
-        responseType: responseType
-      })
-    })
-      .then(response =>
-        response.json().then(data => ({
-          data: data,
-          status: response.status
-        }))
-      )
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(fetching(false));
-          dispatch(receiveFlightsByDistance(response.data));
-        }
-      })
-      .catch(error => {
-        console.log(errors.ERROR_FETCHING_FLIGHTS_BY_DISTANCE);
-        dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS_BY_DISTANCE));
-      });
-  };
+  // return dispatch => {
+  //   dispatch(fetching(true));
+  //   fetch(`${domain}/flights/all`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     mode: 'cors',
+  //     body: JSON.stringify({
+  //       distance: distance,
+  //       page: page,
+  //       limit: limit,
+  //       responseType: responseType
+  //     })
+  //   })
+  //     .then(response =>
+  //       response.json().then(data => ({
+  //         data: data,
+  //         status: response.status
+  //       }))
+  //     )
+  //     .then(response => {
+  //       if (response.status === 200) {
+  //         dispatch(fetching(false));
+  //         dispatch(receiveFlightsByDistance(response.data));
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(errors.ERROR_FETCHING_FLIGHTS_BY_DISTANCE);
+  //       dispatch(fetchError(errors.ERROR_FETCHING_FLIGHTS_BY_DISTANCE));
+  //     });
+  // };
 }
 
 export function fetchFlightDates(startDate, endDate) {
