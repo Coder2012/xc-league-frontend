@@ -55,10 +55,10 @@ export const dayData = () => {
   const today = getDayString(date, 'gb-en');
   const weekdays = getWeekDays(date, 'gb-en');
 
-  let options = []
+  let options = [];
   for (let day of weekdays) {
-      let value = (day === today) ? 'UK4' : day;
-      options.push({ value, label: day });
+    let value = day === today ? 'UK4' : day;
+    options.push({ value, label: day });
   }
 
   return {

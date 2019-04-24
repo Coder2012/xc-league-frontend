@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as flightActions from '../../actions/flightActions';
 import cloneDeep from 'clone-deep';
 import ErrorMessage from '../../components/Error';
 import Flight from '../../components/Flight';
@@ -169,7 +167,10 @@ class Flights extends Component {
 
     this.resetState(() => {
       // this.props.flightActions.fetchFlightDates(startDate, endDate);
-      this.props.dispatch({ type: types.FETCH_FLIGHT_DATES, payload: { startDate, endDate } })
+      this.props.dispatch({
+        type: types.FETCH_FLIGHT_DATES,
+        payload: { startDate, endDate }
+      });
     });
   }
 
@@ -238,7 +239,7 @@ class Flights extends Component {
         limit: this.state.controls.limit,
         page: this.state.controls.page
       }
-    })
+    });
     // this.props.flightActions.fetchFlightsByPilot(
     //   this.state.pilot,
     //   this.state.controls.limit,
@@ -252,9 +253,9 @@ class Flights extends Component {
       payload: {
         distance: this.state.distance,
         limit: this.state.controls.limit,
-        page: this.state.controls.page,
+        page: this.state.controls.page
       }
-    })
+    });
     // this.props.flightActions.fetchFlightsByDistance(
     //   this.state.distance,
     //   this.state.controls.limit,
@@ -381,14 +382,4 @@ const mapStateToProps = ({ results, search }) => ({
   searchType: search.searchType
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    flightActions: bindActionCreators(flightActions, dispatch),
-    dispatch
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  // mapDispatchToProps
-)(Flights);
+export default connect(mapStateToProps)(Flights);

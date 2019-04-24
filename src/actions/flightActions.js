@@ -82,9 +82,9 @@ export function resetFlights() {
   };
 }
 
-export function fetchPilots() {
-  return { type: types.FETCH_PILOTS }
-}
+// export function fetchPilots() {
+//   return { type: types.FETCH_PILOTS }
+// }
 
 // export function fetchPilots() {
 //   return dispatch => {

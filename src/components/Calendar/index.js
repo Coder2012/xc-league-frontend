@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import deepEqual from "deep-equal";
-import ReactCalendar from "react-calendar";
-import "../../react-calendar/styles.css";
+import React, { Component } from 'react';
+import deepEqual from 'deep-equal';
+import ReactCalendar from 'react-calendar';
+import '../../react-calendar/styles.css';
 
 class Calendar extends Component {
   constructor(props) {
@@ -12,19 +12,19 @@ class Calendar extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (deepEqual(this.props.dates, nextProps.dates)) {
-      console.log("dont render");
+      console.log('dont render');
       return false;
     }
     this.tileContent = this.tileContent.bind(this);
-    console.log("need to render");
+    console.log('need to render');
     return true;
   }
 
   tileContent({ date, view }) {
     let flightCount = this.dateExists(date.getMonth(), date.getDate());
-    console.log('flightCount:', flightCount)
+    console.log('flightCount:', flightCount);
     if (flightCount) {
-      return view === "month" && flightCount ? (
+      return view === 'month' && flightCount ? (
         <span className={`calendar-flights ${this.getCountClass(flightCount)}`}>
           {date.getDate()}
         </span>
@@ -52,11 +52,11 @@ class Calendar extends Component {
 
   getCountClass(count) {
     if (count >= 10 && count <= 50) {
-      return "flight-count-medium";
+      return 'flight-count-medium';
     } else if (count > 50) {
-      return "flight-count-high";
+      return 'flight-count-high';
     }
-    return "flight-count-low";
+    return 'flight-count-low';
   }
 
   render() {
@@ -65,7 +65,7 @@ class Calendar extends Component {
         <ReactCalendar
           tileClassName="calendar-item"
           tileContent={this.tileContent}
-          minDate={new Date("2005-01-01")}
+          minDate={new Date('2005-01-01')}
           maxDate={new Date()}
           onChange={this.props.dateChangeHandler}
           onClickMonth={this.props.monthChangeHandler}
