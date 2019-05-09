@@ -32,5 +32,8 @@
   "devDependencies": {
     "eslint-plugin-prettier": "^3.0.1",
     "prettier": "^1.17.0"
+  },
+  "resolutions": {
+    "babel-jest": "24.7.1"
   }
 }
