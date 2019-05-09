@@ -5,6 +5,7 @@ import Button from '../Button/index';
 import Form from '../Form';
 import * as searchActions from '../../actions/searchActions';
 import * as flightActions from '../../actions/flightActions';
+import * as types from '../../actions/actionTypes';
 import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
@@ -42,23 +43,26 @@ class Header extends React.Component {
 
   pilotButtonHandler() {
     this.setActive();
-    this.props.searchActions.setSearchType('pilot');
-    this.props.flightActions.resetFlights();
-    this.props.searchActions.hideRaspForm(true);
+    this.props.dispatch(searchActions.setSearchType('pilot'));
+    this.sendActions();
   }
   
   dateButtonHandler() {
     this.setActive();
-    this.props.searchActions.setSearchType('date');
-    this.props.flightActions.resetFlights();
-    this.props.searchActions.hideRaspForm(true);
+    this.props.dispatch(searchActions.setSearchType('date'));
+    this.sendActions();
   }
   
   distanceButtonHandler() {
     this.setActive();
-    this.props.searchActions.setSearchType('distance');
-    this.props.flightActions.resetFlights();
-    this.props.searchActions.hideRaspForm(true);
+    this.props.dispatch(searchActions.setSearchType('distance'));
+    this.sendActions();
+  }
+
+  sendActions() {
+    this.props.dispatch(searchActions.clearError());
+    this.props.dispatch(searchActions.resetFlights());
+    this.props.dispatch(searchActions.hideRaspForm(true));
   }
 
   setActive() {
@@ -73,7 +77,11 @@ class Header extends React.Component {
           ' '
         )}
       >
-        <section className={[Layout['text-centre'], Layout['horizontal-centre']].join(' ')}>
+        <section
+          className={[Layout['text-centre'], Layout['horizontal-centre']].join(
+            ' '
+          )}
+        >
           <img alt="" className={Styles['header__logo']} src={LogoSVG} />
           <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
             <Button
@@ -109,7 +117,15 @@ class Header extends React.Component {
               icon={CalendarSVG}
               text={this.state.distanceText}
             />
-            <p>{this.props.isFetching && <img className={Styles['header__spinner']} src={SpinnerSVG} alt="loading..." />}</p>
+            <p>
+              {this.props.isFetching && (
+                <img
+                  className={Styles['header__spinner']}
+                  src={SpinnerSVG}
+                  alt="loading..."
+                />
+              )}
+            </p>
           </div>
         </section>
         {!this.props.hideForm && <Form />}
@@ -132,6 +148,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
+  // mapDispatchToProps
 )(Header);

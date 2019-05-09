@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as flightActions from '../../actions/flightActions';
 import Styles from './styles.module.css';
 import LayoutStyles from '../../Layout.module.css';
+import * as types from '../../actions/actionTypes';
 
 class ErrorMessage extends Component {
-
   componentDidUpdate(prevProps, prevState) {
-      if(this.props.message !== null) {
-          setTimeout(() => {
-              this.props.flightActions.clearError();
-          }, 2000);
-      }
+    if (this.props.message !== null) {
+      setTimeout(() => {
+        this.dispatch({
+          type: types.CLEAR_ERROR,
+          message: null
+        });
+      }, 2000);
+    }
   }
 
   render() {
@@ -32,10 +33,4 @@ const mapStateToProps = ({ results }) => ({
   message: results.message
 });
 
-function mapDispatchToProps(dispatch) {
-    return {
-      flightActions: bindActionCreators(flightActions, dispatch)
-    };
-  }
-
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorMessage);
+export default connect(mapStateToProps)(ErrorMessage);

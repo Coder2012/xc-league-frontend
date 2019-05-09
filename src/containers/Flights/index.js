@@ -61,7 +61,6 @@ class Flights extends Component {
 
   componentDidMount() {
     this.monthChangeHandler(new Date());
-    // this.props.flightActions.fetchPilots();
     this.props.dispatch({ type: types.FETCH_PILOTS });
   }
 
@@ -166,7 +165,6 @@ class Flights extends Component {
     let endDate = `${finishYear}-${finishMonth}-${lastDay}`;
 
     this.resetState(() => {
-      // this.props.flightActions.fetchFlightDates(startDate, endDate);
       this.props.dispatch({
         type: types.FETCH_FLIGHT_DATES,
         payload: { startDate, endDate }
@@ -175,7 +173,6 @@ class Flights extends Component {
   }
 
   calendarNavChangeHandler({ activeStartDate }) {
-    // this.props.flightActions.resetFlightDates();
     this.monthChangeHandler(activeStartDate);
   }
 
@@ -224,11 +221,14 @@ class Flights extends Component {
   }
 
   fetchFlightsByDate() {
-    this.props.flightActions.fetchFlightsByDate(
-      this.state.selectedDate,
-      this.state.controls.limit,
-      this.state.controls.page
-    );
+    this.props.dispatch({
+      type: types.FETCH_FLIGHTS_BY_DATE,
+      payload: {
+        date: this.state.selectedDate,
+        limit: this.state.controls.limit,
+        page: this.state.controls.page
+      }
+    });
   }
 
   fetchFlightsByPilot() {
@@ -240,11 +240,6 @@ class Flights extends Component {
         page: this.state.controls.page
       }
     });
-    // this.props.flightActions.fetchFlightsByPilot(
-    //   this.state.pilot,
-    //   this.state.controls.limit,
-    //   this.state.controls.page
-    // );
   }
 
   fetchFlightsByDistance() {
@@ -256,11 +251,6 @@ class Flights extends Component {
         page: this.state.controls.page
       }
     });
-    // this.props.flightActions.fetchFlightsByDistance(
-    //   this.state.distance,
-    //   this.state.controls.limit,
-    //   this.state.controls.page
-    // );
   }
 
   fetchFlightsExportHandler() {

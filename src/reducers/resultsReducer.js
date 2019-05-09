@@ -59,7 +59,7 @@ export default function results(
       return { ...state, dates };
 
     case FETCH_FLIGHTS_BY_DATE:
-      return type;
+      return state;
 
     case RECEIVE_FLIGHTS_BY_DATE:
       return { ...state, flights, pages, total };
