@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '../Button/index';
@@ -15,124 +15,106 @@ import Styles from './styles.module.css';
 import ButtonStyles from '../Button/styles.module.css';
 import Layout from '../../Layout.module.css';
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
+const Header = props => {
+  const [isActive, setIsActive] = useState(false);
+  const [pilotText, setPilotText] = useState('Search by pilot name');
+  const [calendarText, setCalendarText] = useState('Search by flight data');
+  const [distanceText, setDistanceText] = useState('Search by flight score');
 
-    this.state = {
-      isActive: false,
-      pilotText: 'Search by pilot name',
-      calendarText: 'Search by flight date',
-      distanceText: 'Search by flight score'
-    };
-
-    this.pilotButtonHandler = this.pilotButtonHandler.bind(this);
-    this.dateButtonHandler = this.dateButtonHandler.bind(this);
-    this.distanceButtonHandler = this.distanceButtonHandler.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     if (isSmall()) {
-      this.setState({
-        pilotText: 'Pilot',
-        calendarText: 'Date',
-        distanceText: 'Score'
-      });
+      setPilotText('Pilot');
+      setCalendarText('Date');
+      setDistanceText('Score');
     }
-  }
+  });
 
-  pilotButtonHandler() {
-    this.setActive();
-    this.props.dispatch(searchActions.setSearchType('pilot'));
-    this.sendActions();
-  }
-  
-  dateButtonHandler() {
-    this.setActive();
-    this.props.dispatch(searchActions.setSearchType('date'));
-    this.sendActions();
-  }
-  
-  distanceButtonHandler() {
-    this.setActive();
-    this.props.dispatch(searchActions.setSearchType('distance'));
-    this.sendActions();
-  }
+  const pilotButtonHandler = () => {
+    setIsActive(true);
+    props.dispatch(searchActions.setSearchType('pilot'));
+    sendActions();
+  };
 
-  sendActions() {
-    this.props.dispatch(searchActions.clearError());
-    this.props.dispatch(searchActions.resetFlights());
-    this.props.dispatch(searchActions.hideRaspForm(true));
-  }
+  const dateButtonHandler = () => {
+    setIsActive(true);
+    props.dispatch(searchActions.setSearchType('date'));
+    sendActions();
+  };
 
-  setActive() {
-    this.setState({ isActive: true });
-  }
+  const distanceButtonHandler = () => {
+    setIsActive(true);
+    props.dispatch(searchActions.setSearchType('distance'));
+    sendActions();
+  };
 
-  render() {
-    let headerActive = this.state.isActive ? Styles['header--active'] : '';
-    return (
-      <header
-        className={[Styles.header, headerActive, Layout['flex-column']].join(
+  const sendActions = () => {
+    props.dispatch(searchActions.clearError());
+    props.dispatch(searchActions.resetFlights());
+    props.dispatch(searchActions.hideRaspForm(true));
+  };
+
+  let headerActive = isActive ? Styles['header--active'] : '';
+
+  return (
+    <header
+      className={[Styles.header, headerActive, Layout['flex-column']].join(' ')}
+    >
+      <section
+        className={[Layout['text-centre'], Layout['horizontal-centre']].join(
           ' '
         )}
       >
-        <section
-          className={[Layout['text-centre'], Layout['horizontal-centre']].join(
-            ' '
-          )}
-        >
-          <img alt="" className={Styles['header__logo']} src={LogoSVG} />
-          <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
-            <Button
-              classes={[
-                ButtonStyles['primary-button'],
-                this.props.searchType === 'pilot'
-                  ? ButtonStyles['primary-button--selected']
-                  : ''
-              ].join(' ')}
-              clickHandler={this.pilotButtonHandler}
-              icon={UserSVG}
-              text={this.state.pilotText}
-            />
-            <Button
-              classes={[
-                ButtonStyles['primary-button'],
-                this.props.searchType === 'date'
-                  ? ButtonStyles['primary-button--selected']
-                  : ''
-              ].join(' ')}
-              clickHandler={this.dateButtonHandler}
-              icon={CalendarSVG}
-              text={this.state.calendarText}
-            />
-            <Button
-              classes={[
-                ButtonStyles['primary-button'],
-                this.props.searchType === 'distance'
-                  ? ButtonStyles['primary-button--selected']
-                  : ''
-              ].join(' ')}
-              clickHandler={this.distanceButtonHandler}
-              icon={CalendarSVG}
-              text={this.state.distanceText}
-            />
-            <p>
-              {this.props.isFetching && (
-                <img
-                  className={Styles['header__spinner']}
-                  src={SpinnerSVG}
-                  alt="loading..."
-                />
-              )}
-            </p>
-          </div>
-        </section>
-        {!this.props.hideForm && <Form />}
-      </header>
-    );
-  }
-}
+        <img alt="" className={Styles['header__logo']} src={LogoSVG} />
+        <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
+          <Button
+            classes={[
+              ButtonStyles['primary-button'],
+              props.searchType === 'pilot'
+                ? ButtonStyles['primary-button--selected']
+                : ''
+            ].join(' ')}
+            clickHandler={pilotButtonHandler}
+            icon={UserSVG}
+            text={pilotText}
+          />
+          <Button
+            classes={[
+              ButtonStyles['primary-button'],
+              props.searchType === 'date'
+                ? ButtonStyles['primary-button--selected']
+                : ''
+            ].join(' ')}
+            clickHandler={dateButtonHandler}
+            icon={CalendarSVG}
+            text={calendarText}
+          />
+          <Button
+            classes={[
+              ButtonStyles['primary-button'],
+              props.searchType === 'distance'
+                ? ButtonStyles['primary-button--selected']
+                : ''
+            ].join(' ')}
+            clickHandler={distanceButtonHandler}
+            icon={CalendarSVG}
+            text={distanceText}
+          />
+          <p>
+            {props.isFetching && (
+              <img
+                className={Styles['header__spinner']}
+                src={SpinnerSVG}
+                alt="loading..."
+              />
+            )}
+          </p>
+        </div>
+      </section>
+      {!props.hideForm && <Form />}
+    </header>
+  );
+  // }
+};
 
 const mapStateToProps = ({ search, results }) => ({
   searchType: search.searchType,
