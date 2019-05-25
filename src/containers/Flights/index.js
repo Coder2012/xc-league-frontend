@@ -254,7 +254,7 @@ class Flights extends Component {
   }
 
   fetchFlightsExportHandler() {
-    this.props.flightActions.fetchFlightsExport(this.props.results.flights);
+    this.props.dispatch({ type: types.FETCH_FLIGHT_EXPORT });
   }
 
   render() {

@@ -1,5 +1,9 @@
 const domain = 'https://xc-league.herokuapp.com';
 
+export const getExport = () => {
+  window.location = `${domain}/flights/export`;
+}
+
 export const getPilots = () => {
   return fetch(`${domain}/flights/pilots`, {
     method: 'GET',

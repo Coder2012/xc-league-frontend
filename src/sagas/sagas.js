@@ -70,12 +70,17 @@ function* fetchFlightsByDate(action) {
   } catch (e) {}
 }
 
+function* fetchFlightExport() {
+  yield call(API.getExport);
+}
+
 function* mySaga() {
   yield takeEvery('FETCH_PILOTS', fetchPilots);
   yield takeEvery('FETCH_FLIGHT_DATES', fetchFlightDates);
   yield takeEvery('FETCH_FLIGHTS_BY_DATE', fetchFlightsByDate);
   yield takeEvery('FETCH_FLIGHTS_BY_PILOT', fetchFlightsByPilot);
   yield takeEvery('FETCH_FLIGHTS_BY_DISTANCE', fetchFlightsByDistance);
+  yield takeEvery('FETCH_FLIGHT_EXPORT', fetchFlightExport);
 }
 
 export default mySaga;
