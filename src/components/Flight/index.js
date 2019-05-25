@@ -28,7 +28,6 @@ const Flight = ({ data, display }) => {
         </p>
         <Button
           classes={[
-            ButtonStyles['primary-button'],
             ButtonStyles['primary-button--link'],
             ButtonStyles['primary-button--link-external']
           ].join(' ')}
