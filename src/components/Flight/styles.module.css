@@ -7,7 +7,7 @@
 }
 
 .flight__header {
-    /* background-color: #F6FFE2; */
+    position: relative;
     padding: 10px;
 }
 
