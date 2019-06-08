@@ -22,7 +22,7 @@ function* fetchFlightDates(action) {
       dates: getDatesCount(dates)
     });
   } catch (e) {
-    console.log('error');
+    console.log('Error receiving flights by date');
   }
 }
 
@@ -57,7 +57,6 @@ function* fetchFlightsByDistance(action) {
 }
 
 function* fetchFlightsByDate(action) {
-  console.log('fetch flights by date');
   try {
     const data = yield call(API.getFlightsByDate, action);
 

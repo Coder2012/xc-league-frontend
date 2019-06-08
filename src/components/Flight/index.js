@@ -10,7 +10,6 @@ const Flight = ({ data, display }) => {
   const date = new Date(data.date);
 
   const externalLinkHandler = () => {
-    console.log(data.link);
     window.open(data.link, '_blank');
   };
 

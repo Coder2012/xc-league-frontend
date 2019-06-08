@@ -12,17 +12,14 @@ class Calendar extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (deepEqual(this.props.dates, nextProps.dates)) {
-      console.log('dont render');
       return false;
     }
     this.tileContent = this.tileContent.bind(this);
-    console.log('need to render');
     return true;
   }
 
   tileContent({ date, view }) {
     let flightCount = this.dateExists(date.getMonth(), date.getDate());
-    console.log('flightCount:', flightCount);
     if (flightCount) {
       return view === 'month' && flightCount ? (
         <span className={`calendar-flights ${this.getCountClass(flightCount)}`}>

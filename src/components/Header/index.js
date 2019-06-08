@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Button from '../Button/index';
 import Form from '../Form';
 import * as searchActions from '../../actions/searchActions';
-import * as flightActions from '../../actions/flightActions';
-import * as types from '../../actions/actionTypes';
 import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
@@ -27,7 +24,7 @@ const Header = props => {
       setCalendarText('Date');
       setDistanceText('Score');
     }
-  });
+  }, [pilotText, calendarText, distanceText]);
 
   const pilotButtonHandler = () => {
     setIsActive(true);
@@ -122,14 +119,4 @@ const mapStateToProps = ({ search, results }) => ({
   isFetching: results.isFetching
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    searchActions: bindActionCreators(searchActions, dispatch),
-    flightActions: bindActionCreators(flightActions, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps
-  // mapDispatchToProps
-)(Header);
+export default connect(mapStateToProps)(Header);

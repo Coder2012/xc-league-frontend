@@ -60,7 +60,6 @@ class PilotSearch extends Component {
         return { selectedId: index };
       },
       () => {
-        console.log(name);
         this.props.clickHandler(name);
       }
     );

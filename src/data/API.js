@@ -105,7 +105,6 @@ export const getFlightsByDistance = action => {
     )
     .then(response => {
       if (response.status === 200) {
-        console.log('success');
         return response.data;
       }
     });
