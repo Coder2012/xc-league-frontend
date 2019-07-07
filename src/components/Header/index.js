@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactGA from 'react-ga';
 import { connect } from 'react-redux';
 import Button from '../Button/index';
 import Form from '../Form';
@@ -30,24 +31,35 @@ const Header = props => {
     setIsActive(true);
     props.dispatch(searchActions.setSearchType('pilot'));
     sendActions();
+    sendAnalytics('Search by pilot');
   };
 
   const dateButtonHandler = () => {
     setIsActive(true);
     props.dispatch(searchActions.setSearchType('date'));
     sendActions();
+    sendAnalytics('Search by date');
   };
 
   const distanceButtonHandler = () => {
     setIsActive(true);
     props.dispatch(searchActions.setSearchType('distance'));
     sendActions();
+    sendAnalytics('Search by distance');
   };
 
   const sendActions = () => {
     props.dispatch(searchActions.clearError());
     props.dispatch(searchActions.resetFlights());
     props.dispatch(searchActions.hideRaspForm(true));
+  };
+
+  const sendAnalytics = text => {
+    ReactGA.event({
+      category: 'Navigation',
+      action: 'Button Click',
+      label: text
+    });
   };
 
   let headerActive = isActive ? Styles['header--active'] : '';
