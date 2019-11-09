@@ -1,4 +1,4 @@
-const domain = 'https://xc-league.herokuapp.com';
+import { domain } from '../helpers/domain';
 
 export const getExport = () => {
   window.location = `${domain}/flights/export`;
