@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
 import { getDatesCount } from '../helpers/date';
 import * as API from '../data/API';
+import * as errors from '../data/constants';
 
 function* fetchPilots() {
   try {
@@ -9,7 +10,7 @@ function* fetchPilots() {
 
     yield put({ type: types.RECEIVE_PILOTS, pilots });
   } catch (e) {
-    yield put({ type: 'ERROR_FETCHING_PILOTS', message: e.message });
+    yield put({ type: types.ERROR, message: errors.ERROR_FETCHING_PILOTS });
   }
 }
 
@@ -22,7 +23,7 @@ function* fetchFlightDates(action) {
       dates: getDatesCount(dates)
     });
   } catch (e) {
-    console.log('Error receiving flights by date');
+    yield put({ type: types.ERROR, message: errors.ERROR_FETCHING_DATES });
   }
 }
 
@@ -37,7 +38,7 @@ function* fetchFlightsByPilot(action) {
       total: data.total
     });
   } catch (e) {
-    console.log('failed fetching flights by pilot');
+    yield put({ type: types.ERROR, message: errors.ERROR_FETCHING_FLIGHTS_BY_PILOT});
   }
 }
 
@@ -52,7 +53,7 @@ function* fetchFlightsByDistance(action) {
       total: data.total
     });
   } catch (e) {
-    console.log('failed to get flights by distance');
+    yield put({ type: types.ERROR, message: errors.ERROR_FETCHING_FLIGHTS_BY_DISTANCE});
   }
 }
 
@@ -66,7 +67,9 @@ function* fetchFlightsByDate(action) {
       pages: data.pages,
       total: data.total
     });
-  } catch (e) {}
+  } catch (e) {
+    yield put({ type: types.ERROR, message: errors.ERROR_FETCHING_FLIGHTS_BY_DATE});
+  }
 }
 
 function* fetchFlightExport() {
