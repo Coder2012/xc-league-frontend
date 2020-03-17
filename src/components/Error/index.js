@@ -8,7 +8,7 @@ class ErrorMessage extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.props.message !== null) {
       setTimeout(() => {
-        this.dispatch({
+        this.props.dispatch({
           type: types.CLEAR_ERROR,
           message: null
         });
