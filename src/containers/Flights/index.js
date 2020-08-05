@@ -6,7 +6,7 @@ import Flight from '../../components/Flight';
 import Pagination from '../../components/Pagination';
 import Limit from '../../components/Limit';
 import Calendar from '../../components/Calendar/index';
-import PilotSearch from '../../components/PilotSearch/index';
+import { PilotSearch } from '../../components/PilotSearch';
 
 import Layout from '../../Layout.module.css';
 import Styles from './styles.module.css';

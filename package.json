@@ -6,6 +6,8 @@
     "@sentry/browser": "^5.20.0",
     "clone-deep": "^4.0.1",
     "deep-equal": "^2.0.3",
+    "effector": "^21.2.0",
+    "effector-react": "^21.0.4",
     "react": "^16.13.1",
     "react-calendar": "^2.19.2",
     "react-dom": "^16.13.1",
@@ -32,6 +34,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "effector-logger": "^0.6.1",
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^1.19.1"
   }
