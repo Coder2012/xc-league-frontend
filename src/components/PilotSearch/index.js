@@ -8,17 +8,18 @@ import Layout from '../../Layout.module.css';
 
 export const PilotSearch = ({ clickHandler }) => {
   const $store = useStore(pilotsService.$);
+  const [pilots, setPilots] = useState([]);
   const [state, setState] = useState({
     selectedId: undefined,
     showCount: 8,
     showMore: false,
-    pilots: [],
     pattern: /_/
   });
 
   useEffect(() => {
-    setState(state => ({ ...state, pilots: $store.pilots }));
-  }, [$store.pilots]);
+    const pilots = $store.filter(pilot => state.pattern.test(pilot));
+    setPilots(pilots);
+  }, [$store.pilots, state.pattern]);
 
   const handleOnChange = e => {
     let value = e.target.value.length < 3 ? '_' : e.target.value;
@@ -48,28 +49,6 @@ export const PilotSearch = ({ clickHandler }) => {
     />
   );
 
-  let pilots = state.pilots
-    .filter(pilot => state.pattern.test(pilot))
-    .map((pilot, index) => {
-      if (index < state.showCount) {
-        return (
-          <Button
-            id={index}
-            key={index}
-            classes={[
-              ButtonStyles['secondary-button'],
-              state.selectedId === index
-                ? ButtonStyles['secondary-button--selected']
-                : ''
-            ].join(' ')}
-            clickHandler={() => handleSelectedPilot(`${pilot}`, index)}
-            text={pilot}
-          />
-        );
-      }
-      return null;
-    });
-
   return (
     <section className={[Layout['flex-column'], Styles.search].join(' ')}>
       <label className={Styles['search__name']}>Enter Pilot Name</label>
@@ -80,7 +59,25 @@ export const PilotSearch = ({ clickHandler }) => {
         onChange={handleOnChange}
       />
       <section className={Layout['v-space-around']}>
-        {pilots}
+        {pilots.map((pilot, index) => {
+          if (index < state.showCount) {
+            return (
+              <Button
+                id={index}
+                key={index}
+                classes={[
+                  ButtonStyles['secondary-button'],
+                  state.selectedId === index
+                    ? ButtonStyles['secondary-button--selected']
+                    : ''
+                ].join(' ')}
+                clickHandler={() => handleSelectedPilot(`${pilot}`, index)}
+                text={pilot}
+              />
+            );
+          }
+          return null;
+        })}
         {pilots.length > state.showCount ? showMore : null}
       </section>
     </section>

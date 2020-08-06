@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactGA from 'react-ga';
-import { connect } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+
 import Button from '../Button/index';
-import Form from '../Form';
 import * as searchActions from '../../actions/searchActions';
 import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
@@ -13,45 +13,35 @@ import Styles from './styles.module.css';
 import ButtonStyles from '../Button/styles.module.css';
 import Layout from '../../Layout.module.css';
 
-const Header = props => {
-  const [isActive, setIsActive] = useState(false);
+export const Header = props => {
+  const history = useHistory();
+  const location = useLocation();
+  console.log(location);
   const [pilotText, setPilotText] = useState('Search by pilot name');
-  const [calendarText, setCalendarText] = useState('Search by flight data');
-  const [distanceText, setDistanceText] = useState('Search by flight score');
+  const [calendarText, setCalendarText] = useState('Search by flight date');
+  const [scoreText, setScoreText] = useState('Search by flight score');
 
   useEffect(() => {
     if (isSmall()) {
       setPilotText('Pilot');
       setCalendarText('Date');
-      setDistanceText('Score');
+      setScoreText('Score');
     }
-  }, [pilotText, calendarText, distanceText]);
+  }, [pilotText, calendarText, scoreText]);
 
   const pilotButtonHandler = () => {
-    setIsActive(true);
-    props.dispatch(searchActions.setSearchType('pilot'));
-    sendActions();
+    history.push('/pilot');
     sendAnalytics('Search by pilot');
   };
 
   const dateButtonHandler = () => {
-    setIsActive(true);
-    props.dispatch(searchActions.setSearchType('date'));
-    sendActions();
+    history.push('/date');
     sendAnalytics('Search by date');
   };
 
-  const distanceButtonHandler = () => {
-    setIsActive(true);
-    props.dispatch(searchActions.setSearchType('distance'));
-    sendActions();
-    sendAnalytics('Search by distance');
-  };
-
-  const sendActions = () => {
-    props.dispatch(searchActions.clearError());
-    props.dispatch(searchActions.resetFlights());
-    props.dispatch(searchActions.hideRaspForm(true));
+  const scoreButtonHandler = () => {
+    history.push('/score');
+    sendAnalytics('Search by score');
   };
 
   const sendAnalytics = text => {
@@ -62,7 +52,7 @@ const Header = props => {
     });
   };
 
-  let headerActive = isActive ? Styles['header--active'] : '';
+  let headerActive = location.pathname === '/' ? '' : Styles['header--active'];
 
   return (
     <header
@@ -73,7 +63,7 @@ const Header = props => {
           ' '
         )}
       >
-        <img alt="" className={Styles['header__logo']} src={LogoSVG} />
+        <img alt="" className={Styles['header__logo']} src={LogoSVG} onClick={() => history.push('/')} />
         <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
           <Button
             classes={[
@@ -104,9 +94,9 @@ const Header = props => {
                 ? ButtonStyles['primary-button--selected']
                 : ''
             ].join(' ')}
-            clickHandler={distanceButtonHandler}
+            clickHandler={scoreButtonHandler}
             icon={CalendarSVG}
-            text={distanceText}
+            text={scoreText}
           />
           <p>
             {props.isFetching && (
@@ -119,16 +109,6 @@ const Header = props => {
           </p>
         </div>
       </section>
-      {!props.hideForm && <Form />}
     </header>
   );
-  // }
 };
-
-const mapStateToProps = ({ search, results }) => ({
-  searchType: search.searchType,
-  hideForm: search.hideForm,
-  isFetching: results.isFetching
-});
-
-export default connect(mapStateToProps)(Header);

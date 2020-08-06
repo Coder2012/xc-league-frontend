@@ -6,7 +6,7 @@ import { getWeekDays, getDayString } from '../../helpers/date';
 import Layout from '../../Layout.module.css';
 import Styles from './styles.module.css';
 
-const Form = () => {
+export const Weather = () => {
   const date = new Date();
   const today = getDayString(date, 'gb-en');
 
@@ -64,5 +64,3 @@ const Form = () => {
     </form>
   );
 };
-
-export default Form;
