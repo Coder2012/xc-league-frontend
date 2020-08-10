@@ -1,158 +1,3 @@
-import React, { Component, useState, useStore } from 'react';
-import { connect } from 'react-redux';
-import cloneDeep from 'clone-deep';
-import ErrorMessage from '../../components/Error';
-import Flight from '../../components/Flight';
-import Pagination from '../../components/Pagination';
-import Limit from '../../components/Limit';
-import Calendar from '../../components/Calendar/index';
-import { PilotSearch } from '../../components/PilotSearch';
-
-import Layout from '../../Layout.module.css';
-import Styles from './styles.module.css';
-import AppStyles from '../../App.module.css';
-import ViewType from '../../components/ViewType';
-import DistanceSearch from '../../components/DistanceSearch';
-import Button from '../../components/Button';
-import ButtonStyles from '../../components/Button/styles.module.css';
-
-import ExcelSVG from '../../assets/excel.svg';
-
-import * as types from '../../actions/actionTypes';
-
-export const Flights = ({ searchType, results, message }) => {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [pilot, setPilot] = useState('');
-  const [distance, setDistance] = useState(0);
-  const [distanceId, setDistanceId] = useState(null);
-  const [controls, setControls] = useState({
-    page: 1,
-    limit: 12,
-    limitId: 0,
-    responseType: 'full'
-  });
-
-  const limitHandler = (limit, index) => {
-    setControls(state => ({ ...state, limit, limitId: index, page: 1 }));
-    // updateSearch();
-  };
-
-  const searchHandler = pilot => {
-    this.resetState(() => {
-      this.setState(
-        {
-          pilot: pilot
-        },
-        () => {
-          this.fetchFlightsByPilot();
-        }
-      );
-    });
-  };
-
-  return (
-    <>
-      <section
-        className={[
-          Layout.gutters,
-          searchType !== '' ? Layout['fixed-spacer'] : ''
-        ].join(' ')}
-      >
-        <ErrorMessage message={message} />
-        {searchType === 'pilot' && (
-          <PilotSearch
-            data={results.pilots}
-            clickHandler={this.searchHandler}
-          />
-        )}
-        {searchType === 'date' && (
-          <Calendar
-            dates={results.dates}
-            dateChangeHandler={this.dateChangeHandler}
-            monthChangeHandler={this.monthChangeHandler}
-            calendarNavigationHandler={this.calendarNavChangeHandler}
-          />
-        )}
-        {searchType === 'distance' && (
-          <DistanceSearch
-            selectedId={distanceId}
-            clickHandler={this.distanceSearchHandler}
-          />
-        )}
-      </section>
-
-      {results.flights.length > 0 && (
-        <main className={Layout.gutters}>
-          {searchType === 'pilot' && pilot !== '' && (
-            <p className={AppStyles.subtitle}>
-              {results.total} Flights by {pilot}
-            </p>
-          )}
-          {searchType === 'date' && selectedDate !== '' && (
-            <p className={AppStyles.subtitle}>
-              {results.total} Flight
-              {results.total > 1 ? 's' : ''} on{' '}
-              {new Date(selectedDate).toDateString()}
-            </p>
-          )}
-          {searchType === 'distance' && distance !== 0 && (
-            <p className={AppStyles.subtitle}>
-              {results.total} Flight
-              {results.total > 1 ? 's' : ''} scoring over {distance}
-            </p>
-          )}
-
-          <section
-            className={[
-              Layout['flex-row'],
-              Layout['flex-mobile-column'],
-              Layout['horizontal-centre'],
-              AppStyles['controls']
-            ].join(' ')}
-          >
-            <Limit selectedId={controls.limitId} handler={limitHandler} />
-            <Pagination
-              page={controls.page}
-              pages={results.pages}
-              paginationHandler={this.paginationHandler}
-            />
-            <ViewType handler={this.responseTypeHandler} />
-          </section>
-          <Button
-            classes={[
-              ButtonStyles['primary-button'],
-              ButtonStyles['primary-button--narrow'],
-              searchType === 'pilot'
-                ? ButtonStyles['primary-button--selected']
-                : ''
-            ].join(' ')}
-            clickHandler={this.fetchFlightsExportHandler}
-            icon={ExcelSVG}
-            text={'Download'}
-          />
-          <section className={Styles.flights}>
-            {results.flights.map(flight => {
-              return (
-                <Flight
-                  key={flight.identifier}
-                  data={flight}
-                  display={controls.responseType}
-                />
-              );
-            })}
-          </section>
-          <Pagination
-            page={controls.page}
-            pages={results.pages}
-            paginationHandler={this.paginationHandler}
-          />
-          <p />
-        </main>
-      )}
-    </>
-  );
-};
-
 class XFlights extends Component {
   constructor(props) {
     super(props);
@@ -315,7 +160,7 @@ class XFlights extends Component {
         let controls = { ...previousState.controls };
         controls.page =
           operator === 'increment'
-            ? Math.min(controls.page + 1, this.props.results.pages)
+            ? Math.min(controls.page + 1, this.props.results?.pages)
             : Math.max(controls.page - 1, 1);
 
         if (previousState.controls.page === controls.page) {
@@ -402,13 +247,13 @@ class XFlights extends Component {
           <ErrorMessage message={this.props.message} />
           {this.props.searchType === 'pilot' && (
             <PilotSearch
-              data={this.props.results.pilots}
+              data={this.props.results?.pilots}
               clickHandler={this.searchHandler}
             />
           )}
           {this.props.searchType === 'date' && (
             <Calendar
-              dates={this.props.results.dates}
+              dates={this.props.results?.dates}
               dateChangeHandler={this.dateChangeHandler}
               monthChangeHandler={this.monthChangeHandler}
               calendarNavigationHandler={this.calendarNavChangeHandler}
@@ -422,25 +267,25 @@ class XFlights extends Component {
           )}
         </section>
 
-        {this.props.results.flights.length > 0 && (
+        {this.props.results?.flights.length > 0 && (
           <main className={Layout.gutters}>
             {this.props.searchType === 'pilot' && this.state.pilot !== '' && (
               <p className={AppStyles.subtitle}>
-                {this.props.results.total} Flights by {this.state.pilot}
+                {this.props.results?.total} Flights by {this.state.pilot}
               </p>
             )}
             {this.props.searchType === 'date' &&
               this.state.selectedDate !== '' && (
                 <p className={AppStyles.subtitle}>
-                  {this.props.results.total} Flight
-                  {this.props.results.total > 1 ? 's' : ''} on{' '}
+                  {this.props.results?.total} Flight
+                  {this.props.results?.total > 1 ? 's' : ''} on{' '}
                   {new Date(this.state.selectedDate).toDateString()}
                 </p>
               )}
             {this.props.searchType === 'distance' && this.state.distance !== 0 && (
               <p className={AppStyles.subtitle}>
-                {this.props.results.total} Flight
-                {this.props.results.total > 1 ? 's' : ''} scoring over{' '}
+                {this.props.results?.total} Flight
+                {this.props.results?.total > 1 ? 's' : ''} scoring over{' '}
                 {this.state.distance}
               </p>
             )}
@@ -459,7 +304,7 @@ class XFlights extends Component {
               />
               <Pagination
                 page={this.state.controls.page}
-                pages={this.props.results.pages}
+                pages={this.props.results?.pages}
                 paginationHandler={this.paginationHandler}
               />
               <ViewType handler={this.responseTypeHandler} />
@@ -477,7 +322,7 @@ class XFlights extends Component {
               text={'Download'}
             />
             <section className={Styles.flights}>
-              {this.props.results.flights.map(flight => {
+              {this.props.results?.flights.map(flight => {
                 return (
                   <Flight
                     key={flight.identifier}
@@ -489,7 +334,7 @@ class XFlights extends Component {
             </section>
             <Pagination
               page={this.state.controls.page}
-              pages={this.props.results.pages}
+              pages={this.props.results?.pages}
               paginationHandler={this.paginationHandler}
             />
             <p />

@@ -79,7 +79,7 @@ function* fetchFlightExport() {
 function* mySaga() {
   // yield takeLatest('FETCH_PILOTS', fetchPilots);
   // yield takeLatest('FETCH_FLIGHT_DATES', fetchFlightDates);
-  yield takeLatest('FETCH_FLIGHTS_BY_DATE', fetchFlightsByDate);
+  // yield takeLatest('FETCH_FLIGHTS_BY_DATE', fetchFlightsByDate);
   yield takeLatest('FETCH_FLIGHTS_BY_PILOT', fetchFlightsByPilot);
   yield takeLatest('FETCH_FLIGHTS_BY_DISTANCE', fetchFlightsByDistance);
   yield takeLatest('FETCH_FLIGHT_EXPORT', fetchFlightExport);

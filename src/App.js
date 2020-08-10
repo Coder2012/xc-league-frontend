@@ -4,9 +4,8 @@ import * as Sentry from '@sentry/browser';
 
 import { Header } from './components/Header';
 import { Pilot } from './views/Pilot';
-import { Date } from './views/Date';
+import { Dates } from './views/Dates';
 import { Score } from './views/Score';
-import Flights from './views/Flights/index';
 import Styles from './App.module.css';
 import ReactGA from 'react-ga';
 
@@ -32,8 +31,8 @@ export const App = () => {
         <Route path="/pilot">
           <Pilot />
         </Route>
-        <Route path="/date">
-          <Date />
+        <Route path="/dates">
+          <Dates />
         </Route>
         <Route path="/score">
           <Score />

@@ -1,42 +1,42 @@
-import React from "react";
-import Button from "./Button";
-import ButtonStyles from "../components/Button/styles.module.css";
-import Layout from "../Layout.module.css";
-import LeftArrowSVG from "../assets/left-arrow.svg";
-import RightArrowSVG from "../assets/right-arrow.svg";
+import React from 'react';
+import Button from './Button';
+import ButtonStyles from '../components/Button/styles.module.css';
+import Layout from '../Layout.module.css';
+import LeftArrowSVG from '../assets/left-arrow.svg';
+import RightArrowSVG from '../assets/right-arrow.svg';
 
-const Controls = props => {
+const Controls = ({ page, pages, paginationHandler }) => {
   return (
     <React.Fragment>
       <section
         className={[
-          Layout["flex-row"],
-          Layout["vertical-centre"],
-          Layout["horizontal-centre"],
-          Layout["h-space-around"]
-        ].join(" ")}
+          Layout['flex-row'],
+          Layout['vertical-centre'],
+          Layout['horizontal-centre'],
+          Layout['h-space-around']
+        ].join(' ')}
       >
         <Button
           classes={[
-            ButtonStyles["secondary-button"],
-            ButtonStyles["secondary-button--circle"],
-            ButtonStyles["secondary-button--circle-alternate"]
-          ].join(" ")}
-          clickHandler={() => props.paginationHandler("decrement")}
-          iconStyle={ButtonStyles["secondary-button__icon"]}
+            ButtonStyles['secondary-button'],
+            ButtonStyles['secondary-button--circle'],
+            ButtonStyles['secondary-button--circle-alternate']
+          ].join(' ')}
+          clickHandler={() => paginationHandler('decrement')}
+          iconStyle={ButtonStyles['secondary-button__icon']}
           icon={LeftArrowSVG}
         />
         <p>
-          Page {props.page}/{props.pages}
+          Page {page}/{pages}
         </p>
         <Button
           classes={[
-            ButtonStyles["secondary-button"],
-            ButtonStyles["secondary-button--circle"],
-            ButtonStyles["secondary-button--circle-alternate"]
-          ].join(" ")}
-          clickHandler={() => props.paginationHandler("increment")}
-          iconStyle={ButtonStyles["secondary-button__icon"]}
+            ButtonStyles['secondary-button'],
+            ButtonStyles['secondary-button--circle'],
+            ButtonStyles['secondary-button--circle-alternate']
+          ].join(' ')}
+          clickHandler={() => paginationHandler('increment')}
+          iconStyle={ButtonStyles['secondary-button__icon']}
           icon={RightArrowSVG}
         />
       </section>

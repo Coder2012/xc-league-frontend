@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStore } from 'effector-react';
 import { flightsService } from '../../services/flights';
+
 import { PilotSearch } from '../../components/PilotSearch';
+import { FlightDashboard } from '../../container/FlightsDashboard';
 
 export const Pilot = () => {
-  const { flightData, pages, total } = useStore(flightsService.$flights);
-  console.log(flightData?.length);
+  const [pilot, setPilot] = useState('');
+  const [controls, setControls] = useState({});
 
-  const searchHandler = pilot => {
-    flightsService.getFlightsByPilot(pilot);
-  };
+  const { flightData, pages } = useStore(flightsService.$flights);
+
+  useEffect(() => {
+    if (pilot !== '') {
+      flightsService.getFlightsByPilot({
+        pilot,
+        ...controls
+      });
+    }
+  }, [pilot, controls]);
+
   return (
     <>
-      <PilotSearch clickHandler={searchHandler} />
+      <PilotSearch clickHandler={pilot => setPilot(pilot)} />
+      <FlightDashboard
+        flightData={flightData}
+        pages={pages}
+        onControlsUpdate={controls => setControls(controls)}
+        resetControls={pilot}
+      />
     </>
   );
 };

@@ -18,7 +18,7 @@ export const getDates = domain.createEffect('dates effect', {
 });
 
 export const getFlightsByDate = domain.createEffect('flightsByDate effect', {
-  async handler({ date, limit = 10, page = 1, responseType = 'full' }) {
+  async handler({ date, limit = 12, page = 1, responseType = 'full' }) {
     const res = await fetch(`http://localhost:3000/flights/date`, {
       method: 'POST',
       headers: {
@@ -61,7 +61,7 @@ export const getFlightsByDistance = domain.createEffect(
 export const getFlightsByPilot = domain.createEffect(
   'flightsByPilot effect',
   {
-    async handler({ pilot, page, limit, responseType = 'full' }) {
+    async handler({ pilot, page = 1, limit = 12, responseType = 'full' }) {
       const res = await fetch(`http://localhost:3000/flights/all`, {
         method: 'POST',
         headers: {
