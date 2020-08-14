@@ -4,13 +4,15 @@ import { flightsService } from '../../services/flights';
 import { FlightDashboard } from '../../container/FlightsDashboard';
 import Calendar from '../../components/Calendar';
 
+import AppStyles from '../../App.module.css';
+
 export const Dates = () => {
   const [controls, setControls] = useState({});
   const [startDate, setStartDate] = useState(undefined);
   const [endDate, setEndDate] = useState(undefined);
   const [date, setDate] = useState(undefined);
   const { dates } = useStore(flightsService.$dates);
-  const { flightData, pages } = useStore(flightsService.$flights);
+  const { flightData, pages, total } = useStore(flightsService.$flights);
 
   useEffect(() => {
     monthChangeHandler(new Date());
@@ -33,70 +35,30 @@ export const Dates = () => {
         ...controls
       });
     }
-  }, [startDate, endDate]);
+    return () => flightsService.reset();
+  }, [startDate, endDate, controls]);
 
   const dateChangeHandler = date => {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let dt = date.getDate();
-
-    if (dt < 10) {
-      dt = '0' + dt;
-    }
-    if (month < 10) {
-      month = '0' + month;
-    }
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dt = date.getDate().toString().padStart(2, '0');
 
     setDate(`${year}-${month}-${dt}`);
-
-    // this.resetState(() => {
-    //   this.setState(
-    //     {
-    //       date: year + '-' + month + '-' + dt
-    //     },
-    //     () => {
-    //       this.fetchFlightsByDate();
-    //     }
-    //   );
-    // });
   };
 
   const monthChangeHandler = date => {
-    let firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDate();
-    let lastDay = new Date(
-      date.getFullYear(),
-      date.getMonth() + 1,
-      0
-    ).getDate();
-    let startMonth = date.getMonth() + 1;
-    let finishMonth = date.getMonth() + 1;
-    let startYear = date.getFullYear();
-    let finishYear = date.getFullYear();
+    const firstDay = (new Date(date.getFullYear(), date.getMonth(), 1).getDate()).toString().padStart(2, '0');
+    const lastDay = (new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()).toString().padStart(2, '0');
+    const startMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+    const finishMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+    const startYear = date.getFullYear();
+    const finishYear = date.getFullYear();
 
-    if (firstDay < 10) {
-      firstDay = '0' + firstDay;
-    }
-
-    if (startMonth < 10) {
-      startMonth = '0' + startMonth;
-    }
-
-    if (finishMonth < 10) {
-      finishMonth = '0' + finishMonth;
-    }
-
-    let startDate = `${startYear}-${startMonth}-${firstDay}`;
-    let endDate = `${finishYear}-${finishMonth}-${lastDay}`;
+    const startDate = `${startYear}-${startMonth}-${firstDay}`;
+    const endDate = `${finishYear}-${finishMonth}-${lastDay}`;
 
     setStartDate(startDate);
     setEndDate(endDate);
-
-    // this.resetState(() => {
-    //   this.props.dispatch({
-    //     type: types.FETCH_FLIGHT_DATES,
-    //     payload: { startDate, endDate }
-    //   });
-    // });
   };
 
   return (
@@ -109,6 +71,11 @@ export const Dates = () => {
           monthChangeHandler(activeStartDate)
         }
       />
+      {total && (
+        <p className={AppStyles.subtitle}>
+          {total} Flight{total > 1 ? 's' : ''} on {new Date(date).toDateString()}
+        </p>
+      )}
       <FlightDashboard
         flightData={flightData}
         pages={pages}

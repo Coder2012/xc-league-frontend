@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import classNames from 'classnames';
+import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
+import { Switch, Route } from 'react-router-dom';
+
+import { pilotsService } from './services/pilots';
 
 import { Header } from './components/Header';
+import { Weather } from './components/Weather';
+
 import { Pilot } from './views/Pilot';
 import { Dates } from './views/Dates';
 import { Score } from './views/Score';
-import Styles from './App.module.css';
-import ReactGA from 'react-ga';
 
-import { pilotsService } from './services/pilots';
-import { Weather } from './components/Weather';
+import Styles from './App.module.css';
 
 export const App = () => {
   useEffect(() => {
@@ -25,7 +28,7 @@ export const App = () => {
   }, []);
 
   return (
-    <div className={Styles.App}>
+    <div className={classNames(Styles.App)}>
       <Header />
       <Switch>
         <Route path="/pilot">

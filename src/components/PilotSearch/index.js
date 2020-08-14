@@ -6,12 +6,16 @@ import ButtonStyles from '../Button/styles.module.css';
 import Styles from './styles.module.css';
 import Layout from '../../Layout.module.css';
 
+const SHOW_COUNT = 8;
+const DEFAULT_SHOW_COUNT = 700;
+const MIN_CHAR_LENGTH = 3;
+
 export const PilotSearch = ({ clickHandler }) => {
   const $store = useStore(pilotsService.$);
   const [pilots, setPilots] = useState([]);
   const [state, setState] = useState({
     selectedId: undefined,
-    showCount: 8,
+    showCount: SHOW_COUNT,
     showMore: false,
     pattern: /_/
   });
@@ -19,16 +23,16 @@ export const PilotSearch = ({ clickHandler }) => {
   useEffect(() => {
     const pilots = $store.filter(pilot => state.pattern.test(pilot));
     setPilots(pilots);
-  }, [$store.pilots, state.pattern]);
+  }, [$store, state.pattern]);
 
   const handleOnChange = e => {
-    let value = e.target.value.length < 3 ? '_' : e.target.value;
+    let value = e.target.value.length < MIN_CHAR_LENGTH ? '_' : e.target.value;
     let pattern = new RegExp(`${value}`, 'i');
 
     setState(state => ({
       ...state,
       selectedId: undefined,
-      showCount: 8,
+      showCount: SHOW_COUNT,
       pattern: pattern
     }));
   };
@@ -45,7 +49,7 @@ export const PilotSearch = ({ clickHandler }) => {
         ButtonStyles['secondary-button--alternate']
       ].join(' ')}
       text="Show more"
-      clickHandler={() => setState(state => ({ ...state, showCount: 700 }))}
+      clickHandler={() => setState(state => ({ ...state, showCount: DEFAULT_SHOW_COUNT }))}
     />
   );
 

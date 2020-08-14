@@ -4,6 +4,9 @@ import Limit from '../../components/Limit';
 import ViewType from '../../components/ViewType';
 import { Flights } from '../../components/Flights';
 
+import AppStyles from '../../App.module.css';
+import Layout from '../../Layout.module.css';
+
 const initialControls = {
   page: 1,
   limit: 12,
@@ -21,7 +24,7 @@ export const FlightDashboard = ({
 
   useEffect(() => {
     onControlsUpdate(controls);
-  }, [controls]);
+  }, [onControlsUpdate, controls]);
 
   useEffect(() => {
     setControls(initialControls);
@@ -44,13 +47,22 @@ export const FlightDashboard = ({
 
   return (
     <>
-      <Limit selectedId={controls.limitId} handler={limitHandler} />
-      <ViewType handler={responseTypeHandler} />
-      <Pagination
-        page={controls.page}
-        pages={pages}
-        paginationHandler={paginationHandler}
-      />
+      <section
+        className={[
+          Layout['flex-row'],
+          Layout['flex-mobile-column'],
+          Layout['horizontal-centre'],
+          AppStyles['controls']
+        ].join(' ')}
+      >
+        <Limit handler={limitHandler} />
+        <Pagination
+          page={controls.page}
+          pages={pages}
+          paginationHandler={paginationHandler}
+        />
+        <ViewType handler={responseTypeHandler} />
+      </section>
       <Flights results={flightData} />
     </>
   );

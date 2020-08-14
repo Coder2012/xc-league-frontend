@@ -4,6 +4,7 @@ import {
   getFlightsByDate,
   getFlightsByDistance
 } from './effects';
+import { reset } from './events';
 import { $dates, $flights } from './store';
 
 export const flightsService = {
@@ -12,5 +13,6 @@ export const flightsService = {
   getDates,
   getFlightsByPilot,
   getFlightsByDate,
-  getFlightsByDistance
+  getFlightsByDistance,
+  reset
 };

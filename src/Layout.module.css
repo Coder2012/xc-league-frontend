@@ -3,7 +3,7 @@
 }
 
 @media (max-width: 768px) {
-    .fixed-spacer {
+    .fixedSpacer {
         padding-top: 120px;
     }
     .gutters {

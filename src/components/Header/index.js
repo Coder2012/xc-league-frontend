@@ -3,7 +3,6 @@ import ReactGA from 'react-ga';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import Button from '../Button/index';
-import * as searchActions from '../../actions/searchActions';
 import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
@@ -16,7 +15,7 @@ import Layout from '../../Layout.module.css';
 export const Header = props => {
   const history = useHistory();
   const location = useLocation();
-  console.log(location);
+
   const [pilotText, setPilotText] = useState('Search by pilot name');
   const [calendarText, setCalendarText] = useState('Search by flight date');
   const [scoreText, setScoreText] = useState('Search by flight score');
@@ -35,7 +34,7 @@ export const Header = props => {
   };
 
   const dateButtonHandler = () => {
-    history.push('/date');
+    history.push('/dates');
     sendAnalytics('Search by date');
   };
 

@@ -1,5 +1,6 @@
 import { domain } from '../domain';
-import { getDates, getFlightsByDate, getFlightsByPilot } from './effects';
+import { reset } from './events';
+import { getDates, getFlightsByDate, getFlightsByPilot, getFlightsByDistance } from './effects';
 import { getDatesCount } from '../../helpers/date';
 
 export const $dates = domain
@@ -9,4 +10,6 @@ export const $dates = domain
 export const $flights = domain
   .createStore([], { name: 'flights store' })
   .on(getFlightsByPilot.doneData, (_, data) => data)
-  .on(getFlightsByDate.doneData, (_, data) => data);
+  .on(getFlightsByDate.doneData, (_, data) => data)
+  .on(getFlightsByDistance.doneData, (_, data) => data)
+  .reset(reset);

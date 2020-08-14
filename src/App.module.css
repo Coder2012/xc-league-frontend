@@ -3,8 +3,16 @@
 }
 
 .App {
-  color: #2A3345;
+  color: #2a3345;
   font-family: 'Muli', sans-serif;
+  padding-top: 150px;
+
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding-top: 120px;
+  }
 }
 
 .App-title {
@@ -22,7 +30,7 @@
 }
 
 .controls {
-  border-bottom: 1px solid #D4D8DF;
+  border-bottom: 1px solid #d4d8df;
   margin: 0 20px 30px;
   padding-bottom: 20px;
 }
