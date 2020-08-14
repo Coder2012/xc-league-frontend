@@ -59,6 +59,7 @@ export const PilotSearch = ({ clickHandler }) => {
       <input
         className={Styles['search__input']}
         type="text"
+        data-testid="pilot-search"
         placeholder="eg. Philip Wallbank"
         onChange={handleOnChange}
       />

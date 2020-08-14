@@ -36,6 +36,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/react": "^10.4.8",
     "effector-logger": "^0.6.1",
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^1.19.1"
