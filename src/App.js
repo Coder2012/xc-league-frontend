@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom';
 import { pilotsService } from './services/pilots';
 
 import { Header } from './components/Header';
-import { Weather } from './components/Weather';
 
 import { Pilot } from './views/Pilot';
 import { Dates } from './views/Dates';
@@ -17,7 +16,6 @@ import { Score } from './views/Score';
 import Styles from './App.module.css';
 
 export const App = () => {
-  console.log('App');
   const location = useLocation();
   const isHome = location.pathname !== '/' ? '' : Styles['App--ishome'];
 
@@ -45,9 +43,6 @@ export const App = () => {
         <Route path="/score">
           <Score />
         </Route>
-        {/* <Route path="/">
-          <Weather />
-        </Route> */}
       </Switch>
     </div>
   );
