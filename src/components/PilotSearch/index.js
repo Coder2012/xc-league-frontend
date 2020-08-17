@@ -1,109 +1,91 @@
-import React, { Component } from "react";
-import Button from "../Button/index";
-import ButtonStyles from "../Button/styles.module.css";
-import Styles from "./styles.module.css";
-import Layout from "../../Layout.module.css";
+import React, { useState, useEffect } from 'react';
+import { useStore } from 'effector-react';
+import classNames from 'classnames';
+import { pilotsService } from '../../services/pilots';
+import { Button } from '../Button/index';
+import ButtonStyles from '../Button/styles.module.css';
+import Styles from './styles.module.css';
+import Layout from '../../Layout.module.css';
 
-class PilotSearch extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+const SHOW_COUNT = 8;
+const DEFAULT_SHOW_COUNT = 700;
+const MIN_CHAR_LENGTH = 3;
+
+export const PilotSearch = ({ clickHandler }) => {
+  const $store = useStore(pilotsService.$);
+  const [pilots, setPilots] = useState([]);
+  const [state, setState] = useState({
+    selectedId: undefined,
+    showCount: SHOW_COUNT,
+    showMore: false,
+    pattern: /_/
+  });
+
+  useEffect(() => {
+    const pilots = $store.filter(pilot => state.pattern.test(pilot));
+    setPilots(pilots);
+  }, [$store, state.pattern]);
+
+  const handleOnChange = e => {
+    let value = e.target.value.length < MIN_CHAR_LENGTH ? '_' : e.target.value;
+    let pattern = new RegExp(`${value}`, 'i');
+
+    setState(state => ({
+      ...state,
       selectedId: undefined,
-      showCount: 8,
-      showMore: false,
-      pilots: this.props.data,
-      pattern: /_/
-    };
-
-    this.handleOnChange = this.handleOnChange.bind(this);
-    this.handleSelectedPilot = this.handleSelectedPilot.bind(this);
-  }
-
-  componentDidMount() {
-    this.showMore = (
-      <Button
-        classes={[
-          ButtonStyles["secondary-button"],
-          ButtonStyles["secondary-button--alternate"]
-        ].join(" ")}
-        text="Show more"
-        clickHandler={() => this.setState({ showCount: 700 })}
-      />
-    );
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if(props.data !== state.data) {
-      return {
-        pilots: props.data
-      }
-    }
-    return null;
-  }
-
-  handleOnChange(e) {
-    let value = e.target.value;
-    value = e.target.value.length < 3 ? "_" : e.target.value;
-
-    let pattern = new RegExp(`${value}`, "i");
-
-    this.setState({
-      selectedId: undefined,
-      showCount: 8,
+      showCount: SHOW_COUNT,
       pattern: pattern
-    });
-  }
+    }));
+  };
 
-  handleSelectedPilot(name, index) {
-    this.setState(
-      prevState => {
-        return { selectedId: index };
-      },
-      () => {
-        this.props.clickHandler(name);
+  const handleSelectedPilot = (name, index) => {
+    setState(state => ({ ...state, selectedId: index }));
+    clickHandler(name);
+  };
+
+  const showMore = (
+    <Button
+      className={[
+        ButtonStyles['secondary-button'],
+        ButtonStyles['secondary-button--alternate']
+      ].join(' ')}
+      text="Show more"
+      clickHandler={() =>
+        setState(state => ({ ...state, showCount: DEFAULT_SHOW_COUNT }))
       }
-    );
-  }
+    />
+  );
 
-  render() {
-    let pilots = this.state.pilots
-      .filter(pilot => this.state.pattern.test(pilot))
-      .map((pilot, index) => {
-        if (index < this.state.showCount) {
-          return (
-            <Button
-              id={index}
-              key={index}
-              classes={[
-                ButtonStyles["secondary-button"],
-                this.state.selectedId === index
-                  ? ButtonStyles["secondary-button--selected"]
-                  : ""
-              ].join(" ")}
-              clickHandler={() => this.handleSelectedPilot(`${pilot}`, index)}
-              text={pilot}
-            />
-          );
-        }
-        return null;
-      });
-
-    return (
-      <section className={[Layout["flex-column"], Styles.search].join(" ")}>
-        <label className={Styles["search__name"]}>Enter Pilot Name</label>
-        <input
-          className={Styles["search__input"]}
-          type="text"
-          placeholder="eg. Philip Wallbank"
-          onChange={this.handleOnChange}
-        />
-        <section className={Layout["v-space-around"]}>
-          {pilots}
-          {pilots.length > this.state.showCount ? this.showMore : null}
-        </section>
+  return (
+    <section className={classNames(Layout['flex-column'], Styles.search)}>
+      <label className={Styles['search__name']}>Enter Pilot Name</label>
+      <input
+        className={Styles['search__input']}
+        type="text"
+        data-testid="pilot-search"
+        placeholder="eg. Philip Wallbank"
+        onChange={handleOnChange}
+      />
+      <section className={Layout['v-space-around']}>
+        {pilots.map((pilot, index) => {
+          if (index < state.showCount) {
+            return (
+              <Button
+                id={index}
+                key={index}
+                className={classNames(ButtonStyles['secondary-button'], {
+                  [ButtonStyles['secondary-button--selected']]:
+                    state.selectedId === index
+                })}
+                clickHandler={() => handleSelectedPilot(`${pilot}`, index)}
+                text={pilot}
+              />
+            );
+          }
+          return null;
+        })}
+        {pilots.length > state.showCount ? showMore : null}
       </section>
-    );
-  }
-}
-
-export default PilotSearch;
+    </section>
+  );
+};

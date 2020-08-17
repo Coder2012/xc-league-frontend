@@ -1,39 +1,30 @@
-import React, { Component } from 'react';
-import deepEqual from 'deep-equal';
+import React from 'react';
 import ReactCalendar from 'react-calendar';
 import '../../react-calendar/styles.css';
 
-class Calendar extends Component {
-  constructor(props) {
-    super(props);
+export const Calendar = ({
+  dates,
+  dateChangeHandler,
+  monthChangeHandler,
+  calendarNavigationHandler
+}) => {
+  const tileContent = ({ date, view }) => {
+    let flightCount = dateExists(date.getMonth(), date.getDate());
 
-    this.tileContent = this.tileContent.bind(this);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (deepEqual(this.props.dates, nextProps.dates)) {
-      return false;
-    }
-    this.tileContent = this.tileContent.bind(this);
-    return true;
-  }
-
-  tileContent({ date, view }) {
-    let flightCount = this.dateExists(date.getMonth(), date.getDate());
     if (flightCount) {
       return view === 'month' && flightCount ? (
-        <span className={`calendar-flights ${this.getCountClass(flightCount)}`}>
+        <span className={`calendar-flights ${getCountClass(flightCount)}`}>
           {date.getDate()}
         </span>
       ) : null;
     }
     return null;
-  }
+  };
 
-  dateExists(calendarMonth, calendarDate) {
+  const dateExists = (calendarMonth, calendarDate) => {
     let datesCount = 0;
 
-    this.props.dates.some(({ date, count }) => {
+    dates.some(({ date, count }) => {
       let flightDate = new Date(date);
       if (
         calendarMonth === flightDate.getMonth() &&
@@ -45,32 +36,26 @@ class Calendar extends Component {
     });
 
     return datesCount;
-  }
+  };
 
-  getCountClass(count) {
+  const getCountClass = count => {
     if (count >= 10 && count <= 50) {
       return 'flight-count-medium';
     } else if (count > 50) {
       return 'flight-count-high';
     }
     return 'flight-count-low';
-  }
+  };
 
-  render() {
-    return (
-      <React.Fragment>
-        <ReactCalendar
-          tileClassName="calendar-item"
-          tileContent={this.tileContent}
-          minDate={new Date('2005-01-01')}
-          maxDate={new Date()}
-          onChange={this.props.dateChangeHandler}
-          onClickMonth={this.props.monthChangeHandler}
-          onActiveDateChange={this.props.calendarNavigationHandler}
-        />
-      </React.Fragment>
-    );
-  }
-}
-
-export default Calendar;
+  return (
+    <ReactCalendar
+      tileClassName="calendar-item"
+      tileContent={tileContent}
+      minDate={new Date('2005-01-01')}
+      maxDate={new Date()}
+      onChange={dateChangeHandler}
+      onClickMonth={monthChangeHandler}
+      onActiveDateChange={calendarNavigationHandler}
+    />
+  );
+};

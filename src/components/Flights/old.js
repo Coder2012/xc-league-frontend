@@ -1,26 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import cloneDeep from 'clone-deep';
-import ErrorMessage from '../../components/Error';
-import Flight from '../../components/Flight';
-import Pagination from '../../components/Pagination';
-import Limit from '../../components/Limit';
-import Calendar from '../../components/Calendar/index';
-import PilotSearch from '../../components/PilotSearch/index';
-
-import Layout from '../../Layout.module.css';
-import Styles from './styles.module.css';
-import AppStyles from '../../App.module.css';
-import ViewType from '../../components/ViewType';
-import DistanceSearch from '../../components/DistanceSearch';
-import Button from '../../components/Button';
-import ButtonStyles from '../../components/Button/styles.module.css';
-
-import ExcelSVG from '../../assets/excel.svg';
-
-import * as types from '../../actions/actionTypes';
-
-class Flights extends Component {
+class XFlights extends Component {
   constructor(props) {
     super(props);
 
@@ -182,7 +160,7 @@ class Flights extends Component {
         let controls = { ...previousState.controls };
         controls.page =
           operator === 'increment'
-            ? Math.min(controls.page + 1, this.props.results.pages)
+            ? Math.min(controls.page + 1, this.props.results?.pages)
             : Math.max(controls.page - 1, 1);
 
         if (previousState.controls.page === controls.page) {
@@ -269,13 +247,13 @@ class Flights extends Component {
           <ErrorMessage message={this.props.message} />
           {this.props.searchType === 'pilot' && (
             <PilotSearch
-              data={this.props.results.pilots}
+              data={this.props.results?.pilots}
               clickHandler={this.searchHandler}
             />
           )}
           {this.props.searchType === 'date' && (
             <Calendar
-              dates={this.props.results.dates}
+              dates={this.props.results?.dates}
               dateChangeHandler={this.dateChangeHandler}
               monthChangeHandler={this.monthChangeHandler}
               calendarNavigationHandler={this.calendarNavChangeHandler}
@@ -289,25 +267,25 @@ class Flights extends Component {
           )}
         </section>
 
-        {this.props.results.flights.length > 0 && (
+        {this.props.results?.flights.length > 0 && (
           <main className={Layout.gutters}>
             {this.props.searchType === 'pilot' && this.state.pilot !== '' && (
               <p className={AppStyles.subtitle}>
-                {this.props.results.total} Flights by {this.state.pilot}
+                {this.props.results?.total} Flights by {this.state.pilot}
               </p>
             )}
             {this.props.searchType === 'date' &&
               this.state.selectedDate !== '' && (
                 <p className={AppStyles.subtitle}>
-                  {this.props.results.total} Flight
-                  {this.props.results.total > 1 ? 's' : ''} on{' '}
+                  {this.props.results?.total} Flight
+                  {this.props.results?.total > 1 ? 's' : ''} on{' '}
                   {new Date(this.state.selectedDate).toDateString()}
                 </p>
               )}
             {this.props.searchType === 'distance' && this.state.distance !== 0 && (
               <p className={AppStyles.subtitle}>
-                {this.props.results.total} Flight
-                {this.props.results.total > 1 ? 's' : ''} scoring over{' '}
+                {this.props.results?.total} Flight
+                {this.props.results?.total > 1 ? 's' : ''} scoring over{' '}
                 {this.state.distance}
               </p>
             )}
@@ -326,7 +304,7 @@ class Flights extends Component {
               />
               <Pagination
                 page={this.state.controls.page}
-                pages={this.props.results.pages}
+                pages={this.props.results?.pages}
                 paginationHandler={this.paginationHandler}
               />
               <ViewType handler={this.responseTypeHandler} />
@@ -344,7 +322,7 @@ class Flights extends Component {
               text={'Download'}
             />
             <section className={Styles.flights}>
-              {this.props.results.flights.map(flight => {
+              {this.props.results?.flights.map(flight => {
                 return (
                   <Flight
                     key={flight.identifier}
@@ -356,7 +334,7 @@ class Flights extends Component {
             </section>
             <Pagination
               page={this.state.controls.page}
-              pages={this.props.results.pages}
+              pages={this.props.results?.pages}
               paginationHandler={this.paginationHandler}
             />
             <p />
