@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@sentry/browser": "^5.20.0",
+    "@sentry/browser": "^5.21.1",
     "classnames": "^2.2.6",
-    "effector": "^21.2.0",
+    "effector": "^21.2.2",
     "effector-react": "^21.0.4",
     "react": "^16.13.1",
     "react-calendar": "^2.19.2",
     "react-dom": "^16.13.1",
     "react-ga": "^2.7.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
