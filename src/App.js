@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { Switch, Route } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { pilotsService } from './services/pilots';
 
@@ -16,6 +17,10 @@ import { Score } from './views/Score';
 import Styles from './App.module.css';
 
 export const App = () => {
+  console.log('App');
+  const location = useLocation();
+  const isHome = location.pathname !== '/' ? '' : Styles['App--ishome'];
+
   useEffect(() => {
     Sentry.init({
       dsn: 'https://c59644d1c05645f0b81702d9dd38af59@sentry.io/1545393'
@@ -28,7 +33,7 @@ export const App = () => {
   }, []);
 
   return (
-    <div className={classNames(Styles.App)}>
+    <div className={classNames(Styles.App, isHome)}>
       <Header />
       <Switch>
         <Route path="/pilot">
@@ -40,9 +45,9 @@ export const App = () => {
         <Route path="/score">
           <Score />
         </Route>
-        <Route path="/">
+        {/* <Route path="/">
           <Weather />
-        </Route>
+        </Route> */}
       </Switch>
     </div>
   );

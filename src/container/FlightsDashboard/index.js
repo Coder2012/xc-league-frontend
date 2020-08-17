@@ -1,37 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useStore } from 'effector-react';
+
+import { uiService } from '../../services/ui';
 import Pagination from '../../components/Pagination';
 import Limit from '../../components/Limit';
-import ViewType from '../../components/ViewType';
+import { ViewType } from '../../components/ViewType';
 import { Flights } from '../../components/Flights';
 
 import AppStyles from '../../App.module.css';
 import Layout from '../../Layout.module.css';
 
-const initialControls = {
-  page: 1,
-  limit: 12,
-  limitId: 0,
-  responseType: 'full'
-};
-
-export const FlightDashboard = ({
-  flightData,
-  pages,
-  onControlsUpdate,
-  resetControls
-}) => {
-  const [controls, setControls] = useState(initialControls);
+export const FlightDashboard = ({ flightData, pages }) => {
+  const { controls } = useStore(uiService.$);
 
   useEffect(() => {
-    onControlsUpdate(controls);
-  }, [onControlsUpdate, controls]);
-
-  useEffect(() => {
-    setControls(initialControls);
-  }, [resetControls]);
+    return () => uiService.resetControls();
+  }, []);
 
   const limitHandler = (limit, index) => {
-    setControls(state => ({ ...state, limit, limitId: index, page: 1 }));
+    uiService.setControls({
+      limit,
+      limitId: index,
+      page: 1
+    });
   };
 
   const paginationHandler = operator => {
@@ -40,10 +31,8 @@ export const FlightDashboard = ({
         ? Math.min(controls.page + 1, pages)
         : Math.max(controls.page - 1, 1);
 
-    setControls(state => ({ ...state, page }));
+    uiService.setControls({ page });
   };
-
-  const responseTypeHandler = () => {};
 
   return (
     <>
@@ -55,15 +44,18 @@ export const FlightDashboard = ({
           AppStyles['controls']
         ].join(' ')}
       >
-        <Limit handler={limitHandler} />
+        <Limit onClickHandler={limitHandler} />
         <Pagination
           page={controls.page}
           pages={pages}
-          paginationHandler={paginationHandler}
+          onClickHandler={paginationHandler}
         />
-        <ViewType handler={responseTypeHandler} />
+        <ViewType
+          selectedId={controls.responseType}
+          onClickHandler={responseType => uiService.setControls({ responseType })}
+        />
       </section>
-      <Flights results={flightData} />
+      <Flights results={flightData} display={controls.responseType} />
     </>
   );
 };

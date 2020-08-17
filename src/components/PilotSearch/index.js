@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from 'effector-react';
+import classNames from 'classnames';
 import { pilotsService } from '../../services/pilots';
-import Button from '../Button/index';
+import { Button } from '../Button/index';
 import ButtonStyles from '../Button/styles.module.css';
 import Styles from './styles.module.css';
 import Layout from '../../Layout.module.css';
@@ -44,17 +45,19 @@ export const PilotSearch = ({ clickHandler }) => {
 
   const showMore = (
     <Button
-      classes={[
+      className={[
         ButtonStyles['secondary-button'],
         ButtonStyles['secondary-button--alternate']
       ].join(' ')}
       text="Show more"
-      clickHandler={() => setState(state => ({ ...state, showCount: DEFAULT_SHOW_COUNT }))}
+      clickHandler={() =>
+        setState(state => ({ ...state, showCount: DEFAULT_SHOW_COUNT }))
+      }
     />
   );
 
   return (
-    <section className={[Layout['flex-column'], Styles.search].join(' ')}>
+    <section className={classNames(Layout['flex-column'], Styles.search)}>
       <label className={Styles['search__name']}>Enter Pilot Name</label>
       <input
         className={Styles['search__input']}
@@ -70,12 +73,10 @@ export const PilotSearch = ({ clickHandler }) => {
               <Button
                 id={index}
                 key={index}
-                classes={[
-                  ButtonStyles['secondary-button'],
-                  state.selectedId === index
-                    ? ButtonStyles['secondary-button--selected']
-                    : ''
-                ].join(' ')}
+                className={classNames(ButtonStyles['secondary-button'], {
+                  [ButtonStyles['secondary-button--selected']]:
+                    state.selectedId === index
+                })}
                 clickHandler={() => handleSelectedPilot(`${pilot}`, index)}
                 text={pilot}
               />

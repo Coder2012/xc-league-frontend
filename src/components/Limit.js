@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Button from '../components/Button/index';
+import { Button } from '../components/Button/index';
 import Styles from '../components/Button/styles.module.css';
 import Layout from '../Layout.module.css';
 
-export const Limit = ({ handler }) => {
+export const Limit = ({ onClickHandler }) => {
   const [selectedId, setSelectedId] = useState(12);
 
   const clickHandler = (id, index) => {
     setSelectedId(id);
-    handler(id, index);
+    onClickHandler(id, index);
   };
 
   return (
@@ -23,14 +23,14 @@ export const Limit = ({ handler }) => {
               <Button
                 value={`${limit}`}
                 key={limit}
-                classes={[
+                className={[
                   Styles['secondary-button'],
                   Styles['secondary-button--circle'],
                   selectedId === parseInt(limit)
                     ? Styles['secondary-button--selected']
                     : ''
                 ].join(' ')}
-                clickHandler={() => clickHandler(`${limit}`, index)}
+                clickHandler={() => clickHandler(limit, index)}
               />
             );
           })}

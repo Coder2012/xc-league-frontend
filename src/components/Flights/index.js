@@ -7,7 +7,7 @@ import Styles from './styles.module.css';
 
 // import ExcelSVG from '../../assets/excel.svg';
 
-export const Flights = ({  results }) => {
+export const Flights = ({ results, display }) => {
   return (
     <>
       {results?.flights.length > 0 && (
@@ -18,7 +18,7 @@ export const Flights = ({  results }) => {
                 <Flight
                   key={flight.identifier}
                   data={flight}
-                  display={'full'}
+                  display={display}
                 />
               );
             })}

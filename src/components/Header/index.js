@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactGA from 'react-ga';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import Button from '../Button/index';
+import { Button } from '../Button/index';
 import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
@@ -62,12 +62,17 @@ export const Header = props => {
           ' '
         )}
       >
-        <img alt="" className={Styles['header__logo']} src={LogoSVG} onClick={() => history.push('/')} />
+        <img
+          alt=""
+          className={Styles['header__logo']}
+          src={LogoSVG}
+          onClick={() => history.push('/')}
+        />
         <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
           <Button
-            classes={[
+            className={[
               ButtonStyles['primary-button'],
-              props.searchType === 'pilot'
+              location.pathname.includes('pilot')
                 ? ButtonStyles['primary-button--selected']
                 : ''
             ].join(' ')}
@@ -76,9 +81,9 @@ export const Header = props => {
             text={pilotText}
           />
           <Button
-            classes={[
+            className={[
               ButtonStyles['primary-button'],
-              props.searchType === 'date'
+              location.pathname.includes('dates')
                 ? ButtonStyles['primary-button--selected']
                 : ''
             ].join(' ')}
@@ -87,9 +92,9 @@ export const Header = props => {
             text={calendarText}
           />
           <Button
-            classes={[
+            className={[
               ButtonStyles['primary-button'],
-              props.searchType === 'distance'
+              location.pathname.includes('score')
                 ? ButtonStyles['primary-button--selected']
                 : ''
             ].join(' ')}
