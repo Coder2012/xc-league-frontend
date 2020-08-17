@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStore } from 'effector-react';
+import classNames from 'classnames';
 
 import { uiService } from '../../services/ui';
 import Pagination from '../../components/Pagination';
@@ -36,25 +37,29 @@ export const FlightDashboard = ({ flightData, pages }) => {
 
   return (
     <>
-      <section
-        className={[
-          Layout['flex-row'],
-          Layout['flex-mobile-column'],
-          Layout['horizontal-centre'],
-          AppStyles['controls']
-        ].join(' ')}
-      >
-        <Limit onClickHandler={limitHandler} />
-        <Pagination
-          page={controls.page}
-          pages={pages}
-          onClickHandler={paginationHandler}
-        />
-        <ViewType
-          selectedId={controls.responseType}
-          onClickHandler={responseType => uiService.setControls({ responseType })}
-        />
-      </section>
+      {flightData && (
+        <section
+          className={classNames(
+            Layout['flex-row'],
+            Layout['flex-mobile-column'],
+            Layout['horizontal-centre'],
+            AppStyles['controls']
+          )}
+        >
+          <Limit onClickHandler={limitHandler} />
+          <Pagination
+            page={controls.page}
+            pages={pages}
+            onClickHandler={paginationHandler}
+          />
+          <ViewType
+            selectedId={controls.responseType}
+            onClickHandler={responseType =>
+              uiService.setControls({ responseType })
+            }
+          />
+        </section>
+      )}
       <Flights results={flightData} display={controls.responseType} />
     </>
   );
