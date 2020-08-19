@@ -30,6 +30,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.8",
     "effector-logger": "^0.6.1",
     "eslint-plugin-prettier": "^3.1.2",
