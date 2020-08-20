@@ -4,8 +4,6 @@ import {
   render,
   fireEvent,
   screen,
-  getAllByText,
-  getByText
 } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
@@ -51,11 +49,10 @@ describe('Pilot Search', () => {
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: searchTerm } });
 
-    const results = [
-      container.getByText('Adrian Thomas'),
-      container.getByText('David Thomson')
-    ];
-    expect(results.length).toBe(2);
+    expect(container.queryByText('Show more')).not.toBeInTheDocument();
+    expect(container.queryByText('Helen Gant')).not.toBeInTheDocument();
+    expect(container.getByText('Adrian Thomas')).toBeInTheDocument();
+    expect(container.getByText('David Thomson')).toBeInTheDocument();
   });
 
   test('Should reveal show more button', () => {
@@ -65,11 +62,10 @@ describe('Pilot Search', () => {
     const searchTerm = 'Neil';
     const container = render(<PilotSearch data={repeatPilots} />);
 
-
     const input = container.getByTestId('pilot-search');
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: searchTerm } });
 
-    expect(container.queryByText('Show more')).toBeInTheDocument();
+    expect(container.getByText('Show more')).toBeInTheDocument();
   });
 });
