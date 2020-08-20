@@ -6,7 +6,11 @@ import Layout from '../Layout.module.css';
 import LeftArrowSVG from '../assets/left-arrow.svg';
 import RightArrowSVG from '../assets/right-arrow.svg';
 
-const Controls = ({ page, pages, onClickHandler }) => {
+const Controls = ({
+  page,
+  pages,
+  onClickHandler
+}) => {
   return (
     <React.Fragment>
       <section
@@ -18,6 +22,8 @@ const Controls = ({ page, pages, onClickHandler }) => {
         )}
       >
         <Button
+          disabled={page === 1}
+          dataTestId={'prev'}
           className={classNames(
             ButtonStyles['secondary-button'],
             ButtonStyles['secondary-button--circle'],
@@ -31,6 +37,8 @@ const Controls = ({ page, pages, onClickHandler }) => {
           Page {page}/{pages}
         </p>
         <Button
+          disabled={page === pages}
+          dataTestId={'next'}
           className={classNames(
             ButtonStyles['secondary-button'],
             ButtonStyles['secondary-button--circle'],

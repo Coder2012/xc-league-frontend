@@ -9,7 +9,8 @@ export const Button = ({
   icon,
   text,
   alt,
-  className
+  className,
+  disabled=false
 }) => (
   <button
     data-testid={dataTestId}
@@ -17,6 +18,7 @@ export const Button = ({
     onClick={clickHandler}
     className={className}
     type="button"
+    disabled={disabled}
   >
     {icon && <img alt={alt} src={icon} className={iconStyle} />}
     {text}
