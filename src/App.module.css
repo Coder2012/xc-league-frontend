@@ -16,6 +16,9 @@
   .App {
     padding-top: 120px;
   }
+  .App--ishome {
+    padding-top: 0;
+  }
 }
 
 .App-title {
