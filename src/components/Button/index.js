@@ -3,6 +3,7 @@ import Styles from './styles.module.css';
 
 export const Button = ({
   value,
+  dataTestId,
   iconStyle = Styles['primary-button__icon'],
   clickHandler,
   icon,
@@ -11,6 +12,7 @@ export const Button = ({
   className
 }) => (
   <button
+    data-testid={dataTestId}
     data-value={value || null}
     onClick={clickHandler}
     className={className}
