@@ -29,9 +29,14 @@ export const Score = () => {
     }
   }, [distance, controls]);
 
+  const distanceHandler = id => {
+    uiService.resetControls();
+    setDistance(id);
+  }
+
   return (
     <>
-      <DistanceSearch handleClick={id => setDistance(id)} />
+      <DistanceSearch handleClick={distanceHandler} />
       <p className={AppStyles.subtitle}>
         {loading && 'Loading...'}
         {!loading && total && (

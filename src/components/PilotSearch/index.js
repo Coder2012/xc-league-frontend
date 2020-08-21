@@ -3,7 +3,6 @@ import { useStore } from 'effector-react';
 import classNames from 'classnames';
 import { pilotsService } from '../../services/pilots';
 import { Button } from '../Button/index';
-import ButtonStyles from '../Button/styles.module.css';
 import Styles from './styles.module.css';
 import Layout from '../../Layout.module.css';
 
@@ -45,15 +44,14 @@ export const PilotSearch = ({ clickHandler }) => {
 
   const showMore = (
     <Button
-      className={[
-        ButtonStyles['secondary-button'],
-        ButtonStyles['secondary-button--alternate']
-      ].join(' ')}
-      text="Show more"
+      secondary
+      alternate
       clickHandler={() =>
         setState(state => ({ ...state, showCount: DEFAULT_SHOW_COUNT }))
       }
-    />
+    >
+      Show more
+    </Button>
   );
 
   return (
@@ -73,13 +71,12 @@ export const PilotSearch = ({ clickHandler }) => {
               <Button
                 id={index}
                 key={index}
-                className={classNames(ButtonStyles['secondary-button'], {
-                  [ButtonStyles['secondary-button--selected']]:
-                    state.selectedId === index
-                })}
+                secondary
+                active={state.selectedId === index}
                 clickHandler={() => handleSelectedPilot(`${pilot}`, index)}
-                text={pilot}
-              />
+              >
+                {pilot}
+              </Button>
             );
           }
           return null;

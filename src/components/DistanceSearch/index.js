@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Button } from '../Button';
-import ButtonStyles from '../Button/styles.module.css';
 import Styles from './styles.module.css';
 import Layout from '../../Layout.module.css';
 
@@ -30,13 +29,9 @@ export const DistanceSearch = ({ handleClick }) => {
               dataTestId={`${limit}`}
               value={`${limit}`}
               key={index}
-              className={classNames([
-                ButtonStyles['secondary-button'],
-                ButtonStyles['secondary-button--circle'],
-                selectedId === limit
-                  ? ButtonStyles['secondary-button--selected']
-                  : ''
-              ])}
+              secondary
+              circle
+              active={selectedId === limit}
               clickHandler={() => clickHandler(parseInt(`${limit}`), index)}
             />
           );

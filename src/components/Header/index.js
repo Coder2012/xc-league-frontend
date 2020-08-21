@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactGA from 'react-ga';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import classNames from 'classnames';
 import { Button } from '../Button/index';
 import { isSmall } from '../../helpers/viewport';
 import UserSVG from '../../assets/user-icon.svg';
@@ -9,7 +10,6 @@ import CalendarSVG from '../../assets/calendar-icon.svg';
 import LogoSVG from '../../assets/xc-league-logo.svg';
 import SpinnerSVG from '../../assets/oval.svg';
 import Styles from './styles.module.css';
-import ButtonStyles from '../Button/styles.module.css';
 import Layout from '../../Layout.module.css';
 
 export const Header = props => {
@@ -51,15 +51,18 @@ export const Header = props => {
     });
   };
 
-  let headerActive = location.pathname === '/' ? '' : Styles['header--active'];
-
   return (
     <header
-      className={[Styles.header, headerActive, Layout['flex-column']].join(' ')}
+      className={classNames(
+        Styles.header,
+        { [Styles['header--active']]: location.pathname !== '/' },
+        Layout['flex-column']
+      )}
     >
       <section
-        className={[Layout['text-centre'], Layout['horizontal-centre']].join(
-          ' '
+        className={classNames(
+          Layout['text-centre'],
+          Layout['horizontal-centre']
         )}
       >
         <img
@@ -68,40 +71,28 @@ export const Header = props => {
           src={LogoSVG}
           onClick={() => history.push('/')}
         />
-        <div className={[Layout['v-spacing'], Styles['flex-row']].join(' ')}>
+        <div className={classNames(Layout['v-spacing'], Styles['flex-row'])}>
           <Button
-            className={[
-              ButtonStyles['primary-button'],
-              location.pathname.includes('pilot')
-                ? ButtonStyles['primary-button--selected']
-                : ''
-            ].join(' ')}
+            active={location.pathname.includes('pilot')}
             clickHandler={pilotButtonHandler}
             icon={UserSVG}
-            text={pilotText}
-          />
+          >
+            {pilotText}
+          </Button>
           <Button
-            className={[
-              ButtonStyles['primary-button'],
-              location.pathname.includes('dates')
-                ? ButtonStyles['primary-button--selected']
-                : ''
-            ].join(' ')}
+            active={location.pathname.includes('dates')}
             clickHandler={dateButtonHandler}
             icon={CalendarSVG}
-            text={calendarText}
-          />
+          >
+            {calendarText}
+          </Button>
           <Button
-            className={[
-              ButtonStyles['primary-button'],
-              location.pathname.includes('score')
-                ? ButtonStyles['primary-button--selected']
-                : ''
-            ].join(' ')}
+            active={location.pathname.includes('score')}
             clickHandler={scoreButtonHandler}
             icon={CalendarSVG}
-            text={scoreText}
-          />
+          >
+            {scoreText}
+          </Button>
           <p>
             {props.isFetching && (
               <img

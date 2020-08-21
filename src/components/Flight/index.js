@@ -1,10 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
+
 import Styles from './styles.module.css';
 import Layout from '../../Layout.module.css';
 import App from '../../App.module.css';
 import { Button } from '../../components/Button';
-import ButtonStyles from '../../components/Button/styles.module.css';
 import LinkSVG from '../../assets/external-link-symbol.svg';
 
 const Flight = ({ data, display }) => {
@@ -27,14 +26,9 @@ const Flight = ({ data, display }) => {
           {data.multiplier && <span>({data.multiplier})</span>}
         </p>
         <Button
-          className={classNames(
-            ButtonStyles['primary-button'],
-            ButtonStyles['primary-button--link'],
-            ButtonStyles['primary-button--link-external']
-          )}
+          link
           clickHandler={externalLinkHandler}
           icon={LinkSVG}
-          text={''}
         />
       </header>
       {display === 'full' && (
