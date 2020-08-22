@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Button } from '../Button';
-import Styles from './styles.module.css';
-import Layout from '../../Layout.module.css';
+import Styles from './styles.module.scss';
+import Layout from '../../layout.module.scss';
 
 export const DistanceSearch = ({ handleClick }) => {
   const [selectedId, setSelectedId] = useState();
@@ -16,10 +16,10 @@ export const DistanceSearch = ({ handleClick }) => {
     <form>
       <div
         className={classNames([
-          Layout['flex-row'],
-          Layout['vertical-centre'],
-          Layout['horizontal-centre'],
-          Styles['distance']
+          Layout.flexRow,
+          Layout.verticalCentre,
+          Layout.horizontalCentre,
+          Styles.distance
         ])}
       >
         <legend>Score greater than</legend>

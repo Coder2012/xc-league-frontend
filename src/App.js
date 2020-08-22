@@ -13,11 +13,10 @@ import { Pilot } from './views/Pilot';
 import { Dates } from './views/Dates';
 import { Score } from './views/Score';
 
-import Styles from './App.module.css';
+import Styles from './app.module.scss';
 
 export const App = () => {
   const location = useLocation();
-  const isHome = location.pathname !== '/' ? '' : Styles['App--ishome'];
 
   useEffect(() => {
     Sentry.init({
@@ -31,7 +30,11 @@ export const App = () => {
   }, []);
 
   return (
-    <div className={classNames(Styles.App, isHome)}>
+    <div
+      className={classNames(Styles.app, {
+        [Styles['app--ishome']]: location.pathname === '/'
+      })}
+    >
       <Header />
       <Switch>
         <Route path="/pilot">

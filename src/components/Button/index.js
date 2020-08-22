@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import Styles from './styles.module.css';
+import Styles from './styles.module.scss';
 
 export const Button = ({
   secondary,

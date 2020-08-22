@@ -9,8 +9,8 @@ import UserSVG from '../../assets/user-icon.svg';
 import CalendarSVG from '../../assets/calendar-icon.svg';
 import LogoSVG from '../../assets/xc-league-logo.svg';
 import SpinnerSVG from '../../assets/oval.svg';
-import Styles from './styles.module.css';
-import Layout from '../../Layout.module.css';
+import Styles from './styles.module.scss';
+import Layout from '../../layout.module.scss';
 
 export const Header = props => {
   const history = useHistory();
@@ -56,22 +56,22 @@ export const Header = props => {
       className={classNames(
         Styles.header,
         { [Styles['header--active']]: location.pathname !== '/' },
-        Layout['flex-column']
+        Layout.flexColumn
       )}
     >
       <section
         className={classNames(
-          Layout['text-centre'],
-          Layout['horizontal-centre']
+          Layout.textCentre,
+          Layout.horizontalCentre
         )}
       >
         <img
           alt=""
-          className={Styles['header__logo']}
+          className={Styles.header__logo}
           src={LogoSVG}
           onClick={() => history.push('/')}
         />
-        <div className={classNames(Layout['v-spacing'], Styles['flex-row'])}>
+        <div className={classNames(Layout.vSpacing, Styles.flexRow)}>
           <Button
             active={location.pathname.includes('pilot')}
             clickHandler={pilotButtonHandler}
@@ -96,7 +96,7 @@ export const Header = props => {
           <p>
             {props.isFetching && (
               <img
-                className={Styles['header__spinner']}
+                className={Styles.header__spinner}
                 src={SpinnerSVG}
                 alt="loading..."
               />

@@ -241,7 +241,7 @@ class XFlights extends Component {
         <section
           className={[
             Layout.gutters,
-            this.props.searchType !== '' ? Layout['fixed-spacer'] : ''
+            this.props.searchType !== '' ? Layout['fixedSpacer'] : ''
           ].join(' ')}
         >
           <ErrorMessage message={this.props.message} />
@@ -292,9 +292,9 @@ class XFlights extends Component {
 
             <section
               className={[
-                Layout['flex-row'],
-                Layout['flex-mobile-column'],
-                Layout['horizontal-centre'],
+                Layout['flexRow'],
+                Layout['flexMobileColumn'],
+                Layout['horizontalCentre'],
                 AppStyles['controls']
               ].join(' ')}
             >

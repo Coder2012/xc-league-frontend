@@ -7,7 +7,7 @@ import { flightsService } from '../../services/flights';
 import { FlightDashboard } from '../../container/FlightsDashboard';
 import { DistanceSearch } from '../../components/DistanceSearch';
 
-import AppStyles from '../../App.module.css';
+import AppStyles from '../../app.module.scss';
 
 export const Score = () => {
   const [distance, setDistance] = useState();

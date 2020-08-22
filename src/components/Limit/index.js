@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { Button } from '../components/Button/index';
-import Layout from '../Layout.module.css';
+import { Button } from '../Button/index';
+import Layout from '../../layout.module.scss';
 
 export const Limit = ({ onClickHandler }) => {
   const [selectedId, setSelectedId] = useState(12);
@@ -13,7 +13,7 @@ export const Limit = ({ onClickHandler }) => {
 
   return (
     <section
-      className={classNames([Layout['flex-row'], Layout['vertical-centre']])}
+      className={classNames(Layout.flexRow, Layout.verticalCentre)}
     >
       <p>Flights per page:</p>
       <div>
@@ -33,5 +33,3 @@ export const Limit = ({ onClickHandler }) => {
     </section>
   );
 };
-
-export default Limit;

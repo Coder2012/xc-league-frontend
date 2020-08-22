@@ -4,12 +4,12 @@ import classNames from 'classnames';
 
 import { uiService } from '../../services/ui';
 import Pagination from '../../components/Pagination';
-import Limit from '../../components/Limit';
+import { Limit } from '../../components/Limit';
 import { ViewType } from '../../components/ViewType';
 import { Flights } from '../../components/Flights';
 
-import AppStyles from '../../App.module.css';
-import Layout from '../../Layout.module.css';
+import AppStyles from '../../app.module.scss';
+import Layout from '../../layout.module.scss';
 
 export const FlightDashboard = ({ flightData, pages }) => {
   const { controls } = useStore(uiService.$);
@@ -40,10 +40,10 @@ export const FlightDashboard = ({ flightData, pages }) => {
       {flightData && (
         <section
           className={classNames(
-            Layout['flex-row'],
-            Layout['flex-mobile-column'],
-            Layout['horizontal-centre'],
-            AppStyles['controls']
+            Layout.flexRow,
+            Layout.flexMobileColumn,
+            Layout.horizontalCentre,
+            AppStyles.controls
           )}
         >
           <Limit onClickHandler={limitHandler} />

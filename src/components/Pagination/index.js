@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Button } from '../Button';
-import Layout from '../../Layout.module.css';
+import Layout from '../../layout.module.scss';
 import LeftArrowSVG from '../../assets/left-arrow.svg';
 import RightArrowSVG from '../../assets/right-arrow.svg';
 
@@ -14,10 +14,10 @@ const Controls = ({
     <>
       <section
         className={classNames(
-          Layout['flex-row'],
-          Layout['vertical-centre'],
-          Layout['horizontal-centre'],
-          Layout['h-space-around']
+          Layout.flexRow,
+          Layout.verticalCentre,
+          Layout.horizontalCentre,
+          Layout.hSpaceAround
         )}
       >
         <Button

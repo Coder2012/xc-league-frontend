@@ -2,30 +2,32 @@
   box-sizing: border-box;
 }
 
-.App {
+.app {
   color: #2a3345;
   font-family: 'Muli', sans-serif;
   padding-top: 150px;
-}
 
-.App--ishome {
-  padding-top: 0;
-}
-
-@media (max-width: 768px) {
-  .App {
-    padding-top: 120px;
-  }
-  .App--ishome {
+  &--ishome {
     padding-top: 0;
   }
 }
 
-.App-title {
+
+@media (max-width: 768px) {
+  .app {
+    padding-top: 120px;
+
+    &--ishome {
+      padding-top: 0;
+    }
+  }
+}
+
+.appTitle {
   font-size: 1.5em;
 }
 
-.App-intro {
+.appIntro {
   font-size: large;
 }
 

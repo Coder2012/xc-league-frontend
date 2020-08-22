@@ -1,14 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Button } from './Button/index';
-import Layout from '../Layout.module.css';
+import { Button } from '../Button/index';
+import Layout from '../../layout.module.scss';
 
 export const ViewType = ({ onClickHandler, selectedId }) => {
   return (
     <section
-      className={classNames(Layout['flex-row'], Layout['vertical-centre'])}
+      className={classNames(Layout.flexRow, Layout.verticalCentre)}
     >
-      <p className={Layout['h-spacing-right']}>Data:</p>
+      <p className={Layout.hSpacingRight}>Data:</p>
       <Button
         secondary
         active={selectedId === 'full'}

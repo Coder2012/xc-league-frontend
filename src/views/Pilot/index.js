@@ -7,7 +7,7 @@ import { flightsService } from '../../services/flights';
 import { PilotSearch } from '../../components/PilotSearch';
 import { FlightDashboard } from '../../container/FlightsDashboard';
 
-import AppStyles from '../../App.module.css';
+import AppStyles from '../../app.module.scss';
 
 export const Pilot = () => {
   const [pilot, setPilot] = useState('');
