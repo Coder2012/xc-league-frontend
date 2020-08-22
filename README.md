@@ -5,6 +5,7 @@ This project was built using the following technologies:
 ## Frontend
 
 * ReactJS
+* Effector React (state manager)
 * CSS Modules
 * SASS
 
