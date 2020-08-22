@@ -1,4 +1,4 @@
-.fixed-spacer {
+.fixedSpacer {
     padding-top: 150px;
 }
 
@@ -12,65 +12,65 @@
     }
 }
 
-.h-spacing-right {
+.hSpacingRight {
     margin-right: 10px;
 }
 
-.v-spacing {
+.vSpacing {
     margin: 20px 0;
 }
 
-.vertical-centre {
+.verticalCentre {
     align-items: center;
 }
 
-.horizontal-centre {
+.horizontalCentre {
     justify-content: center;
 }
 
-.text-centre {
+.textCentre {
     text-align: center;
 }
 
-.h-space-around {
+.hSpaceAround {
     margin: 0 40px;
 }
 
-.v-space-around {
+.vSpaceAround {
     margin: 20px 0;
 }
 
-.flex-row {
+.flexRow {
     display: flex;
     flex-direction: row;
 }
 
-.flex-row-sb {
+.flexRowSb {
     display: flex;
     justify-content: space-between;
 }
 
-.flex-column {
+.flexColumn {
     display: flex;
     flex-direction: column;
 }
 
 @media (max-width: 1024px) {
-    .flex-mobile-column {
+    .flexMobileColumn {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 }
 
-.no-margin {
+.noMargin {
     margin: 0;
 }
 
-.no-margin-top {
+.noMarginTop {
     margin-top: 0;
 }
 
-.no-margin-bottom {
+.noMarginBottom {
     margin-bottom: 0;
 }

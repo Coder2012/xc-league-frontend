@@ -47,13 +47,18 @@ export const Calendar = ({
     return 'flight-count-low';
   };
 
+  const onDateChange = date => {
+    const flightCount = dateExists(date.getMonth(), date.getDate());
+    if (flightCount) dateChangeHandler(date);
+  };
+
   return (
     <ReactCalendar
       tileClassName="calendar-item"
       tileContent={tileContent}
       minDate={new Date('2005-01-01')}
       maxDate={new Date()}
-      onChange={dateChangeHandler}
+      onChange={onDateChange}
       onClickMonth={monthChangeHandler}
       onActiveDateChange={calendarNavigationHandler}
     />

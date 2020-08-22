@@ -7,7 +7,7 @@ import { flightsService } from '../../services/flights';
 import { FlightDashboard } from '../../container/FlightsDashboard';
 import { DistanceSearch } from '../../components/DistanceSearch';
 
-import AppStyles from '../../App.module.css';
+import AppStyles from '../../app.module.scss';
 
 export const Score = () => {
   const [distance, setDistance] = useState();
@@ -29,9 +29,14 @@ export const Score = () => {
     }
   }, [distance, controls]);
 
+  const distanceHandler = id => {
+    uiService.resetControls();
+    setDistance(id);
+  }
+
   return (
     <>
-      <DistanceSearch handleClick={id => setDistance(id)} />
+      <DistanceSearch handleClick={distanceHandler} />
       <p className={AppStyles.subtitle}>
         {loading && 'Loading...'}
         {!loading && total && (

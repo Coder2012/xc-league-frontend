@@ -17,7 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom-fourteen --verbose",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -30,9 +30,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.8",
     "effector-logger": "^0.6.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "node-sass": "^4.14.1",
     "prettier": "^1.19.1"
   }
 }

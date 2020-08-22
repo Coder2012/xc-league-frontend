@@ -3,8 +3,8 @@ import { timeData, dayData, locationData } from '../../data/rasp';
 import Select from '../Select';
 import Image from '../Image/index';
 import { getWeekDays, getDayString } from '../../helpers/date';
-import Layout from '../../Layout.module.css';
-import Styles from './styles.module.css';
+import Layout from '../../layout.module.scss';
+import Styles from './styles.module.scss';
 
 export const Weather = () => {
   const date = new Date();
@@ -58,7 +58,7 @@ export const Weather = () => {
           rasp.stratus.org.uk
         </a>
       </p>
-      <section className={Layout['v-spacing']}>
+      <section className={Layout.vSpacing}>
         <Image {...state} />
       </section>
     </form>

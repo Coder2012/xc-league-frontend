@@ -7,7 +7,7 @@ import { flightsService } from '../../services/flights';
 import { FlightDashboard } from '../../container/FlightsDashboard';
 import { Calendar } from '../../components/Calendar';
 
-import AppStyles from '../../App.module.css';
+import AppStyles from '../../app.module.scss';
 
 export const Dates = () => {
   const { controls } = useStore(uiService.$);

@@ -2,8 +2,8 @@ import React from 'react';
 
 import Flight from '../../components/Flight';
 
-import Layout from '../../Layout.module.css';
-import Styles from './styles.module.css';
+import Layout from '../../layout.module.scss';
+import Styles from './styles.module.scss';
 
 // import ExcelSVG from '../../assets/excel.svg';
 

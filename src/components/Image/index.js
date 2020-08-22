@@ -1,5 +1,5 @@
 import React from 'react';
-import Styles from './styles.module.css';
+import Styles from './styles.module.scss';
 
 const Image = props => {
   const { day, time, location } = props;
