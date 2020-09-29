@@ -13,7 +13,6 @@ export const Calendar = ({
   const tileContent = ({ date, view }) => {
     const localDate = formatDate(date);
     let flightCount = dates[localDate];
-    console.log(flightCount)
 
     if (flightCount) {
       return view === 'month' && flightCount ? (
