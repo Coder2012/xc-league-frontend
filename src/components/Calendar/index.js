@@ -9,7 +9,9 @@ export const Calendar = ({
   calendarNavigationHandler
 }) => {
   const tileContent = ({ date, view }) => {
-    let flightCount = dateExists(date.getMonth(), date.getDate());
+    const localDate = date.toLocaleDateString().split('/').reverse().join('-');
+    let flightCount = dates[localDate];
+    console.log(flightCount)
 
     if (flightCount) {
       return view === 'month' && flightCount ? (
@@ -19,23 +21,6 @@ export const Calendar = ({
       ) : null;
     }
     return null;
-  };
-
-  const dateExists = (calendarMonth, calendarDate) => {
-    let datesCount = 0;
-
-    dates.some(({ date, count }) => {
-      let flightDate = new Date(date);
-      if (
-        calendarMonth === flightDate.getMonth() &&
-        calendarDate === flightDate.getDate()
-      ) {
-        datesCount = count;
-      }
-      return datesCount;
-    });
-
-    return datesCount;
   };
 
   const getCountClass = count => {
@@ -48,8 +33,8 @@ export const Calendar = ({
   };
 
   const onDateChange = date => {
-    const flightCount = dateExists(date.getMonth(), date.getDate());
-    if (flightCount) dateChangeHandler(date);
+    const localDate = date.toLocaleDateString().split('/').reverse().join('-');
+    if (dates[localDate]) dateChangeHandler(date);
   };
 
   return (
