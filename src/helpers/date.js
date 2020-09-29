@@ -1,17 +1,9 @@
-export const getDatesCount = data => {
-  let dataReduced = data.reduce((itemsArray, item) => {
-    itemsArray[item] = {
-      date: item,
-      count:
-        (itemsArray[item] && itemsArray[item].count
-          ? itemsArray[item].count
-          : 0) + 1
-    };
-    return itemsArray;
-  }, []);
-
-  return Object.keys(dataReduced).map(item => dataReduced[item]);
-};
+export const getDatesCount = data =>
+  data.reduce((acc, item) => {
+    const [date] = item.split('T')
+    acc[date] = (acc[date] || 0) + 1;
+    return acc;
+  }, {});
 
 export const getWeekDays = (baseDate, locale) => {
   const weekDays = [];
