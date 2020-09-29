@@ -2,6 +2,8 @@ import React from 'react';
 import ReactCalendar from 'react-calendar';
 import '../../react-calendar/styles.css';
 
+const formatDate = date => date.toLocaleDateString('en-GB').split('/').reverse().join('-');
+
 export const Calendar = ({
   dates,
   dateChangeHandler,
@@ -9,7 +11,7 @@ export const Calendar = ({
   calendarNavigationHandler
 }) => {
   const tileContent = ({ date, view }) => {
-    const localDate = date.toLocaleDateString().split('/').reverse().join('-');
+    const localDate = formatDate(date);
     let flightCount = dates[localDate];
     console.log(flightCount)
 
@@ -33,7 +35,7 @@ export const Calendar = ({
   };
 
   const onDateChange = date => {
-    const localDate = date.toLocaleDateString().split('/').reverse().join('-');
+    const localDate = formatDate(date);
     if (dates[localDate]) dateChangeHandler(date);
   };
 

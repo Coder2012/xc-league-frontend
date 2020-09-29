@@ -8,12 +8,12 @@ import Styles from './styles.module.scss';
 
 export const Weather = () => {
   const date = new Date();
-  const today = getDayString(date, 'gb-en');
+  const today = getDayString(date, 'en-GB');
 
   const [state, setState] = useState({
     time: '1200',
     location: '',
-    weekdays: getWeekDays(date, 'gb-en'),
+    weekdays: getWeekDays(date, 'en-GB'),
     today,
     day: today
   });
