@@ -19,7 +19,7 @@ export const DistanceSearch = ({ handleClick }) => {
           Layout.flexRow,
           Layout.verticalCentre,
           Layout.horizontalCentre,
-          Styles.distance
+          Styles.distance,
         ])}
       >
         <legend>Score greater than</legend>

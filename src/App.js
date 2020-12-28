@@ -20,7 +20,7 @@ export const App = () => {
 
   useEffect(() => {
     Sentry.init({
-      dsn: 'https://c59644d1c05645f0b81702d9dd38af59@sentry.io/1545393'
+      dsn: 'https://c59644d1c05645f0b81702d9dd38af59@sentry.io/1545393',
     });
 
     ReactGA.initialize('UA-143319467-1');
@@ -32,7 +32,7 @@ export const App = () => {
   return (
     <div
       className={classNames(Styles.app, {
-        [Styles['app--ishome']]: location.pathname === '/'
+        [Styles['app--ishome']]: location.pathname === '/',
       })}
     >
       <Header />

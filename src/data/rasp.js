@@ -18,8 +18,8 @@ export const timeData = () => {
       { value: '1600', label: '1600' },
       { value: '1700', label: '1700' },
       { value: '1800', label: '1800' },
-      { value: '1900', label: '1900' }
-    ]
+      { value: '1900', label: '1900' },
+    ],
   };
 };
 
@@ -45,8 +45,8 @@ export const locationData = () => {
       { value: 'sounding13', label: '#13: Carrickmore-NI' },
       { value: 'sounding14', label: '#14: Castor Bay-NI' },
       { value: 'sounding15', label: '#15: Talgarth' },
-      { value: 'sounding16', label: '#16: Camphill' }
-    ]
+      { value: 'sounding16', label: '#16: Camphill' },
+    ],
   };
 };
 
@@ -65,6 +65,6 @@ export const dayData = () => {
     title: 'Select Day',
     name: 'day',
     id: 'Day',
-    options
+    options,
   };
 };

@@ -6,10 +6,10 @@ export const getPilots = domain.createEffect('pilots effect', {
     const res = await fetch(`${api}/flights/pilots`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      mode: 'cors'
+      mode: 'cors',
     });
     return res.json();
-  }
+  },
 });

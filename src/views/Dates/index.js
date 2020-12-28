@@ -28,7 +28,7 @@ export const Dates = () => {
     if (date) {
       flightsService.getFlightsByDate({
         date,
-        ...controls
+        ...controls,
       });
     }
   }, [date, controls]);
@@ -38,7 +38,7 @@ export const Dates = () => {
       flightsService.getDates({
         startDate,
         endDate,
-        ...controls
+        ...controls,
       });
     }
   }, [startDate, endDate, controls]);
@@ -46,10 +46,7 @@ export const Dates = () => {
   const dateChangeHandler = date => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const dt = date
-      .getDate()
-      .toString()
-      .padStart(2, '0');
+    const dt = date.getDate().toString().padStart(2, '0');
 
     setDate(`${year}-${month}-${dt}`);
   };
@@ -95,10 +92,7 @@ export const Dates = () => {
           </>
         )}
       </p>
-      <FlightDashboard
-        flightData={flightData}
-        pages={pages}
-      />
+      <FlightDashboard flightData={flightData} pages={pages} />
     </>
   );
 };

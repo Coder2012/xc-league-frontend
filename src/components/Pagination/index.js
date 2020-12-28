@@ -5,11 +5,7 @@ import Layout from '../../layout.module.scss';
 import LeftArrowSVG from '../../assets/left-arrow.svg';
 import RightArrowSVG from '../../assets/right-arrow.svg';
 
-const Controls = ({
-  page,
-  pages,
-  onClickHandler
-}) => {
+const Controls = ({ page, pages, onClickHandler }) => {
   return (
     <>
       <section

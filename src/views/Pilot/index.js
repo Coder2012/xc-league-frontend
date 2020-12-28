@@ -24,7 +24,7 @@ export const Pilot = () => {
     if (pilot !== '') {
       flightsService.getFlightsByPilot({
         pilot,
-        ...controls
+        ...controls,
       });
     }
   }, [pilot, controls]);
@@ -40,10 +40,7 @@ export const Pilot = () => {
           </>
         )}
       </p>
-      <FlightDashboard
-        flightData={flightData}
-        pages={pages}
-      />
+      <FlightDashboard flightData={flightData} pages={pages} />
     </>
   );
 };

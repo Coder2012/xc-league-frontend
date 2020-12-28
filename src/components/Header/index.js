@@ -47,7 +47,7 @@ export const Header = props => {
     ReactGA.event({
       category: 'Navigation',
       action: 'Button Click',
-      label: text
+      label: text,
     });
   };
 
@@ -60,10 +60,7 @@ export const Header = props => {
       )}
     >
       <section
-        className={classNames(
-          Layout.textCentre,
-          Layout.horizontalCentre
-        )}
+        className={classNames(Layout.textCentre, Layout.horizontalCentre)}
       >
         <img
           alt=""

@@ -15,7 +15,7 @@ export const Weather = () => {
     location: '',
     weekdays: getWeekDays(date, 'en-GB'),
     today,
-    day: today
+    day: today,
   });
 
   const selectHandler = event => {

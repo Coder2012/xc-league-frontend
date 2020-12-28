@@ -2,13 +2,14 @@ import React from 'react';
 import ReactCalendar from 'react-calendar';
 import '../../react-calendar/styles.css';
 
-const formatDate = date => date.toLocaleDateString('en-GB').split('/').reverse().join('-');
+const formatDate = date =>
+  date.toLocaleDateString('en-GB').split('/').reverse().join('-');
 
 export const Calendar = ({
   dates,
   dateChangeHandler,
   monthChangeHandler,
-  calendarNavigationHandler
+  calendarNavigationHandler,
 }) => {
   const tileContent = ({ date, view }) => {
     const localDate = formatDate(date);

@@ -22,7 +22,7 @@ export const FlightDashboard = ({ flightData, pages }) => {
     uiService.setControls({
       limit,
       limitId: index,
-      page: 1
+      page: 1,
     });
   };
 

@@ -15,7 +15,7 @@ export const Button = ({
   alt,
   active,
   disabled,
-  children
+  children,
 }) => (
   <button
     data-testid={dataTestId}
@@ -31,7 +31,7 @@ export const Button = ({
       [Styles['secondary-button--circle-alternate']]: circleIcon,
       [Styles['primary-button--selected']]: !secondary && active,
       [Styles['secondary-button--selected']]: secondary && active,
-      [Styles['primary-button--link']]: link
+      [Styles['primary-button--link']]: link,
     })}
   >
     {icon && (
@@ -40,7 +40,7 @@ export const Button = ({
         src={icon}
         className={classNames({
           [Styles['primary-button__icon']]: icon,
-          [Styles['secondary-button__icon']]: circleIcon
+          [Styles['secondary-button__icon']]: circleIcon,
         })}
       />
     )}

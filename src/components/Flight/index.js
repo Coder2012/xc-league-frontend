@@ -25,11 +25,7 @@ const Flight = ({ data, display }) => {
           Score: <span className={AppStyles.emphasize}>{data.score}</span>{' '}
           {data.multiplier && <span>({data.multiplier})</span>}
         </p>
-        <Button
-          link
-          clickHandler={externalLinkHandler}
-          icon={LinkSVG}
-        />
+        <Button link clickHandler={externalLinkHandler} icon={LinkSVG} />
       </header>
       {display === 'full' && (
         <div className={Styles.flight__body}>
@@ -42,7 +38,8 @@ const Flight = ({ data, display }) => {
             </p>
           </div>
           <p>
-            Duration: <span className={AppStyles.emphasize}>{data.duration}</span>
+            Duration:{' '}
+            <span className={AppStyles.emphasize}>{data.duration}</span>
           </p>
           <p>
             Takeoff: <span className={AppStyles.emphasize}>{data.takeoff}</span>
@@ -83,7 +80,9 @@ const Flight = ({ data, display }) => {
             </p>
             <p>
               Average Speed:{' '}
-              <span className={AppStyles.emphasize}>{data.avgSpeedCourse}kmh</span>
+              <span className={AppStyles.emphasize}>
+                {data.avgSpeedCourse}kmh
+              </span>
             </p>
           </div>
         </footer>

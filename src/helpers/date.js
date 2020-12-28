@@ -1,6 +1,6 @@
 export const getDatesCount = data =>
   data.reduce((acc, item) => {
-    const [date] = item.split('T')
+    const [date] = item.split('T');
     acc[date] = (acc[date] || 0) + 1;
     return acc;
   }, {});

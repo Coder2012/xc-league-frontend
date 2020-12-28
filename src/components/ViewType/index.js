@@ -5,9 +5,7 @@ import Layout from '../../layout.module.scss';
 
 export const ViewType = ({ onClickHandler, selectedId }) => {
   return (
-    <section
-      className={classNames(Layout.flexRow, Layout.verticalCentre)}
-    >
+    <section className={classNames(Layout.flexRow, Layout.verticalCentre)}>
       <p className={Layout.hSpacingRight}>Data:</p>
       <Button
         secondary

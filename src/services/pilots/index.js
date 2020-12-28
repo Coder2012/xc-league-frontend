@@ -3,5 +3,5 @@ import { $pilots as $ } from './store';
 
 export const pilotsService = {
   $,
-  getPilots
+  getPilots,
 };

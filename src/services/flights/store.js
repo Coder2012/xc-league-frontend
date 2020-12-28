@@ -4,7 +4,7 @@ import {
   getDates,
   getFlightsByDate,
   getFlightsByPilot,
-  getFlightsByDistance
+  getFlightsByDistance,
 } from './effects';
 import { getDatesCount } from '../../helpers/date';
 

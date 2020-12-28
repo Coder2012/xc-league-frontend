@@ -12,9 +12,7 @@ export const Limit = ({ onClickHandler }) => {
   };
 
   return (
-    <section
-      className={classNames(Layout.flexRow, Layout.verticalCentre)}
-    >
+    <section className={classNames(Layout.flexRow, Layout.verticalCentre)}>
       <p>Flights per page:</p>
       <div>
         {[12, 24, 48].map((limit, index) => {

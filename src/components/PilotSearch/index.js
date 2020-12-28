@@ -17,7 +17,7 @@ export const PilotSearch = ({ clickHandler }) => {
     selectedId: undefined,
     showCount: SHOW_COUNT,
     showMore: false,
-    pattern: /_/
+    pattern: /_/,
   });
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const PilotSearch = ({ clickHandler }) => {
       ...state,
       selectedId: undefined,
       showCount: SHOW_COUNT,
-      pattern: pattern
+      pattern: pattern,
     }));
   };
 

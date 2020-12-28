@@ -25,7 +25,7 @@ export const data = {
         minClimb: -4.8,
         maxSpeed: 85.5,
         avgSpeedCourse: 35.1,
-        link: 'http://xcleague.com/xc/flights/20193075.html?vx=01200729'
+        link: 'http://xcleague.com/xc/flights/20193075.html?vx=01200729',
       },
       {
         _id: '5ce97bfd788dbd1af4861cbc',
@@ -50,7 +50,7 @@ export const data = {
         minClimb: -4.2,
         maxSpeed: 75.6,
         avgSpeedCourse: 35,
-        link: 'http://xcleague.com/xc/flights/20183223.html?vx=01200715'
+        link: 'http://xcleague.com/xc/flights/20183223.html?vx=01200715',
       },
       {
         _id: '5ce97bfd788dbd1af4861dfc',
@@ -75,7 +75,7 @@ export const data = {
         minClimb: -4.6,
         maxSpeed: 96,
         avgSpeedCourse: 40,
-        link: 'http://xcleague.com/xc/flights/20182779.html?vx=01200702'
+        link: 'http://xcleague.com/xc/flights/20182779.html?vx=01200702',
       },
       {
         _id: '5ce97bfd788dbd1af4861155',
@@ -100,7 +100,7 @@ export const data = {
         minClimb: -6,
         maxSpeed: 88.2,
         avgSpeedCourse: 41.2,
-        link: 'http://xcleague.com/xc/flights/20173488.html?vx=01200815'
+        link: 'http://xcleague.com/xc/flights/20173488.html?vx=01200815',
       },
       {
         _id: '5ce97bfd788dbd1af486120e',
@@ -125,7 +125,7 @@ export const data = {
         minClimb: -4.5,
         maxSpeed: 84.6,
         avgSpeedCourse: 46,
-        link: 'http://xcleague.com/xc/flights/20173230.html?vx=01200806'
+        link: 'http://xcleague.com/xc/flights/20173230.html?vx=01200806',
       },
       {
         _id: '5ce97bfd788dbd1af4861574',
@@ -150,7 +150,7 @@ export const data = {
         minClimb: -4.8,
         maxSpeed: 93.6,
         avgSpeedCourse: 43.2,
-        link: 'http://xcleague.com/xc/flights/20171796.html?vx=01200514'
+        link: 'http://xcleague.com/xc/flights/20171796.html?vx=01200514',
       },
       {
         _id: '5cfbc83b3a49251f20957f89',
@@ -175,7 +175,7 @@ export const data = {
         minClimb: -4.3,
         maxSpeed: 77.4,
         avgSpeedCourse: 37.7,
-        link: 'http://xcleague.com/xc/flights/20151466.html?vx=01200530'
+        link: 'http://xcleague.com/xc/flights/20151466.html?vx=01200530',
       },
       {
         _id: '5ce97bfd788dbd1af485e3cc',
@@ -200,10 +200,10 @@ export const data = {
         minClimb: -4.8,
         maxSpeed: 76.3,
         avgSpeedCourse: 35.2,
-        link: 'http://xcleague.com/xc/flights/20112107.html?vx=01200809'
-      }
-    ]
+        link: 'http://xcleague.com/xc/flights/20112107.html?vx=01200809',
+      },
+    ],
   },
   pages: 1,
-  total: 8
+  total: 8,
 };

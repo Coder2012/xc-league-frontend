@@ -1,10 +1,6 @@
 import React from 'react';
 import * as effector from 'effector-react';
-import {
-  render,
-  fireEvent,
-  screen,
-} from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
@@ -18,7 +14,7 @@ const pilots = [
   'Judith Mole',
   'Andy Young',
   'Tanya Ephgrave',
-  'David Thomson'
+  'David Thomson',
 ];
 
 const repeatPilots = [
@@ -34,7 +30,7 @@ const repeatPilots = [
   'Neil Roberts',
   'Neil Rollings',
   'Neil Speed',
-  'Neil Wheeler'
+  'Neil Wheeler',
 ];
 
 describe('Pilot Search', () => {

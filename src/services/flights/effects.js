@@ -6,16 +6,16 @@ export const getDates = domain.createEffect('dates effect', {
     const res = await fetch(`${api}/flights/dates`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       mode: 'cors',
       body: JSON.stringify({
         start: startDate,
-        end: endDate
-      })
+        end: endDate,
+      }),
     });
     return res.json();
-  }
+  },
 });
 
 export const getFlightsByDate = domain.createEffect('flightsByDate effect', {
@@ -23,18 +23,18 @@ export const getFlightsByDate = domain.createEffect('flightsByDate effect', {
     const res = await fetch(`${api}/flights/date`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       mode: 'cors',
       body: JSON.stringify({
         date,
         page,
         limit,
-        responseType
-      })
+        responseType,
+      }),
     });
     return res.json();
-  }
+  },
 });
 
 export const getFlightsByDistance = domain.createEffect(
@@ -44,18 +44,18 @@ export const getFlightsByDistance = domain.createEffect(
       const res = await fetch(`${api}/flights/all`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         mode: 'cors',
         body: JSON.stringify({
           distance,
           page,
           limit,
-          responseType
-        })
+          responseType,
+        }),
       });
       return res.json();
-    }
+    },
   }
 );
 
@@ -64,18 +64,18 @@ export const getFlightsByPilot = domain.createEffect('flightsByPilot effect', {
     const res = await fetch(`${api}/flights/all`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       mode: 'cors',
       body: JSON.stringify({
         pilot,
         page,
         limit,
-        responseType
-      })
+        responseType,
+      }),
     });
     return res.json();
-  }
+  },
 });
 
 export const getExport = () => {

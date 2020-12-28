@@ -24,7 +24,7 @@ export const Score = () => {
     if (distance) {
       flightsService.getFlightsByDistance({
         distance,
-        ...controls
+        ...controls,
       });
     }
   }, [distance, controls]);
@@ -32,7 +32,7 @@ export const Score = () => {
   const distanceHandler = id => {
     uiService.resetControls();
     setDistance(id);
-  }
+  };
 
   return (
     <>
