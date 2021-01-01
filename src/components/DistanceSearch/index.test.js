@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
@@ -11,8 +11,8 @@ describe('DistanceSearch', () => {
     const handleClick = jest.fn();
     const value = '250';
 
-    const container = render(<DistanceSearch handleClick={handleClick} />);
-    const button = container.getByTestId(value);
+    render(<DistanceSearch handleClick={handleClick} />);
+    const button = screen.getByTestId(value);
     fireEvent.click(button);
 
     expect(handleClick).toHaveBeenCalledWith(parseInt(value));

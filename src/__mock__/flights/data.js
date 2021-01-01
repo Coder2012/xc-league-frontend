@@ -1,3 +1,5 @@
+export const pilots = ['Aaron Binks', 'Abigail Barr', 'Adam Hill' , 'Neil Brown', 'Neil Morley2', 'Neil test data'];
+
 export const data = {
   flightData: {
     count: 8,

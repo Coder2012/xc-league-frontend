@@ -56,8 +56,11 @@ export const PilotSearch = ({ clickHandler }) => {
 
   return (
     <section className={classNames(Layout.flexColumn, Styles.search)}>
-      <label className={Styles['search__name']}>Enter Pilot Name</label>
+      <label htmlFor="pilot-search-input" className={Styles['search__name']}>
+        Enter Pilot Name
+      </label>
       <input
+        id="pilot-search-input"
         className={Styles['search__input']}
         type="text"
         data-testid="pilot-search"

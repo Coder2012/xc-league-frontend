@@ -1,6 +1,6 @@
 import React from 'react';
 import * as effector from 'effector-react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
 
@@ -39,16 +39,16 @@ describe('Pilot Search', () => {
     useStoreMock.mockReturnValue(pilots);
 
     const searchTerm = 'Thom';
-    const container = render(<PilotSearch data={pilots} />);
+    render(<PilotSearch />);
 
-    const input = container.getByTestId('pilot-search');
+    const input = screen.getByTestId('pilot-search');
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: searchTerm } });
 
-    expect(container.queryByText('Show more')).not.toBeInTheDocument();
-    expect(container.queryByText('Helen Gant')).not.toBeInTheDocument();
-    expect(container.getByText('Adrian Thomas')).toBeInTheDocument();
-    expect(container.getByText('David Thomson')).toBeInTheDocument();
+    expect(screen.queryByText('Show more')).not.toBeInTheDocument();
+    expect(screen.queryByText('Helen Gant')).not.toBeInTheDocument();
+    expect(screen.getByText('Adrian Thomas')).toBeInTheDocument();
+    expect(screen.getByText('David Thomson')).toBeInTheDocument();
   });
 
   test('Should reveal show more button', () => {
@@ -56,12 +56,12 @@ describe('Pilot Search', () => {
     useStoreMock.mockReturnValue(repeatPilots);
 
     const searchTerm = 'Neil';
-    const container = render(<PilotSearch data={repeatPilots} />);
+    render(<PilotSearch />);
 
-    const input = container.getByTestId('pilot-search');
+    const input = screen.getByTestId('pilot-search');
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: searchTerm } });
 
-    expect(container.getByText('Show more')).toBeInTheDocument();
+    expect(screen.getByText('Show more')).toBeInTheDocument();
   });
 });
