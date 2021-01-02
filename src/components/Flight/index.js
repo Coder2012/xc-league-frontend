@@ -6,7 +6,7 @@ import AppStyles from '../../app.module.scss';
 import { Button } from '../../components/Button';
 import LinkSVG from '../../assets/external-link-symbol.svg';
 
-const Flight = ({ data, display }) => {
+const Flight = ({ data, display = 'full' }) => {
   const date = new Date(data.date);
 
   const externalLinkHandler = () => {

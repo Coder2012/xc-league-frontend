@@ -5,7 +5,7 @@ import { uiService } from '../../services/ui';
 import { flightsService } from '../../services/flights';
 
 import { PilotSearch } from '../../components/PilotSearch';
-import { FlightDashboard } from '../../container/FlightsDashboard';
+import { FlightDashboard } from '../../container/FlightDashboard';
 
 import AppStyles from '../../app.module.scss';
 

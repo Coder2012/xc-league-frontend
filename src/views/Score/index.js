@@ -4,7 +4,7 @@ import { useStore } from 'effector-react';
 import { uiService } from '../../services/ui';
 import { flightsService } from '../../services/flights';
 
-import { FlightDashboard } from '../../container/FlightsDashboard';
+import { FlightDashboard } from '../../container/FlightDashboard';
 import { DistanceSearch } from '../../components/DistanceSearch';
 
 import AppStyles from '../../app.module.scss';
