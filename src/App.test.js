@@ -19,33 +19,35 @@ const server = setupServer(
   })
 );
 
-beforeAll(() => {
-  server.listen();
-});
-
-afterAll(() => {
-  server.close();
-});
-
-test('retrieves pilots on App startup', async () => {
-  render(
-    <Router>
-      <App />
-    </Router>
-  );
-
-  const button = screen.getByText(/search by pilot name/i);
-  userEvent.click(button);
-
-  await waitFor(() => {
-    screen.getByLabelText(/enter pilot name/i);
+describe('App tests', () => {
+  beforeAll(() => {
+    server.listen();
   });
 
-  userEvent.type(screen.getByLabelText(/enter pilot name/i), 'Neil');
-
-  await waitFor(() => {
-    screen.getAllByText(/Neil/i);
+  afterAll(() => {
+    server.close();
   });
 
-  expect(screen.getByText(/Neil Brown/i)).toBeInTheDocument();
+  test('retrieves pilots on App startup', async () => {
+    render(
+      <Router>
+        <App />
+      </Router>
+    );
+
+    const button = screen.getByText(/search by pilot name/i);
+    userEvent.click(button);
+
+    await waitFor(() => {
+      screen.getByLabelText(/enter pilot name/i);
+    });
+
+    userEvent.type(screen.getByLabelText(/enter pilot name/i), 'Neil');
+
+    await waitFor(() => {
+      screen.getAllByText(/Neil/i);
+    });
+
+    expect(screen.getByText(/Neil Brown/i)).toBeInTheDocument();
+  });
 });
