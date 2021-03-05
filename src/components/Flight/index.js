@@ -25,7 +25,9 @@ const Flight = ({ data, display = 'full' }) => {
           Score: <span className={AppStyles.emphasize}>{data.score}</span>{' '}
           {data.multiplier && <span>({data.multiplier})</span>}
         </p>
-        <Button link clickHandler={externalLinkHandler} icon={LinkSVG} />
+        {data.link && (
+          <Button link clickHandler={externalLinkHandler} icon={LinkSVG} />
+        )}
       </header>
       {display === 'full' && (
         <div className={Styles.flight__body}>
