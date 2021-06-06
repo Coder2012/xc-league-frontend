@@ -26,6 +26,7 @@ export const Dates = () => {
 
   useEffect(() => {
     if (date) {
+      uiService.resetControls();
       flightsService.getFlightsByDate({
         date,
         ...controls,
