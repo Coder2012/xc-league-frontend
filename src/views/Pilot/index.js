@@ -22,7 +22,6 @@ export const Pilot = () => {
 
   useEffect(() => {
     if (pilot !== '') {
-      uiService.resetControls();
       flightsService.getFlightsByPilot({
         pilot,
         ...controls,
