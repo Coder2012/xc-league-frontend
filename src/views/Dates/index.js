@@ -49,6 +49,7 @@ export const Dates = () => {
     const dt = date.getDate().toString().padStart(2, '0');
 
     setDate(`${year}-${month}-${dt}`);
+    uiService.resetControls();
   };
 
   const monthChangeHandler = date => {
@@ -71,6 +72,7 @@ export const Dates = () => {
 
     setStartDate(startDate);
     setEndDate(endDate);
+    uiService.resetControls();
   };
 
   return (
