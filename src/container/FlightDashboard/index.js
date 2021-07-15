@@ -47,11 +47,11 @@ export const FlightDashboard = ({ flightData, pages }) => {
           )}
         >
           <Limit onClickHandler={limitHandler} />
-          <Pagination
+          {pages.length > 1 && <Pagination
             page={controls.page}
             pages={pages}
             onClickHandler={paginationHandler}
-          />
+          />}
           <ViewType
             selectedId={controls.responseType}
             onClickHandler={responseType =>
