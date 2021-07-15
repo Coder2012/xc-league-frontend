@@ -3,8 +3,10 @@ import classNames from 'classnames';
 import { Button } from '../Button/index';
 import Layout from '../../layout.module.scss';
 
+const paginationValues = [12, 24, 48];
+
 export const Limit = ({ onClickHandler }) => {
-  const [selectedId, setSelectedId] = useState(12);
+  const [selectedId, setSelectedId] = useState(paginationValues[0]);
 
   const clickHandler = (id, index) => {
     setSelectedId(id);
@@ -15,7 +17,7 @@ export const Limit = ({ onClickHandler }) => {
     <section className={classNames(Layout.flexRow, Layout.verticalCentre)}>
       <p>Flights per page:</p>
       <div>
-        {[12, 24, 48].map((limit, index) => {
+        {paginationValues.map((limit, index) => {
           return (
             <Button
               value={`${limit}`}
